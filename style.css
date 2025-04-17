@@ -10,7 +10,7 @@ body,html{
     color: #00274a;
     font-size: 18px;
     font-style: normal;
-    font-family: 'Roboto Light', Helvetica, Arial, sans-serif;
+    font-family: 'Iosevka', monospace, 'Roboto Light', 'Roboto',  Helvetica, Arial, sans-serif;
 }
 h1{
     font-family: "Press Start 2P", system-ui;
