@@ -12,10 +12,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Lexend:wght@100..900&family=Luckiest+Guy&family=Monoton&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-
+<header>
+    <div><button id="language"></button>English</div>
+</header>
 <main>
   <section id="head-event">
 <div class="container">
@@ -25,8 +28,8 @@
 
     <div class="countdown" id="countdown">
       <ul>
-        <li><span id="days"></span>Days</li>
-        <li><span id="hours"></span>Hours</li>
+        <li id="day"><span id="days" ></span></li>
+        <li><span id="hours" data-i18n="hours"></span>Hours</li>
         <li><span id="minutes"></span>Minutes</li>
         <li><span id="seconds"></span>Second</li>
       </ul>
@@ -76,8 +79,9 @@
     </div>
   </section>
 </main>
+<script src="js/index.js"></script>
+<script src="js/translate.js"></script>
 
-<script src="index.js"></script>
 <footer></footer>
 </body>
 </html>
