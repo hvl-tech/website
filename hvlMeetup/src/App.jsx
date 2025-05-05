@@ -1,16 +1,14 @@
 import './App.css'
-import {useState} from "react";
+import React, {useState} from "react";
 import{useTranslation,Trans} from "react-i18next";
 import i18n from './i18n'
+import Footer from "./component/footer.jsx";
+import TranslateSelected from "./component/translateSelected.jsx";
 
 
 function App() {
 
     const{t} = useTranslation();
-    const lngs={
-    en:{nativeName: 'English'},
-    de:{nativeName: 'Deutsch'}
-    }
 
     const [days, setDays] = useState([])
     const [hours, setHours] = useState([])
@@ -56,95 +54,69 @@ function App() {
     }, 1000);
 
     return (
-        <main>
-            <div>
-                {Object.keys(lngs).map((lng) => (
-                    <button
-                        type="button"
-                        key={lng}
-                        onClick={() => i18n.changeLanguage(lng)}
-                        disabled={i18n.resolvedLanguage === lng}
-                    >
-                        {lngs[lng].nativeName}
-                    </button>
-                ))}
-            </div>
-            <section id="head-event">
-                <div className="container">
-                    <h1>Havelland Technology <br/> Meetup</h1>
+        <>
+            <main>
 
-                    <div className="content-header">
+                <section id="head-event">
+                    <TranslateSelected/>
+                    <div className="container">
+                        <h1>Havelland Technology <br/> Meetup</h1>
 
-                        <div className="countdown" id="countdown">
-                            <ul>
+                        <div className="content-header">
+
+                            <div className="countdown" id="countdown">
                                 <ul>
-                                    <li><span id="days">{days}</span> {t('days', {count:days})}</li>
-                                    <li><span id="hours">{hours}</span> {t('hours', {count: hours})}</li>
-                                    <li><span id="minutes">{minutes}</span> {t('minutes', {count: minutes})}</li>
-                                    <li><span id="seconds">{seconds}</span> {t('seconds', {count: seconds})}</li>
+                                    <ul>
+                                    <li><span id="days">{days}</span> {t('days', {count: days})}</li>
+                                        <li><span id="hours">{hours}</span> {t('hours', {count: hours})}</li>
+                                        <li><span id="minutes">{minutes}</span> {t('minutes', {count: minutes})}</li>
+                                        <li><span id="seconds">{seconds}</span> {t('seconds', {count: seconds})}</li>
+                                    </ul>
                                 </ul>
-                            </ul>
+                            </div>
+
+                            <button id="btn-joinUs">
+                                <a href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups">
+                                    {t('buttonJoinUs')}
+                                </a>
+                            </button>
                         </div>
-                        <p>{t('date')}</p>
-                        <button id="btn-joinUs">
-                            <a href="https://www.meetup.com/de-DE/havelland-technology-falkensee/events/307163232/?eventOrigin=group_upcoming_events">
-                                JOIN US!
-                            </a>
-                        </button>
                     </div>
-                </div>
-            </section>
-            <section id="uberUns">
-                <div className="container main">
+                </section>
+                <section id="uberUns">
+                    <div className="container main">
 
-                    <h2>{t('AboutAs.highline')}</h2>{t('AboutAs.description')}
-                    <Trans i18nKey="userMessagesUnread">
-                        Hello <strong>Artur</strong>, you have unread message(s) <strong>Artur</strong>.
-
-                    </Trans>
-                    <p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software developers
-                        in
-                        Falkensee &
-                        the surrounding area! We believe that Falkensee is home to some of the best developers, and we
-                        invite all tech enthusiasts to join us. No matter what language or platform you work with,
-                        everyone is welcome here.</p>
-
-                </div>
-
-                <div className="container main">
-
-                    <h2>Why take part?</h2>
-
-                    <ul className="benefits">
-
-                        <li>Free to attend, open to all tech stacks and experience levels</li>
-                        <li>Build your local network – friendly and relaxed atmosphere</li>
-                        <li>Discover new technologies</li>
-                        <li>Get inspired by talks, demos, and conversations</li>
-                        <li>Connect with developers from the region</li>
-
-                    </ul>
-
-                </div>
-
-            </section>
-            <section id="event-ort">
-                <div className="container main">
-                    <h2>Next meetup</h2>
-                    <div id="meetup-data">
-                        <p>April 30th, 6 PM</p>
-                        <p>China Restaurant Falkensee Garten</p>
-                        <p> Max-Liebermann-Str. 33, 14612 Falkensee</p>
+                        <h2>{t('aboutAs.highline')}</h2>
+                        <Trans i18nKey='aboutAs.description'>
+                            <p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software
+                                developers
+                                in
+                                Falkensee &
+                                the surrounding area! We believe that Falkensee is home to some of the best developers,
+                                and we
+                                invite all tech enthusiasts to join us. No matter what language or platform you work
+                                with,
+                                everyone is welcome here.</p>
+                        </Trans>
                     </div>
-                    <div></div>
-                    <button id="btn-map"><a
-                        href="https://www.google.com/maps/place/Max-Liebermann-Stra%C3%9Fe+33,+14612+Falkensee/@52.5648628,13.0392382,14.94z/data=!4m6!3m5!1s0x47a8fbe6c1a6942d:0x78ae1bbf6376e307!8m2!3d52.5656303!4d13.0484793!16s%2Fg%2F11bw3_l8vz?entry=ttu&g_ep=EgoyMDI1MDQwNy4wIKXMDSoJLDEwMjExNjM5SAFQAw%3D%3D">
-                        <div id="map"></div>
-                    </a></button>
 
-                </div>
-            </section>
-        </main>
+                    <div className="container main">
+
+                        <h2>{t('whyTakePart.highline')}</h2>
+                        <ul className="benefits">
+                            <li>{t('whyTakePart.benefits1')}</li>
+                            <li>{t('whyTakePart.benefits2')}</li>
+                            <li>{t('whyTakePart.benefits3')}</li>
+                            <li>{t('whyTakePart.benefits4')}</li>
+                            <li>{t('whyTakePart.benefits5')}</li>
+
+                        </ul>
+                    </div>
+                </section>
+
+            </main>
+           <Footer />
+        </>
     )
 }
 
