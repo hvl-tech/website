@@ -1,9 +1,9 @@
 import React from 'react';
-import i18n from "../i18n.js";
+import i18n from "../utils/i18n.js";
 import de_svg from '../assets/de_flag.svg';
 import en_svg from '../assets/en_flag.svg';
 
-const TranslateSelected = () => {
+const TranslateBtn = () => {
 
     const lngs={
         en:{nativeName: 'En',svg: <img src={en_svg} alt="English" width="24" />,
@@ -14,7 +14,7 @@ const TranslateSelected = () => {
 
 
     return (
-        <div className='translate-block'>
+        <div className='nav'>
             {Object.keys(lngs).map((lng) => (
                 <button
                     className="translate-btn"
@@ -30,4 +30,4 @@ const TranslateSelected = () => {
     );
 };
 
-export default TranslateSelected;
+export default TranslateBtn;
