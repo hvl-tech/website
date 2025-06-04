@@ -52,19 +52,19 @@ h1{
 
 }
 .translate-btn{
-  padding:5px;
   cursor: pointer;
+  background-color: rgba(239, 239, 239, 0);
+  box-shadow:0 0 transparent;
+  border:none;
+}
+.translate-btn:disabled{
+  cursor: default;
+  padding:5px;
   background-color: white;
   color:rgba(16, 16, 16, 0.3);
   border: 2px solid #00274a;
   box-shadow: 2px 2px 0 #0d1b21;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-.translate-btn:disabled{
-  background-color: rgba(239, 239, 239, 0);
-  box-shadow:0 0 transparent;
-  border:none;
-  cursor: default;
 }
 .container{
   padding:30px 30px;
