@@ -1,15 +1,11 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
-import AboutUs from "./component/aboutUs.jsx";
-import Countdown from "./component/countdown.jsx";
-import Footer from "./component/footer.jsx";
-import TranslateBtn from "./component/translateBtn.jsx";
-
+import AboutUs from "./component/aboutUs";
+import Countdown from "./component/countdown";
+import Footer from "./component/footer";
+import TranslateBtn from "./component/translateBtn";
 
 function App() {
-
-    const{t} = useTranslation();
-
+    const { t } = useTranslation();
 
     return (
         <div className="">
@@ -27,8 +23,9 @@ function App() {
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>
                             <button
+                                type="button"
                                 id="btn-joinUs"
-                                className="font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0_#0d1b21]"
+                                className="font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
                             >
                                 <a
                                     href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
@@ -46,18 +43,26 @@ function App() {
                     </div>
                     <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('whyTakePart.highline')}</h2>
-                        <ul className="list-none pl-8 [-webkit-text-indent:-0.8em] text-indent-[-0.8em] w-full">
-                            <li className="pb-1.5 before:content-['■'] before:text-green-500 before:inline-block before:w-[1.3em] before:ml-[-0.5em]">{t('whyTakePart.benefits1')}</li>
-                            <li className="pb-1.5 before:content-['■'] before:text-green-500 before:inline-block before:w-[1.3em] before:ml-[-0.5em]">{t('whyTakePart.benefits2')}</li>
-                            <li className="pb-1.5 before:content-['■'] before:text-green-500 before:inline-block before:w-[1.3em] before:ml-[-0.5em]">{t('whyTakePart.benefits3')}</li>
-                            <li className="pb-1.5 before:content-['■'] before:text-green-500 before:inline-block before:w-[1.3em] before:ml-[-0.5em]">{t('whyTakePart.benefits4')}</li>
-                            <li className="pb-1.5 before:content-['■'] before:text-green-500 before:inline-block before:w-[1.3em] before:ml-[-0.5em]">{t('whyTakePart.benefits5')}</li>
+                        <ul className="list-none pl-8 [-webkit-text-indent:-0.8em] text-indent-[-0.8em]">
+                            <ListItem>{t('whyTakePart.benefits1')}</ListItem>
+                            <ListItem>{t('whyTakePart.benefits2')}</ListItem>
+                            <ListItem>{t('whyTakePart.benefits3')}</ListItem>
+                            <ListItem>{t('whyTakePart.benefits4')}</ListItem>
+                            <ListItem>{t('whyTakePart.benefits5')}</ListItem>
                         </ul>
                     </div>
                 </section>
             </main>
             <Footer />
         </div>
+    )
+}
+
+function ListItem({ children }: { children: React.ReactNode }) {
+    return (
+        <li className="pb-1.5 before:content-['■'] before:text-[#008000] before:inline-block before:w-[1.3em] before:ml-[-0.5em]">
+            {children}
+        </li>
     )
 }
 
