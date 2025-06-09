@@ -1,1 +1,20 @@
-h1{font-family: "Press Start 2P", system-ui}
+@import "tailwindcss";
+
+body, html {
+  height: 100%;
+  width: 100%;
+  color: #00274a;
+  font-size: 18px;
+  font-style: normal;
+  font-family: 'Iosevka', monospace, 'Roboto Light', 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: "Press Start 2P", system-ui;
+}

@@ -1,11 +1,11 @@
 import React from 'react';
-import {Trans, useTranslation} from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const AboutUs = () => {
     const{t} = useTranslation();
     return (
         <>
-            <h2>{t('aboutAs.highline')}</h2>
+            <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('aboutAs.highline')}</h2>
             <Trans i18nKey='aboutAs.description'>
                 <p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software
                     developers
