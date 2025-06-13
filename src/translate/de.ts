@@ -1,4 +1,4 @@
-const de= {
+const de = {
   translation: {
     countdown: {
       days: 'Tagen',
@@ -9,11 +9,10 @@ const de= {
     buttonJoinUs: 'sei dabei!',
     aboutAs: {
       highline: 'Über uns',
-      description: '<0>Willkommen bei <1> Havelland Technology Meetup</1> der führenden Meetup-Gruppe für Softwareentwickler*innen in Falkensee und Umgebung!\n'
-          +
-          '  Wir sind überzeugt, dass in Falkensee einige der besten Entwicklerinnen zu Hause sind, und laden alle Technikbegeisterten herzlich ein, mitzumachen.\n'
-          +
-          ' Egal, mit welcher Sprache oder Plattform du arbeitest – bei uns ist jeder willkommen.</0>'
+      description: '<p>Willkommen bei <i> Havelland Technology Meetup</i> der führenden Meetup-Gruppe für ' +
+      'Softwareentwickler*innen in Falkensee und Umgebung! Wir sind überzeugt, dass in Falkensee ' +
+      'einige der besten Entwickler*innen zu Hause sind, und laden alle Technikbegeisterten herzlich ' +
+      'ein, mitzumachen. Egal, mit welcher Sprache oder Plattform du arbeitest – bei uns ist jede*r willkommen.</p> '
     },
     whyTakePart: {
       highline: 'Warum mitmachen?',
@@ -24,7 +23,6 @@ const de= {
       benefits5: 'Vernetze dich mit Entwickler*innen aus der Region'
     }
   }
-}
-
+};
 
 export default de;
