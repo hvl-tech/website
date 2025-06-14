@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import pixelHavel from "./assets/pixel_havel.png";
 import AboutUs from "./component/aboutUs";
 import Countdown from "./component/countdown";
 import Footer from "./component/footer";
@@ -13,7 +14,7 @@ function App() {
                 <section
                     id="head-event"
                     className="bg-cover bg-center bg-no-repeat h-[598px] w-full max-w-[1120px] mx-auto"
-                    style={{backgroundImage: "url('../public/pixel_havel.png')"}}
+                    style={{backgroundImage: `url(${pixelHavel})`}}
                 >
                     <TranslateBtn/>
                     <div className="px-8 py-8 flex flex-col items-center justify-around h-[92%] w-full">
