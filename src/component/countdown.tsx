@@ -17,8 +17,8 @@ export default function Countdown() {
     const today: Date = new Date();
     const yyyy: number = today.getFullYear();
 
-    const eventDay: number = 30;   // Event's Day(30. March)
-    const eventMonth: number = 2;  // Month(0-based,  2 = March)
+    const eventDay: number = 7;   // Event's Day(30. March)
+    const eventMonth: number = 6;  // Month(0-based,  2 = March)
     const eventHour: number = 18;  // time (18:00)
     const eventMinute: number = 0; // mini
 
