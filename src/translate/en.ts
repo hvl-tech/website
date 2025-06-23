@@ -21,6 +21,11 @@ const en = {
       benefits3: 'Discover new technologies',
       benefits4: 'Get inspired by talks, demos, and conversations',
       benefits5: 'Connect with developers from the region',
+    },
+    program:{
+      disscusion:'Discussion',
+      start: 'Start',
+      end: 'End',
     }
   }
 };
