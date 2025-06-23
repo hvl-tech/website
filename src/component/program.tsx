@@ -3,8 +3,11 @@ import vladislav from '../assets/vladislavIavorsky.jpeg'
 import {useTranslation} from "react-i18next";
 
 
-type Name = string;
-type Time= string;
+
+type BlockProps={
+     nameBlock : string;
+     time: string;
+}
 type CardProps = {
     photo:string;
     startTime: string;
@@ -16,10 +19,10 @@ type CardProps = {
 
 
 
-const Block =({ mode, time }: { mode: Name; time: Time })=>{
+const Block =({ nameBlock, time }:  BlockProps)=>{
    return (
        <div className="border-4 border-black  shadow-[4px_4px_0px_#000] p-4 lg:w-2/3 w-full  ">
-        <p>{mode} {time}</p>
+        <p>{nameBlock} {time}</p>
         </div>
    )
 }
@@ -52,17 +55,17 @@ const Card=({photo,startTime,name,role,topic}: CardProps)=>{
 
             <div className="flex flex-col gap-6 justify-center items-center font-mono mt-8 w-full gap-3 max-w-[1120px] ">
 
-                <Block mode={t('program.start')} time={'18:00'} />
+                <Block nameBlock={t('program.start')} time={'18:00'} />
 
                 <Card name={'Martin Hlavac'} photo={martin} startTime={'18:30'} role={'Associate Director@Flink SE'} topic={'The Rising Value of Automated Tests'}/>
 
-                <Block mode={t('program.disscusion')} time={'18:45-19:15'} />
+                <Block nameBlock={t('program.disscusion')} time={'18:45-19:15'} />
 
                 <Card name={'Vladislav Iavorskii'} photo={vladislav} startTime={'19:15'} role={'Head of Engineering at Contorion'} topic={'EDI, Unboxed'}/>
 
-                <Block mode={t('program.disscusion')}  time={'19:30-20:00'} />
+                <Block nameBlock={t('program.disscusion')}  time={'19:30-20:00'} />
 
-                <Block mode={t('program.end')}  time={'20:00'} />
+                <Block nameBlock={t('program.end')}  time={'20:00'} />
 
             </div>
 
