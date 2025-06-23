@@ -6,7 +6,7 @@ const en = {
       minutes: 'minutes',
       seconds: 'seconds',
     },
-    buttonJoinUs: 'join us!',
+    buttonJoinUs: 'RSVP & Join Us!',
     aboutAs: {
       highline: 'About us',
       description: '<p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software developers\n' +

@@ -50,7 +50,7 @@ function App() {
                     <Program/>
                 </section>
                 <section id="uberUns">
-                    <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                    <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <AboutUs/>
                     </div>
                     <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
