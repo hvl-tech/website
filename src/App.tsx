@@ -4,8 +4,6 @@ import AboutUs from "./component/aboutUs";
 import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
-import Program from "./component/program.tsx";
-import Place from "./component/place.tsx";
 
 function App() {
     const { t } = useTranslation();
@@ -26,28 +24,24 @@ function App() {
 
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>
-                            <button
-                                type="button"
-                                id="btn-joinUs"
-                                className="font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
-                            >
-                                <a
+
+                                <a id="btn-joinUs"
                                     href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
-                                    className="no-underline text-[#00274a] uppercase"
+                                    className="no-underline text-[#00274a] uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
                                 >
                                     {t('buttonJoinUs')}
                                 </a>
-                            </button>
+
                         </div>
                     </div>
                 </section>
                 <section>
-                    <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-                    <Place/>
-                    </div>
+                    {/*   <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                      // place for component - Place -
+                    </div> */}
                 </section>
                 <section id="program">
-                    <Program/>
+                    {/* place for program  */}
                 </section>
                 <section id="uberUns">
                     <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
