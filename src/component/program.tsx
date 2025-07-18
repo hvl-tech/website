@@ -1,5 +1,5 @@
-import martin from '../assets/martinH.jpeg'
-import vladislav from '../assets/vladislavIavorsky.jpeg'
+import martin from '../assets/speakers/martinH.jpeg'
+import vladislav from '../assets/speakers/vladislavIavorsky.jpeg'
 import {useTranslation} from "react-i18next";
 
 

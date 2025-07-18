@@ -45,14 +45,14 @@ function App() {
                 <section id="nextEvent">
                     <Event/>
                 </section>
-                {/*  <section>
+                 <section>
                   <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                     <Place/>
                     </div>
-                </section>*/}
-               {/* <section id="program">
+                </section>
+               <section id="program">
                     <Program/>
-                </section>*/}
+                </section>
                 <section id="uberUns">
                     <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <AboutUs/>
