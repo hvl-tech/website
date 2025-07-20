@@ -4,7 +4,6 @@ import AboutUs from "./component/aboutUs";
 import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
-import Program from "./component/program.tsx";
 import Place from "./component/place.tsx";
 import Event from "./component/event.tsx";
 
@@ -24,7 +23,6 @@ function App() {
                         <h1 className="font-['Press_Start_2P'] font-normal text-[1.8rem] text-center text-[#00274a] drop-shadow-[0_0_10px_white]">
                             Havelland Technology <br/> Meetup
                         </h1>
-
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>
                             <button
@@ -49,9 +47,6 @@ function App() {
                   <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                     <Place/>
                     </div>
-                </section>
-               <section id="program">
-                    <Program/>
                 </section>
                 <section id="uberUns">
                     <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
