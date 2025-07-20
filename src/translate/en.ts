@@ -30,7 +30,7 @@ const en = {
     newEvent: {
       datum: 'SEP\n17',
       header: 'Talk evening',
-      place: 'Chinesische restaurant in Falkensee at 6pm',
+      place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
       address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
       contain: 'Bring yourself (and maybe a friend).',
     },
