@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import pixelHavel from "./assets/pixel_havel.png";
 import AboutUs from "./component/aboutUs";
 import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
-import Place from "./component/place.tsx";
-import Event from "./component/event.tsx";
+import Event from "./component/event";
+
 
 function App() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     return (
         <div className="">
@@ -25,34 +25,27 @@ function App() {
                         </h1>
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>
-                            <button
-                                type="button"
-                                id="btn-joinUs"
-                                className="font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
+                            <a id="btn-joinUs"
+                               href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
+                               className="no-underline text-[#00274a] uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
                             >
-                                <a
-                                    href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
-                                    className="no-underline text-[#00274a] uppercase"
-                                >
-                                    {t('buttonJoinUs')}
-                                </a>
-                            </button>
+                                {t('buttonJoinUs')}
+                            </a>
                         </div>
                     </div>
                 </section>
+
                 <section id="nextEvent">
                     <Event/>
                 </section>
-                 <section>
-                  <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-                    <Place/>
-                    </div>
-                </section>
+
                 <section id="uberUns">
-                    <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                    <div
+                        className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <AboutUs/>
                     </div>
-                    <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                    <div
+                        className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('whyTakePart.highline')}</h2>
                         <ul className="list-none pl-8 [-webkit-text-indent:-0.8em] text-indent-[-0.8em]">
                             <ListItem>{t('whyTakePart.benefits1')}</ListItem>
@@ -65,12 +58,12 @@ function App() {
                 </section>
 
             </main>
-            <Footer />
+            <Footer/>
         </div>
     )
 }
 
-function ListItem({ children }: { children: React.ReactNode }) {
+function ListItem({children}: { children: React.ReactNode }) {
     return (
         <li className="pb-1.5 before:content-['■'] before:text-[#008000] before:inline-block before:w-[1.3em] before:ml-[-0.5em]">
             {children}
