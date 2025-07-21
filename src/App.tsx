@@ -5,6 +5,7 @@ import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 
+
 function App() {
     const { t } = useTranslation();
 
@@ -21,7 +22,6 @@ function App() {
                         <h1 className="font-['Press_Start_2P'] font-normal text-[1.8rem] text-center text-[#00274a] drop-shadow-[0_0_10px_white]">
                             Havelland Technology <br/> Meetup
                         </h1>
-
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>
 
@@ -35,14 +35,16 @@ function App() {
                         </div>
                     </div>
                 </section>
-                <section>
-                    {/*   <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-                      // place for component - Place -
-                    </div> */}
+
+                <section id="nextEvent">
+                    <Event/>
                 </section>
-                <section id="program">
-                    {/* place for program  */}
+                 <section>
+                  <div className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                    <Place/>
+                    </div>
                 </section>
+
                 <section id="uberUns">
                     <div className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <AboutUs/>
@@ -58,6 +60,7 @@ function App() {
                         </ul>
                     </div>
                 </section>
+
             </main>
             <Footer />
         </div>

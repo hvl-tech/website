@@ -26,7 +26,14 @@ const de = {
       disscusion:'Diskussion',
       start: 'Beginn',
       end: 'Ende',
-    }
+    },
+    newEvent: {
+      datum: '17\nSEP',
+      header: 'Talk-Abend',
+      place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
+      address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
+      contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
+    },
   }
 };
 
