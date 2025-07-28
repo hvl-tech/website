@@ -5,6 +5,8 @@ import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
+import MySwiper from "./component/swiper.tsx";
+import Galerie from "./component/galerie.tsx";
 
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
                     </div>
                 </section>
 
+
                 <section id="nextEvent">
                     <Event/>
                 </section>
@@ -56,7 +59,11 @@ function App() {
                         </ul>
                     </div>
                 </section>
-
+                <section id="swiper"
+                         className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                    <Galerie/>
+                    <MySwiper/>
+                </section>
             </main>
             <Footer/>
         </div>

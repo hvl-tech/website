@@ -18,3 +18,36 @@ body, html {
 h1 {
   font-family: "Press Start 2P", system-ui;
 }
+
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  border-radius: 0; /* odstranit zakulacení */
+  background-color: oklch(52.7% 0.154 150.069) ; /* nebo jiná barva */
+  opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #00ff99; /* aktivní stav */
+  opacity: 1;
+}
