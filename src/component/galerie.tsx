@@ -20,10 +20,10 @@ const slideData = [
 const Galerie = () => {
 
     return (
-        <div>
+        <div className=''>
 
             {slideData.map((slide) => (
-                <img src={slide.src} alt={slide.alt}/>
+                <img src={slide.src} alt={slide.alt} style={{width: '100%', height: '100%' ,objectFit: 'cover'}}/>
             ))}
 
             </div>
