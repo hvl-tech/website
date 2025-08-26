@@ -29,7 +29,7 @@ const de = {
     },
     newEvent: [
       {
-        datum: 'FR',
+        datum: '12\nFR',
         header: 'Programmiercafé',
         place: 'Kulturhaus „Johannes R. Becher“ von 10–12 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
