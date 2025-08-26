@@ -27,13 +27,28 @@ const de = {
       start: 'Beginn',
       end: 'Ende',
     },
-    newEvent: {
+    newEvent: [
+      {
+        datum: 'FR',
+        header: 'Programmiercafé',
+        place: 'Kulturhaus „Johannes R. Becher“ von 10–12 Uhr',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Komm zum Coworking mit uns.'  },
+      {
       datum: '17\nSEP',
       header: 'Community-Abend',
       place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
       address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
       contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
     },
+      {
+        datum: '9\nOKT',
+        header: 'Oktober – Tech Talks',
+        place: 'Kulturhaus „Johannes R. Becher“ um 18 Uhr',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community'
+      }
+    ]
   }
 };
 
