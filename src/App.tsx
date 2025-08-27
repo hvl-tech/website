@@ -21,7 +21,7 @@ function App() {
                     <TranslateBtn/>
                     <div className="px-8 py-8 flex flex-col items-center justify-around h-[92%] w-full">
                         <h1 className="font-['Press_Start_2P'] font-normal text-[1.8rem] text-center text-[#00274a] drop-shadow-[0_0_10px_white]">
-                            HVLtech
+                            Havelland Technology <br/> Meetup
                         </h1>
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
                             <Countdown/>

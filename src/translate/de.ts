@@ -9,7 +9,7 @@ const de = {
     buttonJoinUs: 'RSVP & Sei dabei!',
     aboutAs: {
       highline: 'Über uns',
-      description: '<p>Willkommen bei <i>HVLtech</i> der führenden Meetup-Gruppe für ' +
+      description: '<p>Willkommen bei <i> Havelland Technology Meetup</i> der führenden Meetup-Gruppe für ' +
       'Softwareentwickler*innen in Falkensee und Umgebung! Wir sind überzeugt, dass in Falkensee ' +
       'einige der besten Entwickler*innen zu Hause sind, und laden alle Technikbegeisterten herzlich ' +
       'ein, mitzumachen. Egal, mit welcher Sprache oder Plattform du arbeitest – bei uns ist jede*r willkommen.</p> '
@@ -29,28 +29,24 @@ const de = {
     },
     newEvent: [
       {
-        datum: '12\nSEP',
+        datum: '12\nFR',
         header: 'Programmiercafé',
-        place: 'Kulturhaus „Johannes R. Becher" von 10–12 Uhr',
+        place: 'Kulturhaus „Johannes R. Becher“ von 10–12 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Komm zum Coworking mit uns.',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310728409/'
-      },
+        contain: 'Komm zum Coworking mit uns.'  },
       {
       datum: '17\nSEP',
       header: 'Community-Abend',
       place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
       address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
       contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
-      link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
     },
       {
         datum: '9\nOKT',
         header: 'Oktober – Tech Talks',
         place: 'Kulturhaus „Johannes R. Becher“ um 18 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list'
+        contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community'
       }
     ]
   }
