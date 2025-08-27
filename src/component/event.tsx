@@ -6,14 +6,16 @@ type CardProps = {
     place: string;
     address: string;
     contain: string;
+    link?: string;
     isFirst?: boolean;
 };
 
-const Card = ({datum, header, place, address, contain, isFirst}: CardProps) => {
-
-    return (
+const Card = ({datum, header, place, address, contain, link, isFirst}: CardProps) => {
+    const hoverBg = isFirst ? 'hover:bg-cyan-50' : 'hover:bg-green-50';
+    
+    const cardContent = (
         <div
-            className=" border-4 border-black shadow-[4px_4px_0px_#000] p-4 w-full flex md:flex-row flex-col  items-center justify-between md:gap-6 gap-3 max-w-[1120px] ">
+            className={`border-4 border-black shadow-[4px_4px_0px_#000] p-4 w-full flex md:flex-row flex-col items-center justify-between md:gap-6 gap-3 max-w-[1120px] bg-white ${link ? `hover:shadow-[6px_6px_0px_#000] cursor-pointer ${hoverBg}` : ''}`}>
             <div
                 className={`
   md:w-35 md:h-35 w-40 h-40 mb-4 md:mb-0 border-4 image-pixelated
@@ -24,15 +26,24 @@ const Card = ({datum, header, place, address, contain, isFirst}: CardProps) => {
 `}>
                 {datum}
             </div>
-            <div className='flex md:items-start items-center flex-col lg:w-2/3 w-full '>
+            <div className='flex md:items-start items-center flex-col lg:w-2/3 w-full'>
                 <h3 className={`md:text-xl ${isFirst ? "text-cyan-700":"text-green-700"} font-['Press_Start_2P'] self-center md:self-auto`}>{header}</h3>
                 <p className="font-bold mt-2 ">{place}</p>
                 <p className='text-sm text-pretty'> {address}</p>
                 <p className="italic">{contain}</p>
             </div>
         </div>
+    );
 
-    )
+    if (link) {
+        return (
+            <a href={link} target="_blank" rel="noopener noreferrer" className="w-full flex justify-center no-underline text-inherit">
+                {cardContent}
+            </a>
+        );
+    }
+
+    return cardContent;
 }
 
 const Event = () => {
