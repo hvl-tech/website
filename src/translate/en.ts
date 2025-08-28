@@ -27,13 +27,29 @@ const en = {
       start: 'Start',
       end: 'End',
     },
-    newEvent: {
-      datum: 'SEP\n17',
-      header: 'Community Evening',
-      place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
-      address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-      contain: 'Bring yourself (and maybe a friend).',
-    },
+    newEvent: [
+      {
+        datum: 'FRI\n12',
+        header: 'Programmiercafè',
+        place: 'Kulturhaus “Johannes R. Becher” at 10am-12pm',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Come cowork with us.'
+      },
+      {
+        datum: 'SEP\n17',
+        header: 'Community Evening',
+        place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
+        address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
+        contain: 'Bring yourself (and maybe a friend).'
+      },
+      {
+        datum: 'OCT\n9',
+        header: 'October - Tech Talks',
+        place: 'Kulturhaus “Johannes R. Becher” at 6pm',
+        address: 'Havelländer Weg 67, 14612Falkensee',
+        contain: 'Join us for our second speakers’ meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community'
+      }
+    ]
   }
 };
 
