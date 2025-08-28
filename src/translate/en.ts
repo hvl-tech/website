@@ -9,7 +9,7 @@ const en = {
     buttonJoinUs: 'RSVP & Join Us!',
     aboutAs: {
       highline: 'About us',
-      description: '<p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software developers\n' +
+      description: '<p>Welcome to the<i> Havelland Tech Community</i> the premier group for software developers\n' +
         'in Falkensee & the surrounding area! We believe that Falkensee is home to some of the best developers, and we\n' +
         'invite all tech enthusiasts to join us. No matter what language or platform you work with,\n' +
         'everyone is welcome here.</p>'

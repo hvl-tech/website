@@ -9,7 +9,7 @@ const de = {
     buttonJoinUs: 'RSVP & Sei dabei!',
     aboutAs: {
       highline: 'Über uns',
-      description: '<p>Willkommen bei <i> Havelland Technology Meetup</i> der führenden Meetup-Gruppe für ' +
+      description: '<p>Willkommen bei der <i> Havelland Tech Community</i> der führenden Gruppe für ' +
       'Softwareentwickler*innen in Falkensee und Umgebung! Wir sind überzeugt, dass in Falkensee ' +
       'einige der besten Entwickler*innen zu Hause sind, und laden alle Technikbegeisterten herzlich ' +
       'ein, mitzumachen. Egal, mit welcher Sprache oder Plattform du arbeitest – bei uns ist jede*r willkommen.</p> '
