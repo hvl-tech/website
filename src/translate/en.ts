@@ -28,13 +28,7 @@ const en = {
       end: 'End',
     },
     newEvent: [
-      {
-        datum: 'FRI\n12',
-        header: 'Programmiercafè',
-        place: 'Kulturhaus “Johannes R. Becher” at 10am-12pm',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Come cowork with us.'
-      },
+
       {
         datum: 'SEP\n17',
         header: 'Community Evening',
@@ -48,7 +42,14 @@ const en = {
         place: 'Kulturhaus “Johannes R. Becher” at 6pm',
         address: 'Havelländer Weg 67, 14612Falkensee',
         contain: 'Join us for our second speakers’ meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community'
-      }
+      },
+      {
+        datum: 'SEP\n12',
+        header: 'Programmiercafè',
+        place: '',
+        address: '',
+        contain: ''
+      },
     ]
   }
 };
