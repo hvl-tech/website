@@ -9,7 +9,7 @@ const en = {
     buttonJoinUs: 'RSVP & Join Us!',
     aboutAs: {
       highline: 'About us',
-      description: '<p>Welcome to <i> Havelland Technology Meetup</i> the premier meetup group for software developers\n' +
+      description: '<p>Welcome to the<i> Havelland Tech Community</i> the premier group for software developers\n' +
         'in Falkensee & the surrounding area! We believe that Falkensee is home to some of the best developers, and we\n' +
         'invite all tech enthusiasts to join us. No matter what language or platform you work with,\n' +
         'everyone is welcome here.</p>'
@@ -28,13 +28,7 @@ const en = {
       end: 'End',
     },
     newEvent: [
-      {
-        datum: 'FRI\n12',
-        header: 'Programmiercafè',
-        place: 'Kulturhaus “Johannes R. Becher” at 10am-12pm',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Come cowork with us.'
-      },
+
       {
         datum: 'SEP\n17',
         header: 'Community Evening',
@@ -48,7 +42,14 @@ const en = {
         place: 'Kulturhaus “Johannes R. Becher” at 6pm',
         address: 'Havelländer Weg 67, 14612Falkensee',
         contain: 'Join us for our second speakers’ meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community'
-      }
+      },
+      {
+        datum: 'SEP\n12',
+        header: 'Programmiercafè',
+        place: '',
+        address: '',
+        contain: ''
+      },
     ]
   }
 };
