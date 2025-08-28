@@ -9,10 +9,10 @@ const de = {
     buttonJoinUs: 'RSVP & Sei dabei!',
     aboutAs: {
       highline: 'Über uns',
-      description: '<p>Willkommen bei der <i> Havelland Tech Community</i> der führenden Gruppe für ' +
-      'Softwareentwickler*innen in Falkensee und Umgebung! Wir sind überzeugt, dass in Falkensee ' +
-      'einige der besten Entwickler*innen zu Hause sind, und laden alle Technikbegeisterten herzlich ' +
-      'ein, mitzumachen. Egal, mit welcher Sprache oder Plattform du arbeitest – bei uns ist jede*r willkommen.</p> '
+      description: '<p>Willkommen bei der <i>Havelland Tech Community</i> – einem freundlichen Treffpunkt für ' +
+      'Technikbegeisterte in Falkensee und Umgebung! Komm vorbei, lerne neue Leute kennen ' +
+      'und höre von spannenden Projekten. Egal mit welcher Sprache oder Plattform du arbeitest, ' +
+      'oder wie viel Erfahrung du hast – bei uns ist jede*r willkommen. Freu dich auf inspirierende Vorträge, hausgemachten Kuchen und eine offene Community.</p> '
     },
     whyTakePart: {
       highline: 'Warum mitmachen?',
@@ -28,27 +28,29 @@ const de = {
       end: 'Ende',
     },
     newEvent: [
-
       {
-      datum: '17\nSEP',
-      header: 'Community-Abend',
-      place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
-      address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-      contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
-    },
+        datum: '17\nSEP',
+        header: 'Community-Abend',
+        place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
+        address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
+        contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
+      },
       {
         datum: '9\nOKT',
         header: 'Oktober – Tech Talks',
-        place: 'Kulturhaus „Johannes R. Becher“ um 18 Uhr',
+        place: 'Kulturhaus „Johannes R. Becher" um 18 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community'
+        contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list'
       },
       {
         datum: '12\nSEP',
         header: 'Programmiercafé',
         place: '',
         address: '',
-        contain: ''  },
+        contain: ''
+      }
     ]
   }
 };
