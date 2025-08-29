@@ -9,10 +9,10 @@ const en = {
     buttonJoinUs: 'RSVP & Join Us!',
     aboutAs: {
       highline: 'About us',
-      description: '<p>Welcome to the<i> Havelland Tech Community</i> the premier group for software developers\n' +
-        'in Falkensee & the surrounding area! We believe that Falkensee is home to some of the best developers, and we\n' +
-        'invite all tech enthusiasts to join us. No matter what language or platform you work with,\n' +
-        'everyone is welcome here.</p>'
+      description: '<p>Welcome to the <i>Havelland Tech Community</i> – a friendly space for tech enthusiasts\n' +
+        'in Falkensee & the surrounding area! Come hang out, meet new people, and hear about exciting projects.\n' +
+        'No matter what language or platform you work with, or your experience level –\n' +
+        'everyone is welcome here. Join us for inspiring talks, homemade cake, and a welcoming community.</p>'
     },
     whyTakePart: {
       highline: 'Why take part?',
@@ -28,28 +28,29 @@ const en = {
       end: 'End',
     },
     newEvent: [
-
       {
         datum: 'SEP\n17',
         header: 'Community Evening',
         place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
         address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-        contain: 'Bring yourself (and maybe a friend).'
+        contain: 'Bring yourself (and maybe a friend).',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
       },
       {
         datum: 'OCT\n9',
         header: 'October - Tech Talks',
-        place: 'Kulturhaus “Johannes R. Becher” at 6pm',
-        address: 'Havelländer Weg 67, 14612Falkensee',
-        contain: 'Join us for our second speakers’ meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community'
+        place: 'Kulturhaus "Johannes R. Becher" at 6pm',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Join us for our second speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list'
       },
       {
         datum: 'SEP\n12',
-        header: 'Programmiercafè',
+        header: 'Programmiercafé',
         place: '',
         address: '',
         contain: ''
-      },
+      }
     ]
   }
 };
