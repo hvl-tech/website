@@ -7,6 +7,101 @@ interface AnimatedPixelBackgroundProps {
   height?: number;
 }
 
+// Circuit trace class for managing animated circuit paths
+class CircuitTrace {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+  progress: number = 0;
+  lifetime: number = 0;
+  maxLifetime: number;
+  color: { r: number; g: number; b: number };
+  pulsePosition: number = 0;
+  path: { x: number; y: number }[] = [];
+  isActive: boolean = true;
+  fadeIn: number = 0;
+  fadeOut: number = 1;
+
+  constructor(startX: number, startY: number, endX: number, endY: number, color: { r: number; g: number; b: number }) {
+    this.startX = startX;
+    this.startY = startY;
+    this.endX = endX;
+    this.endY = endY;
+    this.color = color;
+    this.maxLifetime = 2000 + Math.random() * 1000; // 2-3 seconds
+    this.generatePath();
+  }
+
+  generatePath() {
+    // Create L-shaped path (like PCB routing)
+    this.path = [];
+    
+    if (Math.random() > 0.5) {
+      // Horizontal then vertical
+      const stepX = Math.sign(this.endX - this.startX) || 1;
+      const stepY = Math.sign(this.endY - this.startY) || 1;
+      
+      // Horizontal segment
+      for (let x = this.startX; stepX > 0 ? x <= this.endX : x >= this.endX; x += stepX * 2) {
+        this.path.push({ x, y: this.startY });
+      }
+      
+      // Vertical segment
+      for (let y = this.startY; stepY > 0 ? y <= this.endY : y >= this.endY; y += stepY * 2) {
+        this.path.push({ x: this.endX, y });
+      }
+    } else {
+      // Vertical then horizontal
+      const stepX = Math.sign(this.endX - this.startX) || 1;
+      const stepY = Math.sign(this.endY - this.startY) || 1;
+      
+      // Vertical segment
+      for (let y = this.startY; stepY > 0 ? y <= this.endY : y >= this.endY; y += stepY * 2) {
+        this.path.push({ x: this.startX, y });
+      }
+      
+      // Horizontal segment  
+      for (let x = this.startX; stepX > 0 ? x <= this.endX : x >= this.endX; x += stepX * 2) {
+        this.path.push({ x, y: this.endY });
+      }
+    }
+    
+    // Ensure we have at least some points
+    if (this.path.length === 0) {
+      this.path.push({ x: this.startX, y: this.startY });
+      this.path.push({ x: this.endX, y: this.endY });
+    }
+  }
+
+  update(deltaTime: number) {
+    this.lifetime += deltaTime;
+    
+    // Fade in during first 200ms
+    if (this.lifetime < 200) {
+      this.fadeIn = this.lifetime / 200;
+    } else {
+      this.fadeIn = 1;
+    }
+    
+    // Fade out during last 300ms
+    if (this.lifetime > this.maxLifetime - 300) {
+      this.fadeOut = (this.maxLifetime - this.lifetime) / 300;
+    }
+    
+    // Update progress (how much of the trace is drawn)
+    this.progress = Math.min(1, this.lifetime / 500); // Draw complete trace in 500ms
+    
+    // Update pulse position
+    this.pulsePosition = (this.lifetime / 1000) % 1; // Pulse travels the path every second
+    
+    // Mark as inactive when lifetime expires
+    if (this.lifetime >= this.maxLifetime) {
+      this.isActive = false;
+    }
+  }
+}
+
 // Generate 256-color palette for more techie look
 const generateExtendedPalette = () => {
   const palette = [];
@@ -123,6 +218,9 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
   const pixelDataRef = useRef<{ color: any; isWater: boolean }[][]>([]);
   const startTimeRef = useRef<number>(Date.now());
   const columnCutoffRef = useRef<number[]>([]);
+  const circuitTracesRef = useRef<CircuitTrace[]>([]);
+  const lastTraceSpawnRef = useRef<number>(0);
+  const lastFrameTimeRef = useRef<number>(Date.now());
 
   // Detect if a pixel is water based on color
   const isWaterPixel = (r: number, g: number, b: number) => {
@@ -217,6 +315,103 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
     }
     
     return closestColor;
+  };
+
+  // Generate a new circuit trace
+  const generateNewTrace = (canvasWidth: number, canvasHeight: number) => {
+    // Avoid water areas (bottom 40% of canvas) for cleaner look
+    const maxY = Math.floor(canvasHeight * 0.6);
+    
+    // Random start and end points
+    const startX = Math.floor(Math.random() * canvasWidth);
+    const startY = Math.floor(Math.random() * maxY);
+    const endX = Math.floor(Math.random() * canvasWidth);
+    const endY = Math.floor(Math.random() * maxY);
+    
+    // Ensure minimum distance for visible traces
+    const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+    if (distance < 100) return null; // Too short, skip
+    
+    // Choose color from tech palette
+    const colors = [
+      { r: 0, g: 255, b: 255 },   // Cyan
+      { r: 0, g: 255, b: 128 },   // Spring green
+      { r: 255, g: 191, b: 0 },   // Amber
+      { r: 128, g: 255, b: 255 }, // Light cyan
+    ];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    return new CircuitTrace(startX, startY, endX, endY, color);
+  };
+
+  // Draw circuit traces
+  const drawCircuitTraces = (ctx: CanvasRenderingContext2D, currentTime: number, deltaTime: number) => {
+    const canvas = ctx.canvas;
+    
+    // Spawn new traces periodically
+    if (currentTime - lastTraceSpawnRef.current > 800 && circuitTracesRef.current.length < 5) {
+      const newTrace = generateNewTrace(canvas.width, canvas.height);
+      if (newTrace) {
+        circuitTracesRef.current.push(newTrace);
+        lastTraceSpawnRef.current = currentTime;
+      }
+    }
+    
+    // Update and draw traces
+    circuitTracesRef.current = circuitTracesRef.current.filter(trace => {
+      trace.update(deltaTime);
+      
+      if (!trace.isActive) return false; // Remove inactive traces
+      
+      const opacity = trace.fadeIn * trace.fadeOut * 0.6; // Max 60% opacity
+      
+      // Draw the trace path
+      const pathLength = Math.floor(trace.path.length * trace.progress);
+      for (let i = 0; i < pathLength; i++) {
+        const point = trace.path[i];
+        
+        // Base trace
+        ctx.fillStyle = `rgba(${trace.color.r}, ${trace.color.g}, ${trace.color.b}, ${opacity * 0.3})`;
+        ctx.fillRect(point.x, point.y, 2, 2);
+        
+        // Glow effect (larger, more transparent)
+        ctx.fillStyle = `rgba(${trace.color.r}, ${trace.color.g}, ${trace.color.b}, ${opacity * 0.1})`;
+        ctx.fillRect(point.x - 1, point.y - 1, 4, 4);
+      }
+      
+      // Draw pulse
+      if (pathLength > 0) {
+        const pulseIndex = Math.floor(trace.pulsePosition * pathLength);
+        const pulsePoint = trace.path[Math.min(pulseIndex, trace.path.length - 1)];
+        
+        // Bright pulse
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.8})`;
+        ctx.fillRect(pulsePoint.x - 1, pulsePoint.y - 1, 3, 3);
+        
+        // Pulse glow
+        ctx.fillStyle = `rgba(${trace.color.r}, ${trace.color.g}, ${trace.color.b}, ${opacity * 0.3})`;
+        ctx.fillRect(pulsePoint.x - 2, pulsePoint.y - 2, 5, 5);
+      }
+      
+      // Draw connection nodes
+      if (trace.progress > 0) {
+        // Start node
+        ctx.fillStyle = `rgba(${trace.color.r}, ${trace.color.g}, ${trace.color.b}, ${opacity * 0.5})`;
+        ctx.fillRect(trace.startX - 2, trace.startY - 2, 5, 5);
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+        ctx.fillRect(trace.startX - 1, trace.startY - 1, 3, 3);
+      }
+      
+      if (trace.progress === 1) {
+        // End node
+        ctx.fillStyle = `rgba(${trace.color.r}, ${trace.color.g}, ${trace.color.b}, ${opacity * 0.5})`;
+        ctx.fillRect(trace.endX - 2, trace.endY - 2, 5, 5);
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+        ctx.fillRect(trace.endX - 1, trace.endY - 1, 3, 3);
+      }
+      
+      return true; // Keep active traces
+    });
   };
 
   useEffect(() => {
@@ -341,6 +536,9 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
     if (!ctx) return;
     
     const currentTime = Date.now() - startTimeRef.current;
+    const frameTime = Date.now();
+    const deltaTime = frameTime - lastFrameTimeRef.current;
+    lastFrameTimeRef.current = frameTime;
     
     // Clear canvas with transparency
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -389,6 +587,9 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
         ctx.fillRect(x, y, pixelSize, pixelSize);
       }
     }
+    
+    // Draw circuit traces on top of the pixelated background
+    drawCircuitTraces(ctx, currentTime, deltaTime);
     
     animationRef.current = requestAnimationFrame(animate);
   };
