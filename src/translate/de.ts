@@ -28,14 +28,7 @@ const de = {
       end: 'Ende',
     },
     newEvent: [
-      {
-        datum: '17\nSEP',
-        header: 'Community-Abend',
-        place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
-        address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-        contain: 'Komm vorbei (und bring vielleicht einen Freund mit)',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
-      },
+
       {
         datum: '9\nOKT',
         header: 'Oktober – Tech Talks',
@@ -45,7 +38,7 @@ const de = {
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list'
       },
       {
-        datum: '12\nSEP',
+        datum: '26\nSEP',
         header: 'Programmiercafé',
         place: 'Kulturhaus „Johannes R. Becher" von 10 Uhr bis 12 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',

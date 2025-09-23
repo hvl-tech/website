@@ -29,10 +29,13 @@ export default function TranslateBtn() {
     };
 
     return (
-        <div className='flex gap-2.5 justify-end pt-2.5 pr-2.5 w-full h-12'>
-            {Object.keys(lngs).map((lng: string) => (
+        <div
+            className='flex flex-row gap-2.5 justify-end pt-2.5 pr-2.5 w-full h-12'
+        >
+
+                {Object.keys(lngs).map((lng: string) => (
                 <button
-                    className="cursor-pointer bg-transparent shadow-none border-none disabled:cursor-default p-1.5 disabled:bg-white disabled:text-[rgba(16,16,16,0.3)] disabled:border-2 disabled:border-[#00274a] disabled:shadow-[2px_2px_0_#0d1b21] disabled:transition-all disabled:duration-100 disabled:ease-in-out hover:bg-white hover:text-[#00274a] hover:border-2 hover:border-[#00274a] hover:shadow-[2px_2px_0_#0d1b21] hover:transition-all hover:duration-100 hover:ease-in-out hover:scale-105"
+                    className=" h-2/3 cursor-pointer bg-transparent shadow-none border-none disabled:cursor-default p-1.5 disabled:bg-white disabled:text-[rgba(16,16,16,0.3)] disabled:border-2 disabled:border-[#00274a] disabled:shadow-[2px_2px_0_#0d1b21] disabled:transition-all disabled:duration-100 disabled:ease-in-out hover:bg-white hover:text-[#00274a] hover:border-2 hover:border-[#00274a] hover:shadow-[2px_2px_0_#0d1b21] hover:transition-all hover:duration-100 hover:ease-in-out hover:scale-105"
                     type="button"
                     key={lng}
                     onClick={() => handleLanguageChange(lng)}
