@@ -93,9 +93,6 @@ const Event = () => {
                     <CarouselPrevious className="border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_#000]" />
                     <CarouselNext className="border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_#000]" />
                 </div>
-                <div className="mt-2 w-full text-center text-sm">
-                    <span className="opacity-70">Slide {current + 1} of {count}. Swipe or use arrows.</span>
-                </div>
                 {count > 1 && (
                     <div className="mt-2 flex items-center justify-center gap-2">
                         {Array.from({ length: count }).map((_, i) => (
