@@ -1,4 +1,11 @@
 import {useTranslation} from "react-i18next";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "./ui/carousel";
 
 type CardProps = {
     datum: string;
@@ -52,9 +59,21 @@ const Event = () => {
         <div
             className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
             <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
-            {cardData.map((event:CardProps, index: number) => (
-                <Card key={index} {...event} isLast={index === 1 } />
-            ))}
+            <Carousel className="w-full">
+                <CarouselContent className="-ml-2 md:-ml-4">
+                    {cardData.map((event: CardProps, index: number) => (
+                        <CarouselItem key={index} className="pl-2 md:pl-4">
+                            <div className="flex justify-center">
+                                <Card {...event} isLast={index === 1} />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <div className="mt-4 flex w-full items-center justify-between">
+                    <CarouselPrevious className="border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_#000]" />
+                    <CarouselNext className="border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_#000]" />
+                </div>
+            </Carousel>
         </div>
     );
 };
