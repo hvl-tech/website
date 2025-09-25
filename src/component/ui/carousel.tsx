@@ -16,6 +16,7 @@ type CarouselProps = React.PropsWithChildren<{
     setApi?: (api: EmblaCarouselType) => void;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
+    viewportClassName?: string;
 }>;
 
 export function Carousel({
@@ -27,6 +28,7 @@ export function Carousel({
     setApi,
     onMouseEnter,
     onMouseLeave,
+    viewportClassName,
 }: CarouselProps) {
     const [emblaRef, api] = useEmblaCarousel(
         {
@@ -42,7 +44,7 @@ export function Carousel({
 
     return (
         <div className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <div ref={emblaRef} className="overflow-hidden">
+            <div ref={emblaRef} className={`overflow-hidden ${viewportClassName ?? ""}`}>
                 <CarouselContext.Provider value={{ api }}>{children}</CarouselContext.Provider>
             </div>
         </div>
@@ -54,13 +56,7 @@ type CarouselContentProps = React.PropsWithChildren<{
 }>;
 
 export function CarouselContent({ className, children }: CarouselContentProps) {
-    return (
-        <div className={`flex ${className ?? ""}`}>
-            {React.Children.map(children, (child) => (
-                <div className="min-w-0 shrink-0 grow-0 basis-full">{child}</div>
-            ))}
-        </div>
-    );
+    return <div className={`flex ${className ?? ""}`}>{children}</div>;
 }
 
 type CarouselItemProps = React.PropsWithChildren<{
@@ -68,7 +64,11 @@ type CarouselItemProps = React.PropsWithChildren<{
 }>;
 
 export function CarouselItem({ className, children }: CarouselItemProps) {
-    return <div className={className}>{children}</div>;
+    return (
+        <div className={`min-w-0 shrink-0 grow-0 basis-full ${className ?? ""}`}>
+            {children}
+        </div>
+    );
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & { className?: string };
