@@ -5,6 +5,7 @@ import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
+import Program from "./component/program.tsx";
 
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
                             </a>
                         </div>
                     </div>
+                </section>
+                <section>
+                    <Program/>
                 </section>
 
                 <section id="nextEvent">

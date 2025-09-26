@@ -54,8 +54,9 @@ const Program = () => {
 
                     <Block nameBlock={t('program.start')} time={'18:00'}/>
 
-                    <Card name={'Martin Hlavac'} photo={martin} startTime={'18:30'} role={'Associate Director@Flink SE'}
-                          topic={'The Rising Value of Automated Tests'}/>
+                    <Card name={'Jonas Benn'} photo={martin} startTime={'18:30'} role={''}
+                          topic={'The Fediverse -- Beyond Centralized Social Networks\n' +
+                              'Description: A short introduction to the Fediverse and its underlying protocol ActivityPub'}/>
 
                     <Block nameBlock={t('program.disscusion')} time={'18:45-19:15'}/>
 
