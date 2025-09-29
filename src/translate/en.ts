@@ -27,7 +27,7 @@ const en = {
       start: 'Start',
       end: 'End',
     },
-    newEvent: [
+    oldEvents: [
       {
         datum: 'SEP\n17',
         header: 'Community Evening',
@@ -36,13 +36,16 @@ const en = {
         contain: 'Bring yourself (and maybe a friend).',
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
       },
+    ],
+    newEvents: [
       {
         datum: 'OCT\n9',
         header: 'October - Tech Talks',
         place: 'Kulturhaus "Johannes R. Becher" at 6pm',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'Join us for our second speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list'
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list',
+        showProgram: true,
       },
       {
         datum: 'SEP\n12',

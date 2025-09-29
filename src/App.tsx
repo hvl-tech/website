@@ -35,9 +35,6 @@ function App() {
                         </div>
                     </div>
                 </section>
-                <section>
-                    <Program/>
-                </section>
 
                 <section id="nextEvent">
                     <Event/>
@@ -49,7 +46,7 @@ function App() {
                         <AboutUs/>
                     </div>
                     <div
-                        className="bg-white gap-2.5 text-justify w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                        className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                         <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('whyTakePart.highline')}</h2>
                         <ul className="list-none pl-8 [-webkit-text-indent:-0.8em] text-indent-[-0.8em]">
                             <ListItem>{t('whyTakePart.benefits1')}</ListItem>
