@@ -29,7 +29,6 @@ export default function Countdown() {
         const updateCountdown = () => {
             const now = dayjs();
             const secondsUntilMeetup = nextMeetupDate.diff(now, 'seconds');
-            console.log(secondsUntilMeetup);
 
             if (secondsUntilMeetup < 0) {
                 setIsExpired(true);
