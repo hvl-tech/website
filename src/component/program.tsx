@@ -32,17 +32,19 @@ const Card = ({ photo, startTime, name, role, heading, topic }: CardProps) => {
     return (
         <BorderedBox className="p-4">
             <div
-                className=" lg:w-2/3 w-full flex lg:flex-row items-center justify-between flex-col">
+                className="w-full flex lg:flex-row items-center justify-between flex-col">
 
+                <BorderedBox>
                 {photo ? (<div>
                     <img src={photo} alt={name}
-                        className="w-auto h-auto md:w-40 md:h-auto border-4 border-black  shadow-[4px_4px_0px_#000] image-pixelated " />
+                        className="w-auto h-auto md:w-40 md:h-auto image-pixelated " />
                 </div>
                 ) : (
                     <div
                         className={`
-                                      md:w-40 md:h-40 w-full h-60  mb-4 md:mb-0 border-4 image-pixelated
-                                      text-white bg-green-700 border-black  shadow-[4px_4px_0px_#000]
+                                      w-40 h-40
+                                      image-pixelated
+                                      text-white bg-green-700
                                       lg:text-4xl md:text-3xl text-6xl
                                       flex items-center justify-center text-center whitespace-pre-line
                                       font-['Press_Start_2P']
@@ -50,8 +52,9 @@ const Card = ({ photo, startTime, name, role, heading, topic }: CardProps) => {
                         {initial}
                     </div>
                 )}
+                </BorderedBox>
 
-                <div className='flex items-start flex-col lg:w-2/3 w-full'>
+                <div className='flex flex-col lg:w-2/3 w-full justify-start items-start'>
                     <h3 className="md:text-xl m-2">{startTime}</h3>
                     <p className="font-bold m-2">{name} <span className='text-sm'> {role}</span></p>
                     <p className=" text-xl m-2"> {heading} </p>
