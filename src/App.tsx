@@ -5,7 +5,6 @@ import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
-import Program from "./component/program.tsx";
 
 
 function App() {
@@ -14,21 +13,27 @@ function App() {
     return (
         <div className="">
             <main className="flex-1">
+                <nav
+                    className="fixed top-4 z-50 px-2 py-2 sm:px-4 right-4sm:right-8 md:right-12 lg:right-16 xl:right-1/2 xl:translate-x-[560px]"
+                >
+                    <TranslateBtn />
+                </nav>
+
                 <section
                     id="head-event"
                     className="bg-cover bg-center bg-no-repeat h-[598px] w-full max-w-[1120px] mx-auto"
-                    style={{backgroundImage: `url(${pixelHavel})`}}
+                    style={{ backgroundImage: `url(${pixelHavel})` }}
                 >
-                    <TranslateBtn/>
                     <div className="px-8 py-8 flex flex-col items-center justify-around h-[92%] w-full">
                         <h1 className="font-['Press_Start_2P'] font-normal text-[1.8rem] text-center text-[#00274a] drop-shadow-[0_0_10px_white]">
-                            Havelland <br/> Tech <br/> Community
+                            Havelland <br /> Tech <br /> Community
                         </h1>
                         <div className="flex flex-col items-center justify-center gap-5 w-full">
-                            <Countdown/>
-                            <a id="btn-joinUs"
-                               href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
-                               className="no-underline text-[#00274a] uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
+                            <Countdown />
+                            <a
+                                id="btn-joinUs"
+                                href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
+                                className="no-underline text-[#00274a] uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
                             >
                                 {t('buttonJoinUs')}
                             </a>
