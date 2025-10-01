@@ -4,7 +4,7 @@ import AboutUs from "./component/aboutUs";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
-import Galerie from "./component/galerie.tsx";
+import Gallery from "./component/gallery.tsx";
 
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
 <section>
     <div
         className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-        <Galerie/>
+        <Gallery/>
     </div>
 
 </section>

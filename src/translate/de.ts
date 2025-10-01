@@ -57,7 +57,7 @@ const de = {
       }
     ],
       gallery: {
-        highline: 'Galerie'},
+        highline: 'Gallery'},
   }
 };
 

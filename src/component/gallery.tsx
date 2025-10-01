@@ -21,7 +21,7 @@ import vladislavSpeaker from '@asset/galerie/firstSpeakersMeetup/vladislavSpeake
 import vladislav2 from '@asset/galerie/firstSpeakersMeetup/vladislav2.jpg'
 import ButtonPixel from "./ui/buttonPixel.tsx";
 
-const Galerie = () => {
+const Gallery = () => {
     const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -112,4 +112,4 @@ const Galerie = () => {
     );
 };
 
-export default Galerie;
+export default Gallery;
