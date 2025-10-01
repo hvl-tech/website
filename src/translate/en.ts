@@ -54,7 +54,9 @@ const en = {
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'A space for working on projects & learning new stuff together. 💻☕️'
       }
-    ]
+    ],
+      gallery:
+          {highline: 'Gallery'},
   }
 };
 
