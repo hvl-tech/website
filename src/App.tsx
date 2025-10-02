@@ -34,7 +34,7 @@ function App() {
                             <a
                                 id="btn-joinUs"
                                 href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
-                                className="no-underline text-[#00274a] uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
+                                className="no-underline uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
                             >
                                 {t('buttonJoinUs')}
                             </a>
