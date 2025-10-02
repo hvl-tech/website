@@ -1,3 +1,4 @@
+
 const de = {
   translation: {
     countdown: {
@@ -54,7 +55,9 @@ const de = {
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'Ein Ort, um an Projekten zu arbeiten und gemeinsam Neues zu lernen. 💻☕️'
       }
-    ]
+    ],
+      gallery: {
+        highline: 'Gallery'},
   }
 };
 
