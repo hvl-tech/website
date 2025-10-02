@@ -1,10 +1,11 @@
 import {useTranslation} from "react-i18next";
 import pixelHavel from "./assets/pixel_havel.png";
 import AboutUs from "./component/aboutUs";
-import Countdown from "./component/countdown";
 import Footer from "./component/footer";
 import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
+import Gallery from "./component/gallery.tsx";
+import Countdown from "./component/countdown";
 
 
 function App() {
@@ -62,7 +63,13 @@ function App() {
                         </ul>
                     </div>
                 </section>
+<section>
+    <div
+        className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+        <Gallery/>
+    </div>
 
+</section>
             </main>
             <Footer/>
         </div>
