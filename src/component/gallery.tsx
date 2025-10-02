@@ -17,7 +17,6 @@ import { Pagination, Navigation } from 'swiper/modules';
 //import slides
 import kuchen from '@asset/galerie/firstSpeakersMeetup/kuchen.jpg'
 import martinSpeaker from '@asset/galerie/firstSpeakersMeetup/martinSpeaker.jpg'
-import vladislavSpeaker from '@asset/galerie/firstSpeakersMeetup/vladislavSpeaker.jpg'
 import vladislav2 from '@asset/galerie/firstSpeakersMeetup/vladislav2.jpg'
 import ButtonPixel from "./ui/buttonPixel.tsx";
 
@@ -28,7 +27,6 @@ const Gallery = () => {
     const {t} = useTranslation();
 
     const images = [
-        { src: vladislavSpeaker, alt: "Vladislav Speaker" },
         { src: martinSpeaker, alt: "Martin Speaker" },
         { src: vladislav2, alt: "Vladislav Speaker" },
         { src: kuchen, alt: "Kuchen" },
