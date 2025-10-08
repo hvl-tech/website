@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Program from "./program";
 import BorderedBox from "./borderedBox";
+import { getNextProgrammiercafeDate, formatEventDate } from "../utils/dateUtils";
 
 type CardProps = {
     datum: string;
@@ -54,14 +55,27 @@ const Card = ({ datum, header, place, address, contain, link, isLast, showProgra
 }
 
 const Event = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const cardData = t('newEvents', { returnObjects: true }) as CardProps[];
+
+    // Calculate next Programmiercafé date dynamically
+    const nextProgrammiercafeDate = getNextProgrammiercafeDate();
+    const formattedDate = formatEventDate(nextProgrammiercafeDate, i18n.language === 'de' ? 'de' : 'en');
+
+    // Update Programmiercafé event with dynamic date
+    const updatedCardData = cardData.map((event) => {
+        if (event.header.includes('Programmiercafé')) {
+            return { ...event, datum: formattedDate };
+        }
+        return event;
+    });
+
     return (
         <div
             className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
             <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
-            {cardData.map((event: CardProps, index: number) => (
+            {updatedCardData.map((event: CardProps, index: number) => (
                 <Card key={index} {...event} isLast={index === 2} />
             ))}
         </div>
