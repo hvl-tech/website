@@ -62,7 +62,7 @@ const Event = () => {
             className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
             <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
             {cardData.map((event: CardProps, index: number) => (
-                <Card key={index} {...event} isLast={index === 2} />
+                <Card key={index} {...event} isLast={index === 1} />
             ))}
         </div>
     );
