@@ -29,13 +29,12 @@ const en = {
     },
     oldEvents: [
       {
-        datum: 'OCT\n9',
-        header: 'October - Tech Talks',
-        place: 'Kulturhaus "Johannes R. Becher" at 6pm',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Join us for our second speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list',
-        showProgram: true,
+        datum: 'SEP\n17',
+        header: 'Community Evening',
+        place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
+        address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
+        contain: 'Bring yourself (and maybe a friend).',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310148645/?eventOrigin=group_events_list'
       },
       {
         datum: 'SEP\n26',
@@ -43,6 +42,15 @@ const en = {
         place: 'Kulturhaus "Johannes R. Becher" from 10am to 12pm',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'A space for working on projects & learning new stuff together. 💻☕️'
+      },
+      {
+        datum: 'OCT\n9',
+        header: 'October - Tech Talks',
+        place: 'Kulturhaus "Johannes R. Becher" at 6pm',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Join us for our second speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list',
+        showProgram: true,
       }
     ],
     newEvents: [
