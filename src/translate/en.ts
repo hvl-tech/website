@@ -7,6 +7,10 @@ const en = {
       seconds: 'seconds',
     },
     buttonJoinUs: 'RSVP & Join Us!',
+    navigation: {
+      home: 'Home',
+      kidsLabs: 'Kids Labs'
+    },
     aboutAs: {
       highline: 'About us',
       description: '<p>Welcome to the <i>Havelland Tech Community</i> – a friendly space for tech enthusiasts\n' +
@@ -73,6 +77,37 @@ const en = {
     ],
       gallery:
           {highline: 'Gallery'},
+    kidsLabs: {
+      title: 'Kids Labs',
+      date: 'April 2026',
+      duration: '3-hour workshop',
+      about: {
+        title: 'About',
+        description: 'Join us for an exciting Kids Tech Conference where young minds will explore the wonderful world of technology! This 3-hour event is designed to spark curiosity and creativity in children through hands-on activities and interactive learning.'
+      },
+      ageGroups: {
+        title: 'Age Groups',
+        group1: 'Ages 6-9: Beginner-friendly activities',
+        group2: 'Ages 10+: More advanced challenges'
+      },
+      activities: {
+        title: 'What We\'ll Learn',
+        circuits: {
+          title: 'Electric Circuits',
+          description: 'Discover how electricity works by building your own circuits with lights and buzzers'
+        },
+        hourOfCode: {
+          title: 'Hour of Code',
+          description: 'Learn the basics of programming through fun, interactive coding challenges'
+        },
+        minecraft: {
+          title: 'Minecraft Modding',
+          description: 'Create your very first Minecraft mod and bring your ideas to life in the game'
+        }
+      },
+      callToAction: 'Spaces are limited! Register early to secure your spot.',
+      registerButton: 'Register Now'
+    },
   }
 };
 
