@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import {useTranslation} from "react-i18next";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-// import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 
-//import slides
 import kuchen from '@asset/galerie/firstSpeakersMeetup/kuchen.jpg'
 import martinSpeaker from '@asset/galerie/firstSpeakersMeetup/martinSpeaker.jpg'
 import vladislav2 from '@asset/galerie/firstSpeakersMeetup/vladislav2.jpg'
+import kulturhaus from '@asset/galerie/firstSpeakersMeetup/kulturhaus.jpg'
 import ButtonPixel from "./ui/buttonPixel.tsx";
 
 const Gallery = () => {
@@ -30,6 +25,7 @@ const Gallery = () => {
         { src: martinSpeaker, alt: "Martin Speaker" },
         { src: vladislav2, alt: "Vladislav Speaker" },
         { src: kuchen, alt: "Kuchen" },
+        { src: kulturhaus, alt: "Kulturhaus" },
     ];
 
     const goPrev = () => {

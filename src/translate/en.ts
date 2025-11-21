@@ -51,24 +51,32 @@ const en = {
         contain: 'Join us for our second speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/310649475/?eventOrigin=group_events_list',
         showProgram: true,
-      }
+      },
+        {
+            datum: 'JAN\n29',
+            header: 'Talks',
+            place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
+            address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
+            contain: 'Autumn vibes, good company, and great conversations. No talks this time – just an easy evening to catch up with the community.',
+            link: 'https://www.meetup.com/havelland-technology-falkensee/events/311419353/?eventOrigin=group_upcoming_events'
+        },
     ],
     newEvents: [
       {
-        datum: 'NOV\n12',
-        header: 'Community Evening',
-        place: 'Chinese restaurant (Falkensee-Garten) at 6pm',
-        address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-        contain: 'Autumn vibes, good company, and great conversations. No talks this time – just an easy evening to catch up with the community.',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/311419353/?eventOrigin=group_upcoming_events'
+        datum: 'JAN\n29',
+        header: 'Tech Talks Meetup - January',
+        place: 'Kulturhaus "Johannes R. Becher" at 6pm',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Join us for our speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list'
       },
       {
-        datum: 'OCT\n24',
+        datum: 'DEZ\n5',
         header: 'Programmiercafé',
         place: 'Kulturhaus "Johannes R. Becher" from 10am to 12pm',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'A space for working on projects & learning new stuff together. 💻☕️',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/311372834/?eventOrigin=group_upcoming_events'
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
       }
     ],
       gallery:
