@@ -73,7 +73,7 @@ const en = {
       {
         datum: 'DEZ\n5',
         header: 'Programmiercafé',
-        place: 'Kulturhaus "Johannes R. Becher" from 10am to 12pm',
+        place: 'Kulturhaus "Johannes R. Becher" from 11am to 13pm',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'A space for working on projects & learning new stuff together. 💻☕️',
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
