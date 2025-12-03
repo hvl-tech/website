@@ -39,7 +39,7 @@ const en = {
       {
         datum: 'SEP\n26',
         header: 'Programmiercafé',
-        place: 'Kulturhaus "Johannes R. Becher" from 10am to 12pm',
+        place: 'Kulturhaus "Johannes R. Becher" from 11am to 1pm',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'A space for working on projects & learning new stuff together. 💻☕️'
       },
