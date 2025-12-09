@@ -86,6 +86,95 @@ const en = {
     },
       gallery:
           {highline: 'Gallery'},
+      kids: {
+        // Hero
+        ageLabel: '🎮 Coding Workshop for Kids 11+',
+        title: 'HAVELLAND HACKS MINECRAFT',
+        tagline: 'Hack your Birne – Learn coding with AI!',
+        byKids: 'By kids, for kids!',
+        description: 'We\'re organizing an event for kids aged 11 to 14. We believe learning by playing is the best way. Together we\'ll mod Minecraft – and along the way learn some Java, 3D modeling, and how AI can help with learning and building virtual worlds.',
+        descriptionCta: 'Join us! Seats are limited – only 10 spots. The event is co-organized by 2 kids from Dallgow.',
+        whyFree: 'Why free? We\'re preparing for a bigger event in April and want to meet in a smaller group first to build something amazing together.',
+        date: 'Thursday, January 29, 2026',
+        time: '5:00 PM – 7:00 PM',
+        location: 'Kulturhaus Falkensee',
+        language: 'We speak German & English',
+        cta: 'Register now',
+        ctaPdf: 'Download registration form (PDF)',
+        spots: 'Only 10 spots!',
+        deadline: 'Deadline: January 15, 2026',
+        free: '★ FREE ★',
+
+        // Supervisors
+        supervisorsTitle: 'Who supervises?',
+        supervisors: [
+          { name: 'Dana Hlavacova', role: 'Event Supervisor' },
+          { name: 'Martin Hlavac', role: 'Event Supervisor' }
+        ],
+
+        // Agenda
+        agendaTitle: 'What we\'ll do',
+        agenda: [
+          { time: '5:00 PM', icon: '👋', title: 'Setup & Welcome', description: 'We\'ll check if Minecraft works and install the tools (25 min)' },
+          { time: '5:25 PM', icon: '🎨', title: 'Block Design in Blockbench', description: 'Create your own block in Blockbench – shape, color, and texture (30 min)' },
+          { time: '5:55 PM', icon: '🤖', title: 'Coding with AI', description: 'Program your block with GitHub Copilot and test it live in Minecraft (50 min)' },
+          { time: '6:45 PM', icon: '🎤', title: 'Show & Tell', description: 'Present your creation to everyone (15 min)' }
+        ],
+
+        // Tools explanation
+        toolsTitle: 'What tools will we use?',
+        tools: [
+          {
+            name: 'Blockbench',
+            description: 'A free 3D modeling tool for creating Minecraft blocks and textures. Perfect for beginners!'
+          },
+          {
+            name: 'GitHub Copilot',
+            description: 'An AI assistant that helps you write code by suggesting what to type next.'
+          }
+        ],
+
+        // What you'll create
+        whatYoullCreateTitle: 'What you\'ll create',
+        whatYoullCreateDescription: 'You\'ll soon see examples of blocks that other kids have created!',
+        examplePlaceholder: 'Example coming soon',
+
+        requirementsTitle: 'What you need',
+        requirementsText: 'Laptop + Minecraft Java Edition (installed & logged in)',
+        parentNote: 'For parents: The HVLtech adult meetup runs in parallel (6:00 PM – 8:00 PM). Please pick up your children at 7:00 PM.',
+
+        // For Parents section
+        forParentsTitle: 'Information for Parents',
+        forParents: {
+          supervisionTitle: 'Supervision',
+          supervisionText: 'Dana Hlavacova and Martin Hlavac supervise the event and are available throughout as contact persons.',
+          safetyTitle: 'Safety',
+          safetyText: 'Children remain in the Kulturhaus throughout the entire event. We work in a protected, supervised space.',
+          pickupTitle: 'Pickup',
+          pickupText: 'Please pick up your children promptly at 7:00 PM. The event ends exactly at this time.',
+          bringTitle: 'What to bring?',
+          bringText: 'Laptop (charged), Minecraft Java Edition (installed & logged in), optional: drink & snack',
+          emergencyTitle: 'Emergency Contact',
+          emergencyText: 'For emergencies during the event: meetup@hvltech.de or by phone on-site at check-in'
+        },
+
+        // Result
+        result: {
+          title: 'Your Result',
+          description: 'Maybe you\'ll build a <strong>Havelland Pear</strong> as a block? Or something completely different – you decide! You\'ll go home with your finished mod.'
+        },
+
+        // Mission
+        mission: {
+          title: 'Why Havelland Tech?',
+          description: 'We believe: Tech knowledge doesn\'t only belong in the big city. Havelland has smart minds – and they should learn early how to change the world with code.',
+          slogan: 'Hack your Birne. Build your Future.'
+        },
+
+        // Footer
+        footerContact: 'Questions',
+        backToMain: 'Back to main page'
+      }
   }
 };
 

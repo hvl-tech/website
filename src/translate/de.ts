@@ -87,6 +87,95 @@ const de = {
     },
       gallery: {
         highline: 'Gallery'},
+      kids: {
+        // Hero
+        ageLabel: '🎮 Coding-Workshop für Kids ab 11 Jahren',
+        title: 'HAVELLAND HACKT MINECRAFT',
+        tagline: 'Hack your Birne – Lern programmieren mit KI!',
+        byKids: 'Von Kids, für Kids!',
+        description: 'Wir organisieren ein Event für Kids von 11 bis 14 Jahren. Wir glauben: Lernen durch Spielen ist der beste Weg. Gemeinsam modden wir Minecraft – und lernen dabei ein bisschen Java, 3D-Modellierung und wie KI beim Lernen und Bauen virtueller Welten helfen kann.',
+        descriptionCta: 'Mach mit! Plätze sind begrenzt – nur 10 Teilnehmer. Das Event wird von 2 Kids aus Dallgow mitorganisiert.',
+        whyFree: 'Warum kostenlos? Wir bereiten ein größeres Event im April vor und wollen uns erstmal in kleiner Runde kennenlernen und gemeinsam etwas Tolles bauen.',
+        date: 'Donnerstag, 29. Januar 2026',
+        time: '17:00 – 19:00 Uhr',
+        location: 'Kulturhaus Falkensee',
+        language: 'Wir sprechen Deutsch & Englisch',
+        cta: 'Jetzt anmelden',
+        ctaPdf: 'Anmeldeformular herunterladen (PDF)',
+        spots: 'Nur 10 Plätze!',
+        deadline: 'Anmeldeschluss: 15. Januar 2026',
+        free: '★ KOSTENLOS ★',
+
+        // Supervisors
+        supervisorsTitle: 'Wer betreut?',
+        supervisors: [
+          { name: 'Dana Hlavacova', role: 'Event-Betreuung' },
+          { name: 'Martin Hlavac', role: 'Event-Betreuung' }
+        ],
+
+        // Agenda
+        agendaTitle: 'Was wir machen',
+        agenda: [
+          { time: '17:00', icon: '👋', title: 'Setup & Willkommen', description: 'Wir checken, ob Minecraft läuft und installieren die Tools (25 Min.)' },
+          { time: '17:25', icon: '🎨', title: 'Block designen in Blockbench', description: 'Gestalte deinen eigenen Block in Blockbench – Form, Farbe und Textur (30 Min.)' },
+          { time: '17:55', icon: '🤖', title: 'Coden mit KI', description: 'Programmiere deinen Block mit GitHub Copilot und teste ihn live in Minecraft (50 Min.)' },
+          { time: '18:45', icon: '🎤', title: 'Show & Tell', description: 'Präsentiere deine Kreation allen anderen (15 Min.)' }
+        ],
+
+        // Tools explanation
+        toolsTitle: 'Welche Tools nutzen wir?',
+        tools: [
+          {
+            name: 'Blockbench',
+            description: 'Ein kostenloses 3D-Modellierungsprogramm zum Erstellen von Minecraft-Blöcken und Texturen. Perfekt für Anfänger!'
+          },
+          {
+            name: 'GitHub Copilot',
+            description: 'Ein KI-Assistent, der dir beim Programmieren hilft, indem er vorschlägt, was du als Nächstes schreiben könntest.'
+          }
+        ],
+
+        // What you'll create
+        whatYoullCreateTitle: 'Was du erschaffen wirst',
+        whatYoullCreateDescription: 'Hier siehst du bald Beispiele von Blöcken, die andere Kids erstellt haben!',
+        examplePlaceholder: 'Beispiel folgt bald',
+
+        requirementsTitle: 'Was du brauchst',
+        requirementsText: 'Laptop + Minecraft Java Edition (installiert & eingeloggt)',
+        parentNote: 'Für Eltern: Parallel läuft das HVLtech Meetup für Erwachsene (18:00–20:00). Bitte holt eure Kinder um 19:00 Uhr ab.',
+
+        // For Parents section
+        forParentsTitle: 'Informationen für Eltern',
+        forParents: {
+          supervisionTitle: 'Betreuung',
+          supervisionText: 'Dana Hlavacova und Martin Hlavac betreuen die Veranstaltung und stehen während des gesamten Events als Ansprechpartner zur Verfügung.',
+          safetyTitle: 'Sicherheit',
+          safetyText: 'Die Kinder bleiben während der gesamten Veranstaltung im Kulturhaus. Wir arbeiten in einem geschützten, überwachten Raum.',
+          pickupTitle: 'Abholung',
+          pickupText: 'Bitte holen Sie Ihre Kinder pünktlich um 19:00 Uhr ab. Das Event endet genau zu dieser Zeit.',
+          bringTitle: 'Was mitbringen?',
+          bringText: 'Laptop (aufgeladen), Minecraft Java Edition (installiert & eingeloggt), optional: Getränk & Snack',
+          emergencyTitle: 'Notfallkontakt',
+          emergencyText: 'Für Notfälle während der Veranstaltung: meetup@hvltech.de oder telefonisch vor Ort beim Check-in'
+        },
+
+        // Result
+        result: {
+          title: 'Dein Ergebnis',
+          description: 'Vielleicht baust du eine <strong>Havelländer Birne</strong> als Block? Oder was ganz anderes – du entscheidest! Du gehst mit deinem fertigen Mod nach Hause.'
+        },
+
+        // Mission
+        mission: {
+          title: 'Warum Havelland Tech?',
+          description: 'Wir glauben: Technik-Wissen gehört nicht nur in die Großstadt. Das Havelland hat kluge Köpfe – und die sollen früh lernen, wie man mit Code die Welt verändert.',
+          slogan: 'Hack your Birne. Build your Future.'
+        },
+
+        // Footer
+        footerContact: 'Fragen',
+        backToMain: 'Zurück zur Hauptseite'
+      }
   }
 };
 

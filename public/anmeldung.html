@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anmeldung - Havelland hackt Minecraft</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000;
+            background: #fff;
+            max-width: 21cm;
+            margin: 0 auto;
+            padding: 1cm;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5cm;
+            border-bottom: 3px solid #000;
+            padding-bottom: 0.5cm;
+        }
+
+        .logo {
+            font-size: 24pt;
+            font-weight: bold;
+            margin-bottom: 0.3cm;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 18pt;
+            margin-bottom: 0.3cm;
+            font-weight: bold;
+        }
+
+        .event-info {
+            background: #f5f5f5;
+            padding: 0.5cm;
+            margin-bottom: 0.8cm;
+            border: 2px solid #000;
+        }
+
+        .event-info p {
+            margin: 0.1cm 0;
+            font-size: 11pt;
+        }
+
+        .event-info strong {
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 0.7cm;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 13pt;
+            font-weight: bold;
+            margin-bottom: 0.3cm;
+            padding: 0.2cm;
+            background: #000;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 0.4cm;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .form-label {
+            width: 45%;
+            font-weight: normal;
+            padding-right: 0.3cm;
+        }
+
+        .form-line {
+            flex: 1;
+            border-bottom: 1px solid #000;
+            min-height: 0.6cm;
+        }
+
+        .checkbox-group {
+            margin-bottom: 0.3cm;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .checkbox {
+            width: 0.5cm;
+            height: 0.5cm;
+            border: 2px solid #000;
+            margin-right: 0.3cm;
+            flex-shrink: 0;
+            margin-top: 0.1cm;
+        }
+
+        .checkbox-label {
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .checkbox-label.optional::after {
+            content: " (optional)";
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .checkbox-label.required {
+            font-weight: bold;
+        }
+
+        .signature-section {
+            margin-top: 0.5cm;
+            display: flex;
+            gap: 1cm;
+        }
+
+        .signature-field {
+            flex: 1;
+        }
+
+        .signature-field label {
+            display: block;
+            margin-bottom: 0.2cm;
+            font-weight: normal;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            min-height: 1.2cm;
+            margin-bottom: 0.2cm;
+        }
+
+        .signature-helper {
+            font-size: 9pt;
+            color: #333;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 1cm;
+            padding-top: 0.3cm;
+            border-top: 1px solid #000;
+            font-size: 9pt;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0.1cm 0;
+        }
+
+        .important-note {
+            background: #f9f9f9;
+            border: 1px solid #333;
+            padding: 0.3cm;
+            margin-top: 0.3cm;
+            font-size: 10pt;
+        }
+
+        .textarea-box {
+            border: 1px solid #000;
+            min-height: 1.5cm;
+            width: 100%;
+            margin-top: 0.2cm;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .event-info {
+                background: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .section-title {
+                background: #000 !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">HVLtech</div>
+        <h1>Anmeldung - Kids Coding Workshop</h1>
+        <p style="font-size: 14pt; font-weight: bold;">Havelland hackt Minecraft</p>
+    </div>
+
+    <div class="event-info">
+        <p><strong>Datum:</strong> Donnerstag, 29. Januar 2026</p>
+        <p><strong>Uhrzeit:</strong> 17:00 - 19:00 Uhr</p>
+        <p><strong>Ort:</strong> Kulturhaus Falkensee</p>
+        <p><strong>Alter:</strong> 11-14 Jahre</p>
+        <p><strong>Veranstalter:</strong> HVLtech (Dana Hlavacova, Martin Hlavac)</p>
+    </div>
+
+    <!-- Section 1: Child Information -->
+    <div class="section">
+        <div class="section-title">1. Angaben zum Kind</div>
+
+        <div class="form-group">
+            <div class="form-label">Vor- und Nachname des Kindes:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Geburtsdatum:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Alter am 29.01.2026:</div>
+            <div class="form-line"></div>
+        </div>
+    </div>
+
+    <!-- Section 2: Parent/Guardian Information -->
+    <div class="section">
+        <div class="section-title">2. Angaben zur erziehungsberechtigten Person</div>
+
+        <div class="form-group">
+            <div class="form-label">Vor- und Nachname:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Telefonnummer:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">E-Mail-Adresse:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Straße und Hausnummer:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">PLZ und Ort:</div>
+            <div class="form-line"></div>
+        </div>
+    </div>
+
+    <!-- Section 3: Emergency Contact -->
+    <div class="section">
+        <div class="section-title">3. Notfallkontakt</div>
+
+        <div class="form-group">
+            <div class="form-label">Name (falls abweichend):</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Notfall-Telefonnummer:</div>
+            <div class="form-line"></div>
+        </div>
+    </div>
+
+    <!-- Section 4: Technical Requirements -->
+    <div class="section">
+        <div class="section-title">4. Technische Voraussetzungen</div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label required">
+                Mein Kind bringt einen eigenen Laptop mit Ladekabel mit.
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label required">
+                Minecraft Java Edition ist auf dem Laptop installiert und funktionsfähig.
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Consents -->
+    <div class="section">
+        <div class="section-title">5. Einverständniserklärungen</div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label required">
+                Ich bin damit einverstanden, dass mein Kind an dieser Veranstaltung teilnimmt und übertrage für die Dauer der Veranstaltung die Aufsichtspflicht an die Veranstalter (Dana Hlavacova, Martin Hlavac).
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label optional">
+                Ich bin damit einverstanden, dass während der Veranstaltung Fotos/Videos zu Dokumentationszwecken erstellt werden.
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label optional">
+                Ich bin damit einverstanden, dass Fotos/Videos auf hvltech.de und in sozialen Medien veröffentlicht werden.
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label required">
+                Ich habe die Datenschutzerklärung gelesen und akzeptiere diese.
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <div class="checkbox"></div>
+            <div class="checkbox-label required">
+                Ich bestätige, dass alle Angaben korrekt sind.
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Signature -->
+    <div class="section">
+        <div class="section-title">6. Unterschrift</div>
+
+        <div class="signature-section">
+            <div class="signature-field">
+                <label>Datum:</label>
+                <div class="signature-line"></div>
+            </div>
+
+            <div class="signature-field">
+                <label>Unterschrift Erziehungsberechtigte/r:</label>
+                <div class="signature-line"></div>
+                <div class="signature-helper">(Unterschrift)</div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 0.5cm;">
+            <div class="form-label">Name in Druckbuchstaben:</div>
+            <div class="form-line"></div>
+        </div>
+    </div>
+
+    <!-- Section 7: Pickup Authorization -->
+    <div class="section">
+        <div class="section-title">7. Abholberechtigung</div>
+
+        <p style="margin-bottom: 0.3cm;">Folgende Personen sind berechtigt, mein Kind abzuholen:</p>
+
+        <div class="form-group">
+            <div class="form-label">Person 1:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">Person 2:</div>
+            <div class="form-line"></div>
+        </div>
+
+        <div class="important-note">
+            <strong>Wichtig:</strong> Bitte holen Sie Ihr Kind pünktlich um 19:00 Uhr ab.
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Kontakt:</strong> meetup@hvltech.de | <strong>Website:</strong> hvltech.de</p>
+        <p style="margin-top: 0.3cm; font-size: 8pt;">
+            Die Datenschutzerklärung finden Sie unter: hvltech.de/datenschutz<br>
+            Ihre Daten werden ausschließlich für die Durchführung dieser Veranstaltung verwendet.
+        </p>
+    </div>
+</body>
+</html>
