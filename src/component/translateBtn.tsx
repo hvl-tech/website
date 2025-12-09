@@ -1,7 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import de_svg from '../assets/de_flag.svg';
 import en_svg from '../assets/en_flag.svg';
-import i18n from "../utils/i18n";
 
 type Language = {
     nativeName: string;
@@ -13,6 +13,8 @@ type Languages = {
 };
 
 export default function TranslateBtn() {
+    const { i18n } = useTranslation();
+
     const lngs: Languages = {
         en: {
             nativeName: 'En',
