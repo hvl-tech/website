@@ -25,13 +25,15 @@ function ChristmasModal() {
             onClose={handleClose}
             maxWidth="sm"
             fullWidth
-            PaperProps={{
-                sx: {
-                    background: 'linear-gradient(180deg, #1a472a 0%, #2d5a3f 50%, #1a472a 100%)',
-                    border: '4px solid #c41e3a',
-                    borderRadius: '0px',
-                    boxShadow: '8px 8px 0 #0d1b21',
-                    overflow: 'visible',
+            slotProps={{
+                paper: {
+                    sx: {
+                        background: 'linear-gradient(180deg, #1a472a 0%, #2d5a3f 50%, #1a472a 100%)',
+                        border: '4px solid #c41e3a',
+                        borderRadius: '0px',
+                        boxShadow: '8px 8px 0 #0d1b21',
+                        overflow: 'visible',
+                    }
                 }
             }}
         >
