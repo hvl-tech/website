@@ -6,6 +6,7 @@ import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
 import Gallery from "./component/gallery.tsx";
 import Countdown from "./component/countdown";
+import ChristmasModal from "./component/christmasModal";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
     return (
         <div className="">
+            <ChristmasModal />
             <main className="flex-1">
                 <nav
                     className="fixed top-4 z-50 px-2 py-2 sm:px-4 right-4sm:right-8 md:right-12 lg:right-16 xl:right-1/2 xl:translate-x-[560px]"
