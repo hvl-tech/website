@@ -72,7 +72,7 @@ const de = {
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list'
       },
       {
-        datum: '5\nDEZ',
+        datum: '16\nJAN',
         header: 'Programmiercafé',
         place: 'Kulturhaus „Johannes R. Becher" von 11 Uhr bis 13 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
