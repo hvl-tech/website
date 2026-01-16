@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -6,6 +7,10 @@ import logo from "../assets/logo/logo_no_text.svg";
 
 function KidsPage() {
     const { t } = useTranslation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const agenda = t('kids.agenda', { returnObjects: true }) as Array<{
         time: string;
@@ -106,7 +111,7 @@ function KidsPage() {
                     <p className="text-sm text-green-100 text-center">
                         <span className="font-['Press_Start_2P'] text-xs text-green-300">{t('kids.free')}</span>
                         <br />
-                        <span className="text-xs opacity-90 mt-1 block">{t('kids.whyFree')}</span>
+                       {/*<span className="text-xs opacity-90 mt-1 block">{t('kids.whyFree')}</span>*/}
                     </p>
                 </div>
 
