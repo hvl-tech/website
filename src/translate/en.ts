@@ -91,7 +91,7 @@ const en = {
         descriptionCta: 'Join us! Seats are limited – only 10 spots. The event is co-organized by 2 kids from Dallgow.',
         whyFree: 'Why free? We\'re preparing for a bigger event in April and want to meet in a smaller group first to build something amazing together.',
         date: 'Thursday, January 29, 2026',
-        time: '5:00 PM – 7:00 PM',
+        time: '4:00 PM – 7:00 PM',
         location: 'Kulturhaus Falkensee',
         language: 'We speak German & English',
         cta: 'Register now',
@@ -110,10 +110,12 @@ const en = {
         // Agenda
         agendaTitle: 'What we\'ll do',
         agenda: [
-          { time: '5:00 PM', icon: '👋', title: 'Setup & Welcome', description: 'We\'ll check if Minecraft works and install the tools (25 min)' },
-          { time: '5:25 PM', icon: '🎨', title: 'Block Design in Blockbench', description: 'Create your own block in Blockbench – shape, color, and texture (30 min)' },
-          { time: '5:55 PM', icon: '🤖', title: 'Coding with AI', description: 'Program your block with GitHub Copilot and test it live in Minecraft (50 min)' },
-          { time: '6:45 PM', icon: '🎤', title: 'Show & Tell', description: 'Present your creation to everyone (15 min)' }
+          { time: '4:00 PM', icon: '👋', title: 'Setup & Welcome', description: 'We\'ll check if Minecraft works and install the tools' },
+          { time: '4:25 PM', icon: '🎨', title: 'Block Design in Blockbench', description: 'Create your own block – shape, color, and texture' },
+          { time: '5:10 PM', icon: '🎮', title: 'Test Block in Minecraft', description: 'Import your block and see it live in the game' },
+          { time: '5:30 PM', icon: '🍕', title: 'Snack Break', description: 'Short break – snacks and drinks provided' },
+          { time: '5:45 PM', icon: '🤖', title: 'Program an Ability with AI', description: 'Give your block a special ability – with help from AI' },
+          { time: '6:30 PM', icon: '🎤', title: 'Shared World + Show & Tell', description: 'Try out all blocks together and present yours' }
         ],
 
         // Tools explanation
@@ -121,11 +123,28 @@ const en = {
         tools: [
           {
             name: 'Blockbench',
-            description: 'A free 3D modeling tool for creating Minecraft blocks and textures. Perfect for beginners!'
+            description: 'A free 3D modeling tool for creating Minecraft blocks and textures.',
+            url: 'https://web.blockbench.net/'
           },
           {
-            name: 'GitHub Copilot',
-            description: 'An AI assistant that helps you write code by suggesting what to type next.'
+            name: 'Java 21',
+            description: 'The programming language we use to write the plugin.',
+            url: 'https://adoptium.net/temurin/releases/?version=21'
+          },
+          {
+            name: 'Minecraft Java Edition',
+            description: 'To play and test. Must be purchased beforehand.',
+            url: 'https://www.minecraft.net/de-de/store/minecraft-java-bedrock-edition-pc'
+          },
+          {
+            name: 'Paper Server',
+            description: 'Free Minecraft server where we test our plugin.',
+            url: 'https://papermc.io/downloads/paper'
+          },
+          {
+            name: 'IntelliJ IDEA',
+            description: 'Our code editor (free). Alternatively, any other editor can be used.',
+            url: 'https://www.jetbrains.com/idea/download/'
           }
         ],
 
@@ -136,7 +155,7 @@ const en = {
 
         requirementsTitle: 'What you need',
         requirementsText: 'Laptop + Minecraft Java Edition (installed & logged in)',
-        parentNote: 'For parents: The HVLtech adult meetup runs in parallel (6:00 PM – 8:00 PM). Please pick up your children at 7:00 PM.',
+        parentNote: 'For parents: The HVLtech adult meetup runs in parallel (6:00 PM – 8:00 PM). Please pick up your children promptly at 7:00 PM.',
 
         // For Parents section
         forParentsTitle: 'Information for Parents',
