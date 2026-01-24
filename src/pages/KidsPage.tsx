@@ -27,6 +27,7 @@ function KidsPage() {
     const tools = t('kids.tools', { returnObjects: true }) as Array<{
         name: string;
         description: string;
+        url?: string;
     }>;
 
     const forParents = t('kids.forParents', { returnObjects: true }) as {
@@ -95,7 +96,7 @@ function KidsPage() {
                         <MailOutlineIcon /> {t('kids.cta')}
                     </a>
                     <a
-                        href="/anmeldung.pdf"
+                        href="/anmeldung.html"
                         className="font-['Press_Start_2P'] text-sm md:text-base bg-green-900 text-white border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline flex items-center gap-3"
                     >
                         <DownloadIcon /> {t('kids.ctaPdf')}
@@ -174,7 +175,13 @@ function KidsPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                         {tools.map((tool, i) => (
                             <div key={i} className="bg-gray-50 rounded-lg p-5 border-2 border-gray-100">
-                                <h4 className="font-semibold text-gray-800 mb-2">{tool.name}</h4>
+                                {tool.url ? (
+                                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-green-700 hover:text-green-800 underline mb-2 block">
+                                        {tool.name}
+                                    </a>
+                                ) : (
+                                    <h4 className="font-semibold text-gray-800 mb-2">{tool.name}</h4>
+                                )}
                                 <p className="text-sm text-gray-600">{tool.description}</p>
                             </div>
                         ))}

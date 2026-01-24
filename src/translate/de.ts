@@ -97,7 +97,7 @@ const de = {
         descriptionCta: 'Mach mit! Plätze sind begrenzt – nur 10 Teilnehmer. Das Event wird von 2 Kids aus Dallgow mitorganisiert.',
         whyFree: 'Warum kostenlos? Wir bereiten ein größeres Event im April vor und wollen uns erstmal in kleiner Runde kennenlernen und gemeinsam etwas Tolles bauen.',
         date: 'Donnerstag, 29. Januar 2026',
-        time: '17:00 – 19:00 Uhr',
+        time: '16:00 – 19:00 Uhr',
         location: 'Kulturhaus Falkensee',
         language: 'Wir sprechen Deutsch & Englisch',
         cta: 'Jetzt anmelden',
@@ -116,10 +116,12 @@ const de = {
         // Agenda
         agendaTitle: 'Was wir machen',
         agenda: [
-          { time: '17:00', icon: '👋', title: 'Setup & Willkommen', description: 'Wir checken, ob Minecraft läuft und installieren die Tools (25 Min.)' },
-          { time: '17:25', icon: '🎨', title: 'Block designen in Blockbench', description: 'Gestalte deinen eigenen Block in Blockbench – Form, Farbe und Textur (30 Min.)' },
-          { time: '17:55', icon: '🤖', title: 'Coden mit KI', description: 'Programmiere deinen Block mit GitHub Copilot und teste ihn live in Minecraft (50 Min.)' },
-          { time: '18:45', icon: '🎤', title: 'Show & Tell', description: 'Präsentiere deine Kreation allen anderen (15 Min.)' }
+          { time: '16:00', icon: '👋', title: 'Setup & Willkommen', description: 'Wir checken, ob Minecraft läuft und installieren die Tools' },
+          { time: '16:25', icon: '🎨', title: 'Block designen in Blockbench', description: 'Gestalte deinen eigenen Block – Form, Farbe und Textur' },
+          { time: '17:10', icon: '🎮', title: 'Block in Minecraft testen', description: 'Importiere deinen Block und sieh ihn live im Spiel' },
+          { time: '17:30', icon: '🍕', title: 'Pause mit Snacks', description: 'Kurze Verschnaufpause – Snacks und Getränke stehen bereit' },
+          { time: '17:45', icon: '🤖', title: 'Fähigkeit programmieren mit KI', description: 'Gib deinem Block eine besondere Fähigkeit – mit Hilfe von KI' },
+          { time: '18:30', icon: '🎤', title: 'Gemeinsame Welt + Show & Tell', description: 'Alle Blöcke zusammen ausprobieren und präsentieren' }
         ],
 
         // Tools explanation
@@ -127,11 +129,28 @@ const de = {
         tools: [
           {
             name: 'Blockbench',
-            description: 'Ein kostenloses 3D-Modellierungsprogramm zum Erstellen von Minecraft-Blöcken und Texturen. Perfekt für Anfänger!'
+            description: 'Ein kostenloses 3D-Modellierungsprogramm zum Erstellen von Minecraft-Blöcken und Texturen.',
+            url: 'https://web.blockbench.net/'
           },
           {
-            name: 'GitHub Copilot',
-            description: 'Ein KI-Assistent, der dir beim Programmieren hilft, indem er vorschlägt, was du als Nächstes schreiben könntest.'
+            name: 'Java 21',
+            description: 'Die Programmiersprache, mit der wir das Plugin schreiben.',
+            url: 'https://adoptium.net/temurin/releases/?version=21'
+          },
+          {
+            name: 'Minecraft Java Edition',
+            description: 'Zum Spielen und Testen. Muss vorher gekauft werden.',
+            url: 'https://www.minecraft.net/de-de/store/minecraft-java-bedrock-edition-pc'
+          },
+          {
+            name: 'Paper Server',
+            description: 'Kostenloser Minecraft-Server, auf dem wir unser Plugin testen.',
+            url: 'https://papermc.io/downloads/paper'
+          },
+          {
+            name: 'IntelliJ IDEA',
+            description: 'Unser Code-Editor (kostenlos). Alternativ kann auch ein anderer Editor verwendet werden.',
+            url: 'https://www.jetbrains.com/idea/download/'
           }
         ],
 
@@ -142,7 +161,7 @@ const de = {
 
         requirementsTitle: 'Was du brauchst',
         requirementsText: 'Laptop + Minecraft Java Edition (installiert & eingeloggt)',
-        parentNote: 'Für Eltern: Parallel läuft das HVLtech Meetup für Erwachsene (18:00–20:00). Bitte holt eure Kinder um 19:00 Uhr ab.',
+        parentNote: 'Für Eltern: Parallel läuft das HVLtech Meetup für Erwachsene (18:00–20:00). Bitte holt eure Kinder pünktlich um 19:00 Uhr ab.',
 
         // For Parents section
         forParentsTitle: 'Informationen für Eltern',
