@@ -79,13 +79,15 @@ const Program = () => {
 
                     <Card name={'Martin Pompéry'} startTime={'18:30'} heading={'Introduction to  Garble'}
                         topic={'Garble is a simple programming language for Multi-Party Computation and is statically typed, low-level, purely functional and uses a Rust-like syntax.'}
+                        slidesLink={'TODO_MARTIN_SLIDES_URL'}
                     />
 
                     <Block nameBlock={t('program.disscusion')} time={'18:45-19:15'} />
 
                     <Card name={'Jonas Benn'} photo={jonas} startTime={'19:15'}
                         heading={'The Fediverse'} topic={'Beyond Centralized Social Networks\n' +
-                            'A short introduction to the Fediverse and its underlying protocol ActivityPub'} />
+                            'A short introduction to the Fediverse and its underlying protocol ActivityPub'}
+                        slidesLink={'TODO_JONAS_SLIDES_URL'} />
 
                     <Block nameBlock={t('program.disscusion')} time={'19:30-20:00'} />
 

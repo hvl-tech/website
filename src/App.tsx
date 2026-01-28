@@ -6,6 +6,7 @@ import TranslateBtn from "./component/translateBtn";
 import Event from "./component/event";
 import Gallery from "./component/gallery.tsx";
 import Countdown from "./component/countdown";
+import PastTalks from "./component/pastTalks";
 
 
 function App() {
@@ -63,6 +64,10 @@ function App() {
                         </ul>
                     </div>
                 </section>
+<section id="pastTalks">
+    <PastTalks/>
+</section>
+
 <section>
     <div
         className="bg-white gap-2.5 text-center w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">

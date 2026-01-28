@@ -80,9 +80,15 @@ const de = {
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
       }
     ],
-      gallery: {
-        highline: 'Gallery'},
+    gallery: {
+        highline: 'Gallery'
+      },
+    pastTalks: {
+      pastTalks: 'Vergangene Presäntation'
+    },
+
   }
 };
+
 
 export default de;
