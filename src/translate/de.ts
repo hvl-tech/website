@@ -61,8 +61,14 @@ const de = {
             contain: 'Herbststimmung, gute Gesellschaft und tolle Gespräche. Diesmal keine Vorträge – nur ein entspannter Abend, um sich mit der Community auszutauschen.',
             link: 'https://www.meetup.com/havelland-technology-falkensee/events/311419353/?eventOrigin=group_upcoming_events'
         },
-    ],
-    newEvents: [
+      {
+        datum: '16\nJAN',
+        header: 'Programmiercafé',
+        place: 'Kulturhaus „Johannes R. Becher" von 11 Uhr bis 13 Uhr',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'Ein Ort, um an Projekten zu arbeiten und gemeinsam Neues zu lernen. 💻☕️',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
+      },
       {
         datum: '29\nJAN',
         header: 'Tech Talks Meetup - January',
@@ -71,15 +77,13 @@ const de = {
         contain: 'Sei dabei bei unserem Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community',
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list'
       },
-      {
-        datum: '16\nJAN',
-        header: 'Programmiercafé',
-        place: 'Kulturhaus „Johannes R. Becher" von 11 Uhr bis 13 Uhr',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'Ein Ort, um an Projekten zu arbeiten und gemeinsam Neues zu lernen. 💻☕️',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
-      }
     ],
+    months: ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ'],
+    event: {
+      at: 'um',
+      oclock: 'Uhr',
+      fromTo: 'von {{from}} bis {{to}}',
+    },
       gallery: {
         highline: 'Gallery'},
   }
