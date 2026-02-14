@@ -83,7 +83,7 @@ function formatTime(date: Date, lang: string): string {
 const Card = ({ datum, header, place, address, contain, link, showProgram }: CardProps) => {
     const isCafe = header.toLowerCase().includes('programmiercaf');
     const cardContent = (
-        <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-4 w-full flex flex-col items-center justify-center">
+        <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-2 md:p-4 w-full flex flex-col items-center justify-center">
             <div
                 key={`contentCard-${datum}`}
                 className={` w-full flex md:flex-row flex-col items-center justify-between md:gap-6 gap-3 max-w-[1120px] bg-white ${link ? 'hover:shadow-[6px_6px_0px_#000] cursor-pointer hover:bg-green-50' : ''}`}>
@@ -126,7 +126,7 @@ const Event = () => {
 
     return (
         <div
-            className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+            className="bg-white gap-2.5 w-full px-2 md:px-8 py-4 md:py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
             <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
             {cardData.map((event: CardProps, index: number) => (
                 <Card key={index} {...event} />

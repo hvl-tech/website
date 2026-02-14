@@ -71,10 +71,11 @@ const en = {
       {
         datum: 'JAN\n29',
         header: 'Tech Talks Meetup - January',
-        place: 'Kulturhaus "Johannes R. Becher" at 6pm',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
+        place: 'altes Gemeindeamt / altes Rathaus at 6pm',
+        address: 'Wilmsstraße 43, Dallgow-Döberitz',
         contain: 'Join us for our speakers\' meetup! What to expect:\n 2 tech talks 🎤, \nfree homemade cake 🍰\na welcoming community',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list'
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list',
+        showProgram: true
       },
     ],
     months: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
