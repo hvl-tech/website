@@ -80,7 +80,8 @@ function formatTime(date: Date, lang: string): string {
     return minutes === 0 ? `${h12}${period}` : `${h12}:${String(minutes).padStart(2, '0')}${period}`;
 }
 
-const Card = ({ datum, header, place, address, contain, link, isLast, showProgram }: CardProps) => {
+const Card = ({ datum, header, place, address, contain, link, showProgram }: CardProps) => {
+    const isCafe = header.toLowerCase().includes('programmiercaf');
     const cardContent = (
         <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-4 w-full flex flex-col items-center justify-center">
             <div
@@ -90,7 +91,7 @@ const Card = ({ datum, header, place, address, contain, link, isLast, showProgra
                     <div
                         className={`
   md:w-35 md:h-35 w-40 h-40 image-pixelated
-  text-white ${isLast ? "bg-cyan-700" : "bg-green-700"}
+  text-white ${isCafe ? "bg-cyan-700" : "bg-green-700"}
   lg:text-4xl md:text-3xl text-4xl
   flex items-center justify-center text-center whitespace-pre-line
   font-['Press_Start_2P']
@@ -99,7 +100,7 @@ const Card = ({ datum, header, place, address, contain, link, isLast, showProgra
                     </div>
                 </BorderedBox>
                 <div className='flex md:items-start items-center flex-col w-full px-10'>
-                    <h3 className={`md:text-xl ${isLast ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto`}>{header}</h3>
+                    <h3 className={`md:text-xl ${isCafe ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto`}>{header}</h3>
                     <p className="font-bold py-2 ">{place}</p>
                     <p className='text-sm text-pretty py-2'> {address}</p>
                     <p className="italic">{contain}</p>
@@ -128,7 +129,7 @@ const Event = () => {
             className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
             <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
             {cardData.map((event: CardProps, index: number) => (
-                <Card key={index} {...event} isLast={index === cardData.length - 1} />
+                <Card key={index} {...event} />
             ))}
         </div>
     );

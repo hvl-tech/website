@@ -1,0 +1,29 @@
+{
+  "fetchedAt": "2026-02-14T08:43:45.107Z",
+  "upcomingEvents": [
+    {
+      "title": "Programmiercafé",
+      "dateTime": "2026-02-27T11:00:00",
+      "endTime": "2026-02-27T13:00:00",
+      "location": "",
+      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
+      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/313148614/"
+    },
+    {
+      "title": "Programmiercafé",
+      "dateTime": "2026-03-13T11:00:00",
+      "endTime": "2026-03-13T13:00:00",
+      "location": "",
+      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
+      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/313172260/"
+    },
+    {
+      "title": "Programmiercafé",
+      "dateTime": "2026-03-27T11:00:00",
+      "endTime": "2026-03-27T13:00:00",
+      "location": "",
+      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
+      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/ltgcvtyjcfbkc/"
+    }
+  ]
+}
