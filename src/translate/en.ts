@@ -60,8 +60,14 @@ const en = {
             contain: 'Autumn vibes, good company, and great conversations. No talks this time – just an easy evening to catch up with the community.',
             link: 'https://www.meetup.com/havelland-technology-falkensee/events/311419353/?eventOrigin=group_upcoming_events'
         },
-    ],
-    newEvents: [
+      {
+        datum: 'JAN\n16',
+        header: 'Programmiercafé',
+        place: 'Kulturhaus "Johannes R. Becher" from 11am to 1pm',
+        address: 'Havelländer Weg 67, 14612 Falkensee',
+        contain: 'A space for working on projects & learning new stuff together. 💻☕️',
+        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
+      },
       {
         datum: 'JAN\n29',
         header: 'Tech Talks Meetup - January',
@@ -71,15 +77,13 @@ const en = {
         link: 'https://www.meetup.com/havelland-technology-falkensee/events/312092212/?eventOrigin=group_events_list',
         showProgram: true
       },
-      {
-        datum: 'JAN\n16',
-        header: 'Programmiercafé',
-        place: 'Kulturhaus "Johannes R. Becher" from 11am to 1pm',
-        address: 'Havelländer Weg 67, 14612 Falkensee',
-        contain: 'A space for working on projects & learning new stuff together. 💻☕️',
-        link: 'https://www.meetup.com/havelland-technology-falkensee/events/312018601/?eventOrigin=your_events'
-      }
     ],
+    months: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+    event: {
+      at: 'at',
+      oclock: '',
+      fromTo: 'from {{from}} to {{to}}',
+    },
       gallery:
           {highline: 'Gallery'},
   }
