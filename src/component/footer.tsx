@@ -12,11 +12,11 @@ export default function Footer() {
                     <img src={text} alt='email' style={{ height: '15px' }} />
                 </div>
                 <Link
-                    to="/kids"
+                    to="/labs"
                     onClick={() => window.scrollTo(0, 0)}
                     className="text-white text-xs font-['Press_Start_2P'] hover:text-green-400 transition-colors no-underline flex items-center gap-1"
                 >
-                    <img src={logo} alt="" className="h-4 brightness-0 invert" /> Kids
+                    <img src={logo} alt="" className="h-4 brightness-0 invert" /> Kids Labs
                 </Link>
             </div>
         </footer>

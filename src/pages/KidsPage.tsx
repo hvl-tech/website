@@ -1,9 +1,118 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import DownloadIcon from "@mui/icons-material/Download";
+import CloseIcon from "@mui/icons-material/Close";
 import logo from "../assets/logo/logo_no_text.svg";
+
+interface GalleryItem {
+    src: string;
+    alt: string;
+    caption?: string;
+}
+
+const electronicsPhotos: GalleryItem[] = [
+    { src: '/photos/kids-labs/electronics/IMG_2124.jpg', alt: 'Paper circuit with LED', caption: 'Ein fertiger Papier-Schaltkreis: Kupferband verbindet die Knopfbatterie mit der LED – und sie leuchtet!' },
+    { src: '/photos/kids-labs/electronics/lamp.jpeg', alt: 'Glowing lamp card', caption: 'Eine leuchtende Lampen-Karte – so könnte dein fertiges Projekt aussehen!' },
+];
+
+const minecraftPhotos: GalleryItem[] = [
+    { src: '/photos/kids-labs/minecraft/custom-blocks.png', alt: 'Custom blocks in Minecraft', caption: 'Eigene Blöcke mit dem HVLtech-Birnen-Design – live in Minecraft!' },
+    { src: '/photos/kids-labs/minecraft/birnen-schwert.png', alt: 'Birnen-Schwert presentation', caption: 'Das Birnen-Schwert mit Spezialeffekten – wähle deine eigene Fähigkeit!' },
+    { src: '/photos/kids-labs/minecraft/intellij.png', alt: 'Code in IntelliJ', caption: 'So sieht der Java-Code für deinen Block aus – mit KI-Unterstützung ganz einfach!' },
+];
+
+function PhotoGallery({ photos, placeholderIcon }: { photos: GalleryItem[]; placeholderIcon: string }) {
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (selectedIndex === null) return;
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedIndex(null);
+            if (e.key === 'ArrowRight') setSelectedIndex(i => i !== null ? Math.min(i + 1, photos.length - 1) : null);
+            if (e.key === 'ArrowLeft') setSelectedIndex(i => i !== null ? Math.max(i - 1, 0) : null);
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [selectedIndex, photos.length]);
+
+    return (
+        <>
+            <div className="flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 scrollbar-thin">
+                {photos.map((photo, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setSelectedIndex(i)}
+                        className="flex-shrink-0 w-32 h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-100 hover:border-green-400 transition-colors cursor-pointer"
+                    >
+                        {photo.src ? (
+                            <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <span className="text-2xl opacity-25">{placeholderIcon}</span>
+                            </div>
+                        )}
+                    </button>
+                ))}
+            </div>
+
+            {/* Lightbox */}
+            {selectedIndex !== null && (
+                <div
+                    className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4"
+                    onClick={() => setSelectedIndex(null)}
+                >
+                    <div
+                        className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="relative">
+                            {photos[selectedIndex].src ? (
+                                <img
+                                    src={photos[selectedIndex].src}
+                                    alt={photos[selectedIndex].alt}
+                                    className="w-full max-h-[60vh] object-contain bg-gray-50"
+                                />
+                            ) : (
+                                <div className="w-full h-64 bg-gray-100 flex items-center justify-center">
+                                    <span className="text-5xl opacity-20">{placeholderIcon}</span>
+                                </div>
+                            )}
+                            <button
+                                onClick={() => setSelectedIndex(null)}
+                                className="absolute top-3 right-3 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors"
+                            >
+                                <CloseIcon fontSize="small" />
+                            </button>
+                        </div>
+                        {photos[selectedIndex].caption && (
+                            <div className="p-4 border-t border-gray-100">
+                                <p className="text-sm text-gray-700 leading-relaxed">{photos[selectedIndex].caption}</p>
+                            </div>
+                        )}
+                        <div className="flex justify-between px-4 pb-4">
+                            <button
+                                onClick={() => setSelectedIndex(Math.max(0, selectedIndex - 1))}
+                                disabled={selectedIndex === 0}
+                                className="text-sm text-green-700 font-semibold disabled:opacity-30 disabled:cursor-default hover:text-green-800"
+                            >
+                                ← Prev
+                            </button>
+                            <span className="text-xs text-gray-400">{selectedIndex + 1} / {photos.length}</span>
+                            <button
+                                onClick={() => setSelectedIndex(Math.min(photos.length - 1, selectedIndex + 1))}
+                                disabled={selectedIndex === photos.length - 1}
+                                className="text-sm text-green-700 font-semibold disabled:opacity-30 disabled:cursor-default hover:text-green-800"
+                            >
+                                Next →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    );
+}
 
 function KidsPage() {
     const { t } = useTranslation();
@@ -12,22 +121,16 @@ function KidsPage() {
         window.scrollTo(0, 0);
     }, []);
 
-    const agenda = t('kids.agenda', { returnObjects: true }) as Array<{
-        time: string;
-        title: string;
-        description: string;
-        icon: string;
-    }>;
-
     const supervisors = t('kids.supervisors', { returnObjects: true }) as Array<{
         name: string;
         role: string;
     }>;
 
-    const tools = t('kids.tools', { returnObjects: true }) as Array<{
-        name: string;
-        description: string;
-        url?: string;
+    const track1Highlights = t('kids.track1.highlights', { returnObjects: true }) as string[];
+
+    const track2Steps = t('kids.track2.steps', { returnObjects: true }) as Array<{
+        icon: string;
+        label: string;
     }>;
 
     const forParents = t('kids.forParents', { returnObjects: true }) as {
@@ -37,16 +140,22 @@ function KidsPage() {
         safetyText: string;
         pickupTitle: string;
         pickupText: string;
-        bringTitle: string;
-        bringText: string;
         emergencyTitle: string;
         emergencyText: string;
     };
 
     return (
         <div className="bg-white min-h-screen">
+            {/* Back to homepage */}
+            <Link
+                to="/"
+                className="fixed top-[34px] left-4 sm:left-8 md:left-12 lg:left-16 xl:left-1/2 xl:-translate-x-[560px] z-[60] bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 px-3 py-1.5 rounded-full text-xs font-semibold no-underline flex items-center gap-1.5 transition-colors"
+            >
+                ← <img src={logo} alt="" className="h-3.5 brightness-0 invert" /> HVLtech
+            </Link>
+
             {/* Hero Section */}
-            <section className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white flex flex-col items-center justify-center px-4 py-12 relative">
+            <section className="min-h-[70vh] bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white flex flex-col items-center justify-center px-4 py-12 relative">
                 {/* Decorative pixels */}
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute top-10 left-10 w-8 h-8 bg-white"></div>
@@ -58,7 +167,7 @@ function KidsPage() {
 
                 <img src={logo} alt="HVLtech Logo" className="h-16 md:h-20 mb-4 brightness-0 invert" />
 
-                <h1 className="font-['Press_Start_2P'] text-xl md:text-2xl lg:text-3xl text-center mb-3 leading-relaxed drop-shadow-lg">
+                <h1 className="font-['Press_Start_2P'] text-2xl md:text-3xl lg:text-4xl text-center mb-3 leading-relaxed drop-shadow-lg">
                     {t('kids.title')}
                 </h1>
 
@@ -66,14 +175,9 @@ function KidsPage() {
                     {t('kids.tagline')}
                 </p>
 
-
-                {/* Description */}
-                <div className="max-w-2xl mx-auto mb-6 space-y-4 text-center">
+                <div className="max-w-2xl mx-auto mb-6 text-center">
                     <p className="text-base md:text-lg text-white/95 leading-relaxed">
                         {t('kids.description')}
-                    </p>
-                    <p className="text-base text-green-100 font-medium">
-                        {t('kids.descriptionCta')}
                     </p>
                 </div>
 
@@ -83,44 +187,110 @@ function KidsPage() {
                         {t('kids.date')}
                     </p>
                     <p className="text-lg opacity-90">
-                        {t('kids.time')} · {t('kids.location')}
+                        {t('kids.time')}
+                    </p>
+                    <p className="text-base opacity-80">
+                        {t('kids.location')} · {t('kids.locationDetail')}
                     </p>
                 </div>
 
                 {/* CTA */}
-                <div className="flex flex-col md:flex-row gap-4 mb-4">
-                    <a
-                        href="mailto:meetup@hvltech.de?subject=Kids%20Workshop%20Anmeldung"
-                        className="font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline flex items-center gap-3"
-                    >
-                        <MailOutlineIcon /> {t('kids.cta')}
-                    </a>
-                    <a
-                        href="/anmeldung.html"
-                        className="font-['Press_Start_2P'] text-sm md:text-base bg-green-900 text-white border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline flex items-center gap-3"
-                    >
-                        <DownloadIcon /> {t('kids.ctaPdf')}
-                    </a>
-                </div>
+                <a
+                    href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
+                    className="font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline flex items-center gap-3 mb-4"
+                >
+                    <MailOutlineIcon /> {t('kids.cta')}
+                </a>
 
                 <p className="text-sm opacity-90 text-center mb-4">
-                    {t('kids.deadline')} · {t('kids.language')}
+                    {t('kids.language')}
                 </p>
 
-                {/* Why free */}
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 max-w-lg">
                     <p className="text-sm text-green-100 text-center">
                         <span className="font-['Press_Start_2P'] text-xs text-green-300">{t('kids.free')}</span>
-                        <br />
-                       {/*<span className="text-xs opacity-90 mt-1 block">{t('kids.whyFree')}</span>*/}
                     </p>
                 </div>
 
-                {/* Scroll indicator */}
                 <div className="absolute bottom-8 animate-bounce">
                     <svg className="w-6 h-6 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
+                </div>
+            </section>
+
+            {/* Tracks Section */}
+            <section className="py-16">
+                <div className="max-w-[1000px] mx-auto px-4">
+                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-10 text-center">
+                        {t('kids.tracksTitle')}
+                    </h2>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Track 1: Electronics */}
+                        <div className="border-3 border-green-200 rounded-xl overflow-hidden">
+                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200 flex items-center justify-between">
+                                <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
+                                    <span className="text-xl">{t('kids.track1.icon')}</span> {t('kids.track1.title')}
+                                </h3>
+                                <span className="text-sm text-gray-500 font-medium">{t('kids.track1.age')}</span>
+                            </div>
+                            <div className="p-6 space-y-4">
+                                <p className="text-gray-700 leading-relaxed">
+                                    {t('kids.track1.description')}
+                                </p>
+
+                                <PhotoGallery photos={electronicsPhotos} placeholderIcon="💡" />
+
+                                <ul className="space-y-2">
+                                    {track1Highlights.map((item, i) => (
+                                        <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                                            <span className="text-green-500">✓</span> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="bg-green-50 rounded-lg p-3 text-sm text-green-800 font-medium">
+                                    {t('kids.track1.bring')}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Track 2: Minecraft */}
+                        <div className="border-3 border-green-200 rounded-xl overflow-hidden">
+                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200 flex items-center justify-between">
+                                <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
+                                    <span className="text-xl">{t('kids.track2.icon')}</span> {t('kids.track2.title')}
+                                </h3>
+                                <span className="text-sm text-gray-500 font-medium">{t('kids.track2.age')}</span>
+                            </div>
+                            <div className="p-6 space-y-4">
+                                <p className="text-gray-700 leading-relaxed">
+                                    {t('kids.track2.description')}
+                                </p>
+
+                                <PhotoGallery photos={minecraftPhotos} placeholderIcon="⛏" />
+
+                                <div className="flex items-center justify-center gap-3 py-2">
+                                    {track2Steps.map((step, i) => (
+                                        <div key={i} className="flex items-center gap-3">
+                                            <div className="text-center">
+                                                <div className="w-14 h-14 bg-green-50 border-2 border-green-200 rounded-lg flex items-center justify-center text-2xl mb-1">
+                                                    {step.icon}
+                                                </div>
+                                                <span className="text-xs text-gray-600 font-medium">{step.label}</span>
+                                            </div>
+                                            {i < track2Steps.length - 1 && (
+                                                <span className="text-green-400 font-bold text-lg mt-[-1rem]">→</span>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 font-medium">
+                                    {t('kids.track2.bring')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -144,108 +314,13 @@ function KidsPage() {
                 </div>
             </section>
 
-            {/* Agenda Section */}
-            <section className="max-w-[900px] mx-auto px-4 py-16">
-                <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center">
-                    {t('kids.agendaTitle')}
-                </h2>
-
-                <div className="space-y-6">
-                    {agenda.map((item, i) => (
-                        <div key={i} className="flex gap-4 items-start">
-                            <div className="flex-shrink-0 w-16 text-right">
-                                <span className="font-['Press_Start_2P'] text-xs text-green-600">{item.time}</span>
-                            </div>
-                            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-xl">
-                                {item.icon}
-                            </div>
-                            <div className="flex-1 pb-6 border-b border-gray-100 last:border-0">
-                                <h3 className="font-semibold text-gray-800 mb-1">{item.title}</h3>
-                                <p className="text-sm text-gray-600">{item.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Tools explanation */}
-                <div className="mt-12">
-                    <h3 className="font-['Press_Start_2P'] text-base text-green-700 mb-6 text-center">
-                        {t('kids.toolsTitle')}
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {tools.map((tool, i) => (
-                            <div key={i} className="bg-gray-50 rounded-lg p-5 border-2 border-gray-100">
-                                {tool.url ? (
-                                    <a href={tool.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-green-700 hover:text-green-800 underline mb-2 block">
-                                        {tool.name}
-                                    </a>
-                                ) : (
-                                    <h4 className="font-semibold text-gray-800 mb-2">{tool.name}</h4>
-                                )}
-                                <p className="text-sm text-gray-600">{tool.description}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Requirements */}
-                <div className="mt-10 bg-gray-50 rounded-lg p-4 text-sm text-center">
-                    <span className="font-semibold text-gray-700">{t('kids.requirementsTitle')}:</span>{' '}
-                    <span className="text-gray-600">{t('kids.requirementsText')}</span>
-                </div>
-
-                {/* Parent footnote */}
-                <p className="mt-6 text-xs text-gray-500 text-center italic">
-                    {t('kids.parentNote')}
-                </p>
-            </section>
-
-            {/* What you'll create Section */}
-            <section className="bg-gray-50 py-16">
-                <div className="max-w-[900px] mx-auto px-4">
-                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-6 text-center">
-                        {t('kids.whatYoullCreateTitle')}
-                    </h2>
-                    <p className="text-center text-gray-600 mb-8">
-                        {t('kids.whatYoullCreateDescription')}
-                    </p>
-
-                    {/* Placeholder images grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="bg-gray-200 rounded-lg aspect-square flex items-center justify-center border-2 border-gray-300">
-                                <div className="text-center px-4">
-                                    <div className="text-4xl mb-2">🎮</div>
-                                    <p className="text-sm text-gray-500 font-medium">
-                                        {t('kids.examplePlaceholder')}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Your result */}
-                    <div className="flex flex-col md:flex-row items-center gap-8 bg-white rounded-lg p-6 border-2 border-green-100">
-                        <div className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-green-600 to-green-800 rounded-lg flex items-center justify-center shadow-[4px_4px_0_#1f4e3d] p-4">
-                            <img src={logo} alt="Block" className="h-full w-full object-contain brightness-0 invert" />
-                        </div>
-                        <div className="flex-1 text-center md:text-left">
-                            <h3 className="font-['Press_Start_2P'] text-base text-green-700 mb-3">
-                                {t('kids.result.title')}
-                            </h3>
-                            <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: t('kids.result.description') }} />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* For Parents Section */}
             <section className="py-16 bg-white">
                 <div className="max-w-[900px] mx-auto px-4">
                     <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center">
                         {t('kids.forParentsTitle')}
                     </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-3 gap-6">
                         <div className="bg-green-50 rounded-lg p-6 border-2 border-green-100">
                             <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
                                 <span>👥</span> {forParents.supervisionTitle}
@@ -264,12 +339,6 @@ function KidsPage() {
                             </h3>
                             <p className="text-sm text-gray-700">{forParents.pickupText}</p>
                         </div>
-                        <div className="bg-green-50 rounded-lg p-6 border-2 border-green-100">
-                            <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
-                                <span>🎒</span> {forParents.bringTitle}
-                            </h3>
-                            <p className="text-sm text-gray-700">{forParents.bringText}</p>
-                        </div>
                     </div>
                     <div className="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-6 text-center">
                         <h3 className="font-semibold text-yellow-900 mb-2 flex items-center justify-center gap-2">
@@ -280,7 +349,7 @@ function KidsPage() {
                 </div>
             </section>
 
-            {/* Why Havelland Tech Section */}
+            {/* Mission Section */}
             <section className="bg-green-700 text-white py-16">
                 <div className="max-w-[900px] mx-auto px-4 text-center">
                     <h3 className="font-semibold text-lg mb-4 opacity-90">
@@ -295,7 +364,7 @@ function KidsPage() {
                 </div>
             </section>
 
-            {/* Simple Footer */}
+            {/* Footer */}
             <footer className="py-8 text-center">
                 <div className="space-y-4">
                     <p className="text-sm text-gray-600">
