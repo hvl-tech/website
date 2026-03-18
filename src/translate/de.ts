@@ -93,7 +93,7 @@ const de = {
         tagline: 'Zwei Workshops – ein Event!',
         description: 'Lernen durch Spielen & Basteln. Wir bieten zwei spannende Workshops für verschiedene Altersgruppen an – ob Elektronik oder Minecraft, hier ist für jeden was dabei!',
         date: 'Sonntag, 19. April 2026',
-        time: '10:00 – 13:00 Uhr',
+        time: '10:00 – 13:00 Uhr (Einlass ab 9:45)',
         location: 'Kulturhaus „J. R. Becher"',
         locationDetail: 'Havelländer Weg 67, Falkensee · 1. OG',
         language: 'Wir sprechen Deutsch & Englisch',
@@ -106,6 +106,7 @@ const de = {
           icon: '⚡',
           title: 'Elektronik-Basteln',
           age: 'ab 6 Jahren',
+          spots: 'max. 15 Plätze',
           description: 'Baue leuchtende Schaltkreise aus Papier, LEDs und Knopfbatterien – mit deinen eigenen Händen!',
           highlights: [
             'LEDs zum Leuchten bringen',
@@ -118,33 +119,61 @@ const de = {
           icon: '⛏',
           title: 'Minecraft Modding',
           age: 'ab 10 Jahren',
-          description: 'Gestalte deinen eigenen Block in Blockbench, importiere ihn in Minecraft und spiele ihn mit allen zusammen!',
+          spots: 'max. 10 Plätze',
+          description: 'Gestalte eigene Items in Blockbench — einen Baublock, eine Waffe und ein Nahrungsmittel — importiere sie in Minecraft und spiele mit allen zusammen!',
           steps: [
             { icon: '🎨', label: 'Block designen' },
             { icon: '💻', label: 'In MC importieren' },
             { icon: '🎮', label: 'Zusammen spielen!' }
           ],
-          bring: 'Mitbringen: Laptop (aufgeladen), Minecraft Java Edition (installiert & eingeloggt)'
+          bring: 'Mitbringen: Laptop mit Ladegerät (Windows, Mac oder Linux — keine Tablets/Chromebooks). Bitte stellt sicher, dass euer Kind sich selbst in Minecraft einloggen kann.',
+          prepTitle: 'Bitte vor dem Event installieren:',
+          prep: [
+            { name: 'Minecraft Java Edition', detail: 'Nicht die Bedrock/Microsoft Store Version — Download von minecraft.net', link: 'https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc' },
+            { name: 'IntelliJ IDEA Community Edition', detail: 'Die kostenlose Version — Download von JetBrains', link: 'https://www.jetbrains.com/idea/download/' }
+          ]
         },
 
         // Supervisors
         supervisorsTitle: 'Wer betreut?',
         supervisors: [
           { name: 'Dana Hlavacova', role: 'Event-Betreuung' },
-          { name: 'Martin Hlavac', role: 'Event-Betreuung' }
+          { name: 'Martin Hlavac', role: 'Event-Betreuung' },
+          { name: 'Jonas Benn', role: 'Event-Betreuung' }
         ],
 
         // For Parents section
         forParentsTitle: 'Informationen für Eltern',
         forParents: {
+          stayTitle: 'Eltern, bleibt & genießt!',
+          stayText: 'Wir bitten alle Eltern, während des Events im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe, falls euer Kind euch braucht.',
           supervisionTitle: 'Betreuung',
-          supervisionText: 'Dana Hlavacova und Martin Hlavac betreuen die Veranstaltung und stehen während des gesamten Events als Ansprechpartner zur Verfügung.',
+          supervisionText: 'Dana Hlavacova, Martin Hlavac und Jonas Benn betreuen die Veranstaltung und stehen während des gesamten Events als Ansprechpartner zur Verfügung.',
           safetyTitle: 'Sicherheit',
           safetyText: 'Die Kinder bleiben während der gesamten Veranstaltung im Kulturhaus. Wir arbeiten in einem geschützten, überwachten Raum.',
-          pickupTitle: 'Abholung',
-          pickupText: 'Bitte holen Sie Ihre Kinder pünktlich um 13:00 Uhr ab. Das Event endet genau zu dieser Zeit.',
+          pickupTitle: 'Event-Ende',
+          pickupText: 'Das Event endet um 13:00 Uhr. Bitte seid pünktlich — wir schließen gemeinsam mit einer kurzen Präsentation ab, was die Kinder gebaut haben!',
           emergencyTitle: 'Notfallkontakt',
-          emergencyText: 'Für Notfälle während der Veranstaltung: meetup@hvltech.de oder telefonisch vor Ort beim Check-in'
+          emergencyText: 'Für Notfälle während der Veranstaltung: meetup@hvltech.de oder telefonisch vor Ort beim Check-in',
+          photosTitle: 'Fotos',
+          photosText: 'Wir machen ggf. Fotos während des Events für unsere Website. Fotos werden nur mit eurem Einverständnis veröffentlicht und es werden keine Gesichter online geteilt.'
+        },
+
+        // Registration
+        registrationTitle: 'So meldest du dich an',
+        registrationSteps: [
+          'Sende uns eine E-Mail mit dem Anmeldeformular (Link unten)',
+          'Du erhältst innerhalb weniger Tage eine Bestätigung',
+          'Falls der Workshop voll ist, setzen wir dich auf die Warteliste'
+        ],
+        registrationFormNote: 'Bitte lade das Anmeldeformular herunter, fülle es aus und hänge es an deine E-Mail an.',
+        registrationFormLink: 'Anmeldeformular herunterladen',
+
+        // Cooperation
+        cooperation: {
+          title: 'In Kooperation mit ❤️',
+          description: 'Diese Veranstaltung wird in Zusammenarbeit mit dem Förderverein Kulturhaus „Johannes R. Becher" e.V. organisiert. Wir freuen uns sehr, gemeinsam Technik-Bildung für Kinder in Falkensee möglich zu machen. Schaut euch ihre Veranstaltungen und Aktivitäten an!',
+          link: 'Kulturhaus Falkensee'
         },
 
         // Mission

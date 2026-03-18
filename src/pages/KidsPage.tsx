@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../assets/logo/logo_no_text.svg";
+import heroImg from "../assets/kids-hero.jpg";
 
 interface GalleryItem {
     src: string;
@@ -133,7 +134,17 @@ function KidsPage() {
         label: string;
     }>;
 
+    const track2Prep = t('kids.track2.prep', { returnObjects: true }) as Array<{
+        name: string;
+        detail: string;
+        link: string;
+    }>;
+
+    const registrationSteps = t('kids.registrationSteps', { returnObjects: true }) as string[];
+
     const forParents = t('kids.forParents', { returnObjects: true }) as {
+        stayTitle: string;
+        stayText: string;
         supervisionTitle: string;
         supervisionText: string;
         safetyTitle: string;
@@ -142,6 +153,8 @@ function KidsPage() {
         pickupText: string;
         emergencyTitle: string;
         emergencyText: string;
+        photosTitle: string;
+        photosText: string;
     };
 
     return (
@@ -155,64 +168,62 @@ function KidsPage() {
             </Link>
 
             {/* Hero Section */}
-            <section className="min-h-[70vh] bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white flex flex-col items-center justify-center px-4 py-12 relative">
-                {/* Decorative pixels */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none">
-                    <div className="absolute top-10 left-10 w-8 h-8 bg-white"></div>
-                    <div className="absolute top-20 right-20 w-4 h-4 bg-white"></div>
-                    <div className="absolute bottom-32 left-1/4 w-6 h-6 bg-white"></div>
-                    <div className="absolute top-1/3 right-10 w-3 h-3 bg-white"></div>
-                    <div className="absolute bottom-20 right-1/3 w-5 h-5 bg-white"></div>
+            <section className="min-h-[70vh] text-white flex items-center px-4 py-12 relative overflow-hidden">
+                {/* Background image */}
+                <div className="absolute inset-0">
+                    <img src={heroImg} alt="" className="w-full h-full object-cover object-center" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 via-green-800/75 to-green-900/40"></div>
                 </div>
 
-                <img src={logo} alt="HVLtech Logo" className="h-16 md:h-20 mb-4 brightness-0 invert" />
+                {/* Content – left-aligned */}
+                <div className="relative z-10 max-w-[1000px] mx-auto w-full">
+                    <div className="max-w-lg">
+                        <img src={logo} alt="HVLtech Logo" className="h-14 md:h-18 mb-4 brightness-0 invert drop-shadow-lg" />
 
-                <h1 className="font-['Press_Start_2P'] text-2xl md:text-3xl lg:text-4xl text-center mb-3 leading-relaxed drop-shadow-lg">
-                    {t('kids.title')}
-                </h1>
+                        <h1 className="font-['Press_Start_2P'] text-2xl md:text-3xl lg:text-4xl mb-3 leading-relaxed [text-shadow:_2px_2px_0_#0d1b21,_4px_4px_0_#0d1b21]">
+                            {t('kids.title')}
+                        </h1>
 
-                <p className="text-lg md:text-xl font-semibold mb-1 text-center text-green-100">
-                    {t('kids.tagline')}
-                </p>
+                        <p className="text-lg md:text-xl font-semibold mb-1 text-green-100 [text-shadow:_1px_1px_0_#0d1b21]">
+                            {t('kids.tagline')}
+                        </p>
 
-                <div className="max-w-2xl mx-auto mb-6 text-center">
-                    <p className="text-base md:text-lg text-white/95 leading-relaxed">
-                        {t('kids.description')}
-                    </p>
+                        <p className="text-base md:text-lg text-white/95 leading-relaxed mb-6 [text-shadow:_1px_1px_0_rgba(0,0,0,0.5)]">
+                            {t('kids.description')}
+                        </p>
+
+                        {/* Event Info */}
+                        <div className="mb-6 space-y-1">
+                            <p className="text-xl md:text-2xl font-bold [text-shadow:_1px_1px_0_#0d1b21]">
+                                {t('kids.date')}
+                            </p>
+                            <p className="text-lg opacity-90">
+                                {t('kids.time')}
+                            </p>
+                            <p className="text-base opacity-80">
+                                {t('kids.location')} · {t('kids.locationDetail')}
+                            </p>
+                        </div>
+
+                        {/* CTA */}
+                        <a
+                            href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung&body=Hallo%20HVLtech-Team%2C%0A%0Aich%20m%C3%B6chte%20mein%20Kind%20f%C3%BCr%20die%20Kids%20Labs%20am%2019.04.2026%20anmelden.%0A%0AName%20des%20Kindes%3A%20%0AAlter%3A%20%0AWorkshop%3A%20%5BElektronik%20%2F%20Minecraft%5D%0AName%20Elternteil%3A%20%0ATelefon%3A%20%0A%0ADas%20ausgef%C3%BCllte%20Anmeldeformular%20ist%20angeh%C3%A4ngt.%0A%0AViele%20Gr%C3%BC%C3%9Fe"
+                            className="inline-flex font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-3 mb-4"
+                        >
+                            <MailOutlineIcon /> {t('kids.cta')}
+                        </a>
+
+                        <p className="text-sm opacity-90 mb-4">
+                            {t('kids.language')}
+                        </p>
+
+                        <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 inline-block">
+                            <span className="font-['Press_Start_2P'] text-xs text-green-300">{t('kids.free')}</span>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Event Info */}
-                <div className="text-center mb-6 space-y-1">
-                    <p className="text-xl md:text-2xl font-bold">
-                        {t('kids.date')}
-                    </p>
-                    <p className="text-lg opacity-90">
-                        {t('kids.time')}
-                    </p>
-                    <p className="text-base opacity-80">
-                        {t('kids.location')} · {t('kids.locationDetail')}
-                    </p>
-                </div>
-
-                {/* CTA */}
-                <a
-                    href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
-                    className="font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline flex items-center gap-3 mb-4"
-                >
-                    <MailOutlineIcon /> {t('kids.cta')}
-                </a>
-
-                <p className="text-sm opacity-90 text-center mb-4">
-                    {t('kids.language')}
-                </p>
-
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 max-w-lg">
-                    <p className="text-sm text-green-100 text-center">
-                        <span className="font-['Press_Start_2P'] text-xs text-green-300">{t('kids.free')}</span>
-                    </p>
-                </div>
-
-                <div className="absolute bottom-8 animate-bounce">
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
                     <svg className="w-6 h-6 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -221,7 +232,7 @@ function KidsPage() {
 
             {/* Tracks Section */}
             <section className="py-16">
-                <div className="max-w-[1000px] mx-auto px-4">
+                <div className="max-w-[1100px] mx-auto px-4">
                     <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-10 text-center">
                         {t('kids.tracksTitle')}
                     </h2>
@@ -229,11 +240,14 @@ function KidsPage() {
                     <div className="grid md:grid-cols-2 gap-8">
                         {/* Track 1: Electronics */}
                         <div className="border-3 border-green-200 rounded-xl overflow-hidden">
-                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200 flex items-center justify-between">
-                                <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
-                                    <span className="text-xl">{t('kids.track1.icon')}</span> {t('kids.track1.title')}
-                                </h3>
-                                <span className="text-sm text-gray-500 font-medium">{t('kids.track1.age')}</span>
+                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
+                                        <span className="text-xl">{t('kids.track1.icon')}</span> {t('kids.track1.title')}
+                                    </h3>
+                                    <span className="text-sm text-gray-500 font-medium">{t('kids.track1.age')}</span>
+                                </div>
+                                <span className="text-xs text-green-600 font-semibold">{t('kids.track1.spots')}</span>
                             </div>
                             <div className="p-6 space-y-4">
                                 <p className="text-gray-700 leading-relaxed">
@@ -257,11 +271,14 @@ function KidsPage() {
 
                         {/* Track 2: Minecraft */}
                         <div className="border-3 border-green-200 rounded-xl overflow-hidden">
-                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200 flex items-center justify-between">
-                                <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
-                                    <span className="text-xl">{t('kids.track2.icon')}</span> {t('kids.track2.title')}
-                                </h3>
-                                <span className="text-sm text-gray-500 font-medium">{t('kids.track2.age')}</span>
+                            <div className="bg-green-50 px-6 py-4 border-b-2 border-green-200">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="font-['Press_Start_2P'] text-sm md:text-base text-green-700 flex items-center gap-2">
+                                        <span className="text-xl">{t('kids.track2.icon')}</span> {t('kids.track2.title')}
+                                    </h3>
+                                    <span className="text-sm text-gray-500 font-medium">{t('kids.track2.age')}</span>
+                                </div>
+                                <span className="text-xs text-green-600 font-semibold">{t('kids.track2.spots')}</span>
                             </div>
                             <div className="p-6 space-y-4">
                                 <p className="text-gray-700 leading-relaxed">
@@ -287,6 +304,18 @@ function KidsPage() {
                                 </div>
                                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 font-medium">
                                     {t('kids.track2.bring')}
+                                </div>
+                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <p className="text-sm font-semibold text-blue-800 mb-2">{t('kids.track2.prepTitle')}</p>
+                                    <ul className="space-y-2">
+                                        {track2Prep.map((item, i) => (
+                                            <li key={i} className="text-sm text-blue-700">
+                                                <a href={item.link} target="_blank" rel="noopener noreferrer" className="font-semibold underline hover:text-blue-900">{item.name}</a>
+                                                <br />
+                                                <span className="text-xs text-blue-600">{item.detail}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -314,30 +343,75 @@ function KidsPage() {
                 </div>
             </section>
 
-            {/* For Parents Section */}
+            {/* Registration Section */}
             <section className="py-16 bg-white">
                 <div className="max-w-[900px] mx-auto px-4">
                     <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center">
+                        {t('kids.registrationTitle')}
+                    </h2>
+                    <div className="max-w-xl mx-auto space-y-4 mb-8">
+                        {registrationSteps.map((step, i) => (
+                            <div key={i} className="flex items-start gap-4">
+                                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-['Press_Start_2P'] text-xs flex-shrink-0">
+                                    {i + 1}
+                                </div>
+                                <p className="text-gray-700 pt-1">{step}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="text-center space-y-4">
+                        <p className="text-sm text-gray-600">{t('kids.registrationFormNote')}</p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a
+                                href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung&body=Hallo%20HVLtech-Team%2C%0A%0Aich%20m%C3%B6chte%20mein%20Kind%20f%C3%BCr%20die%20Kids%20Labs%20am%2019.04.2026%20anmelden.%0A%0AName%20des%20Kindes%3A%20%0AAlter%3A%20%0AWorkshop%3A%20%5BElektronik%20%2F%20Minecraft%5D%0AName%20Elternteil%3A%20%0ATelefon%3A%20%0A%0ADas%20ausgef%C3%BCllte%20Anmeldeformular%20ist%20angeh%C3%A4ngt.%0A%0AViele%20Gr%C3%BC%C3%9Fe"
+                                className="inline-flex font-['Press_Start_2P'] text-xs bg-green-600 text-white border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
+                            >
+                                <MailOutlineIcon fontSize="small" /> {t('kids.cta')}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* For Parents Section */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-[1100px] mx-auto px-4">
+                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center">
                         {t('kids.forParentsTitle')}
                     </h2>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        <div className="bg-green-50 rounded-lg p-6 border-2 border-green-100">
+
+                    {/* Parents stay - highlighted */}
+                    <div className="mb-8 bg-green-100 border-3 border-green-300 rounded-xl p-6">
+                        <h3 className="font-['Press_Start_2P'] text-sm text-green-800 mb-3 flex items-center gap-2">
+                            <span>☕</span> {forParents.stayTitle}
+                        </h3>
+                        <p className="text-gray-700 leading-relaxed">{forParents.stayText}</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="bg-white rounded-lg p-6 border-2 border-green-100">
                             <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
                                 <span>👥</span> {forParents.supervisionTitle}
                             </h3>
                             <p className="text-sm text-gray-700">{forParents.supervisionText}</p>
                         </div>
-                        <div className="bg-green-50 rounded-lg p-6 border-2 border-green-100">
+                        <div className="bg-white rounded-lg p-6 border-2 border-green-100">
                             <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
                                 <span>🛡️</span> {forParents.safetyTitle}
                             </h3>
                             <p className="text-sm text-gray-700">{forParents.safetyText}</p>
                         </div>
-                        <div className="bg-green-50 rounded-lg p-6 border-2 border-green-100">
+                        <div className="bg-white rounded-lg p-6 border-2 border-green-100">
                             <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
-                                <span>🚗</span> {forParents.pickupTitle}
+                                <span>🕐</span> {forParents.pickupTitle}
                             </h3>
                             <p className="text-sm text-gray-700">{forParents.pickupText}</p>
+                        </div>
+                        <div className="bg-white rounded-lg p-6 border-2 border-green-100">
+                            <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
+                                <span>📷</span> {forParents.photosTitle}
+                            </h3>
+                            <p className="text-sm text-gray-700">{forParents.photosText}</p>
                         </div>
                     </div>
                     <div className="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-6 text-center">
@@ -346,6 +420,26 @@ function KidsPage() {
                         </h3>
                         <p className="text-sm text-yellow-800">{forParents.emergencyText}</p>
                     </div>
+                </div>
+            </section>
+
+            {/* Cooperation with Kulturhaus */}
+            <section className="py-12 bg-gray-50">
+                <div className="max-w-[900px] mx-auto px-4 text-center">
+                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-6">
+                        {t('kids.cooperation.title')}
+                    </h2>
+                    <p className="text-gray-700 leading-relaxed max-w-2xl mx-auto mb-6">
+                        {t('kids.cooperation.description')}
+                    </p>
+                    <a
+                        href="http://www.fv-kulturhaus-jrbecher.de/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
+                    >
+                        {t('kids.cooperation.link')} →
+                    </a>
                 </div>
             </section>
 
