@@ -87,6 +87,77 @@ const de = {
     },
       gallery: {
         highline: 'Gallery'},
+      kids: {
+        // Hero
+        title: 'KIDS LABS',
+        tagline: 'Zwei Workshops – ein Event!',
+        description: 'Lernen durch Spielen & Basteln. Wir bieten zwei spannende Workshops für verschiedene Altersgruppen an – ob Elektronik oder Minecraft, hier ist für jeden was dabei!',
+        date: 'Sonntag, 19. April 2026',
+        time: '10:00 – 13:00 Uhr',
+        location: 'Kulturhaus „J. R. Becher"',
+        locationDetail: 'Havelländer Weg 67, Falkensee · 1. OG',
+        language: 'Wir sprechen Deutsch & Englisch',
+        cta: 'Jetzt anmelden',
+        free: '★ KOSTENLOS ★',
+
+        // Tracks
+        tracksTitle: 'Unsere Workshops',
+        track1: {
+          icon: '⚡',
+          title: 'Elektronik-Basteln',
+          age: 'ab 6 Jahren',
+          description: 'Baue leuchtende Schaltkreise aus Papier, LEDs und Knopfbatterien – mit deinen eigenen Händen!',
+          highlights: [
+            'LEDs zum Leuchten bringen',
+            'Schaltkreise auf Papier bauen',
+            'Knopfbatterie als Stromquelle nutzen'
+          ],
+          bring: 'Alles Material ist vor Ort – einfach kommen und losbasteln!'
+        },
+        track2: {
+          icon: '⛏',
+          title: 'Minecraft Modding',
+          age: 'ab 10 Jahren',
+          description: 'Gestalte deinen eigenen Block in Blockbench, importiere ihn in Minecraft und spiele ihn mit allen zusammen!',
+          steps: [
+            { icon: '🎨', label: 'Block designen' },
+            { icon: '💻', label: 'In MC importieren' },
+            { icon: '🎮', label: 'Zusammen spielen!' }
+          ],
+          bring: 'Mitbringen: Laptop (aufgeladen), Minecraft Java Edition (installiert & eingeloggt)'
+        },
+
+        // Supervisors
+        supervisorsTitle: 'Wer betreut?',
+        supervisors: [
+          { name: 'Dana Hlavacova', role: 'Event-Betreuung' },
+          { name: 'Martin Hlavac', role: 'Event-Betreuung' }
+        ],
+
+        // For Parents section
+        forParentsTitle: 'Informationen für Eltern',
+        forParents: {
+          supervisionTitle: 'Betreuung',
+          supervisionText: 'Dana Hlavacova und Martin Hlavac betreuen die Veranstaltung und stehen während des gesamten Events als Ansprechpartner zur Verfügung.',
+          safetyTitle: 'Sicherheit',
+          safetyText: 'Die Kinder bleiben während der gesamten Veranstaltung im Kulturhaus. Wir arbeiten in einem geschützten, überwachten Raum.',
+          pickupTitle: 'Abholung',
+          pickupText: 'Bitte holen Sie Ihre Kinder pünktlich um 13:00 Uhr ab. Das Event endet genau zu dieser Zeit.',
+          emergencyTitle: 'Notfallkontakt',
+          emergencyText: 'Für Notfälle während der Veranstaltung: meetup@hvltech.de oder telefonisch vor Ort beim Check-in'
+        },
+
+        // Mission
+        mission: {
+          title: 'Warum Havelland Tech?',
+          description: 'Wir glauben: Technik-Wissen gehört nicht nur in die Großstadt. Das Havelland hat kluge Köpfe – und die sollen früh lernen, wie man mit Code die Welt verändert.',
+          slogan: 'Hack your Birne. Build your Future.'
+        },
+
+        // Footer
+        footerContact: 'Fragen',
+        backToMain: 'Zurück zur Hauptseite'
+      }
   }
 };
 
