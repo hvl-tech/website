@@ -122,11 +122,6 @@ function KidsPage() {
         window.scrollTo(0, 0);
     }, []);
 
-    const supervisors = t('kids.supervisors', { returnObjects: true }) as Array<{
-        name: string;
-        role: string;
-    }>;
-
     const track1Highlights = t('kids.track1.highlights', { returnObjects: true }) as string[];
 
     const track2Steps = t('kids.track2.steps', { returnObjects: true }) as Array<{
@@ -207,7 +202,7 @@ function KidsPage() {
 
                         {/* CTA */}
                         <a
-                            href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung&body=Hallo%20HVLtech-Team%2C%0A%0Aich%20m%C3%B6chte%20mein%20Kind%20f%C3%BCr%20die%20Kids%20Labs%20am%2019.04.2026%20anmelden.%0A%0AName%20des%20Kindes%3A%20%0AAlter%3A%20%0AWorkshop%3A%20%5BElektronik%20%2F%20Minecraft%5D%0AName%20Elternteil%3A%20%0ATelefon%3A%20%0A%0ADas%20ausgef%C3%BCllte%20Anmeldeformular%20ist%20angeh%C3%A4ngt.%0A%0AViele%20Gr%C3%BC%C3%9Fe"
+                            href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
                             className="inline-flex font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-3 mb-4"
                         >
                             <MailOutlineIcon /> {t('kids.cta')}
@@ -323,26 +318,6 @@ function KidsPage() {
                 </div>
             </section>
 
-            {/* Supervisors Section */}
-            <section className="bg-gray-50 py-12">
-                <div className="max-w-[900px] mx-auto px-4">
-                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-6 text-center">
-                        {t('kids.supervisorsTitle')}
-                    </h2>
-                    <div className="flex flex-wrap justify-center gap-6">
-                        {supervisors.map((supervisor, i) => (
-                            <div key={i} className="bg-white rounded-lg p-6 shadow-md border-2 border-green-100 text-center min-w-[200px]">
-                                <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-3 flex items-center justify-center">
-                                    <span className="text-2xl">👤</span>
-                                </div>
-                                <h3 className="font-semibold text-gray-800 mb-1">{supervisor.name}</h3>
-                                <p className="text-sm text-gray-600">{supervisor.role}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Registration Section */}
             <section className="py-16 bg-white">
                 <div className="max-w-[900px] mx-auto px-4">
@@ -363,7 +338,7 @@ function KidsPage() {
                         <p className="text-sm text-gray-600">{t('kids.registrationFormNote')}</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
-                                href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung&body=Hallo%20HVLtech-Team%2C%0A%0Aich%20m%C3%B6chte%20mein%20Kind%20f%C3%BCr%20die%20Kids%20Labs%20am%2019.04.2026%20anmelden.%0A%0AName%20des%20Kindes%3A%20%0AAlter%3A%20%0AWorkshop%3A%20%5BElektronik%20%2F%20Minecraft%5D%0AName%20Elternteil%3A%20%0ATelefon%3A%20%0A%0ADas%20ausgef%C3%BCllte%20Anmeldeformular%20ist%20angeh%C3%A4ngt.%0A%0AViele%20Gr%C3%BC%C3%9Fe"
+                                href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
                                 className="inline-flex font-['Press_Start_2P'] text-xs bg-green-600 text-white border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
                             >
                                 <MailOutlineIcon fontSize="small" /> {t('kids.cta')}
