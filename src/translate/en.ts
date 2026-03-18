@@ -92,7 +92,7 @@ const en = {
         tagline: 'Two Workshops – One Event!',
         description: 'Learning through playing & making. We offer two exciting workshops for different age groups – whether electronics or Minecraft, there\'s something for everyone!',
         date: 'Sunday, April 19, 2026',
-        time: '10:00 AM – 1:00 PM',
+        time: '10:00 AM – 1:00 PM (doors open 9:45)',
         location: 'Kulturhaus "J. R. Becher"',
         locationDetail: 'Havelländer Weg 67, Falkensee · 1st floor',
         language: 'We speak German & English',
@@ -105,6 +105,7 @@ const en = {
           icon: '⚡',
           title: 'Electronics Workshop',
           age: 'ages 6+',
+          spots: 'max. 15 spots',
           description: 'Build glowing circuits from paper, LEDs and coin batteries – with your own hands!',
           highlights: [
             'Make LEDs light up',
@@ -117,33 +118,61 @@ const en = {
           icon: '⛏',
           title: 'Minecraft Modding',
           age: 'ages 10+',
-          description: 'Design your own block in Blockbench, import it into Minecraft and play together with everyone!',
+          spots: 'max. 10 spots',
+          description: 'Design your own items in Blockbench — a building block, a weapon, and a food item — then import them into Minecraft and play together!',
           steps: [
             { icon: '🎨', label: 'Design block' },
             { icon: '💻', label: 'Import into MC' },
             { icon: '🎮', label: 'Play together!' }
           ],
-          bring: 'Bring: Laptop (charged), Minecraft Java Edition (installed & logged in)'
+          bring: 'Bring: Laptop with charger (Windows, Mac or Linux — not tablets/Chromebooks). Please make sure your child can log in to Minecraft without help.',
+          prepTitle: 'Please install before the event:',
+          prep: [
+            { name: 'Minecraft Java Edition', detail: 'Not Bedrock/Microsoft Store version — download from minecraft.net', link: 'https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc' },
+            { name: 'IntelliJ IDEA Community Edition', detail: 'The free version — download from JetBrains', link: 'https://www.jetbrains.com/idea/download/' }
+          ]
         },
 
         // Supervisors
         supervisorsTitle: 'Who supervises?',
         supervisors: [
           { name: 'Dana Hlavacova', role: 'Event Supervisor' },
-          { name: 'Martin Hlavac', role: 'Event Supervisor' }
+          { name: 'Martin Hlavac', role: 'Event Supervisor' },
+          { name: 'Jonas Benn', role: 'Event Supervisor' }
         ],
 
         // For Parents section
         forParentsTitle: 'Information for Parents',
         forParents: {
+          stayTitle: 'Parents, stay & enjoy!',
+          stayText: 'We ask all parents to stay at the Kulturhaus during the event. Grab a coffee, meet other parents, and be close by if your child needs you.',
           supervisionTitle: 'Supervision',
-          supervisionText: 'Dana Hlavacova and Martin Hlavac supervise the event and are available throughout as contact persons.',
+          supervisionText: 'Dana Hlavacova, Martin Hlavac and Jonas Benn supervise the event and are available throughout as contact persons.',
           safetyTitle: 'Safety',
           safetyText: 'Children remain in the Kulturhaus throughout the entire event. We work in a protected, supervised space.',
-          pickupTitle: 'Pickup',
-          pickupText: 'Please pick up your children promptly at 1:00 PM. The event ends exactly at this time.',
+          pickupTitle: 'End of Event',
+          pickupText: 'The event ends at 1:00 PM. Please be on time — we wrap up together with a short showcase of what the kids built!',
           emergencyTitle: 'Emergency Contact',
-          emergencyText: 'For emergencies during the event: meetup@hvltech.de or by phone on-site at check-in'
+          emergencyText: 'For emergencies during the event: meetup@hvltech.de or by phone on-site at check-in',
+          photosTitle: 'Photos',
+          photosText: 'We may take photos during the event for our website. Photos are only published with your consent and no faces will be shared online.'
+        },
+
+        // Registration
+        registrationTitle: 'How to register',
+        registrationSteps: [
+          'Send us an email with the registration form (linked below)',
+          'You will receive a confirmation within a few days',
+          'If the workshop is full, we will add you to the waitlist'
+        ],
+        registrationFormNote: 'Please download and fill out the registration form and attach it to your email.',
+        registrationFormLink: 'Download Registration Form',
+
+        // Cooperation
+        cooperation: {
+          title: 'In cooperation with ❤️',
+          description: 'This event is organized in cooperation with the Förderverein Kulturhaus "Johannes R. Becher" e.V. We are proud to partner together to bring tech education to kids in Falkensee. Check out their events and activities!',
+          link: 'Kulturhaus Falkensee'
         },
 
         // Mission
