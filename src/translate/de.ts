@@ -134,21 +134,13 @@ const de = {
           ]
         },
 
-        // Supervisors
-        supervisorsTitle: 'Wer betreut?',
-        supervisors: [
-          { name: 'Dana Hlavacova', role: 'Event-Betreuung' },
-          { name: 'Martin Hlavac', role: 'Event-Betreuung' },
-          { name: 'Jonas Benn', role: 'Event-Betreuung' }
-        ],
-
         // For Parents section
         forParentsTitle: 'Informationen für Eltern',
         forParents: {
           stayTitle: 'Eltern, bleibt & genießt!',
           stayText: 'Wir bitten alle Eltern, während des Events im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe, falls euer Kind euch braucht.',
           supervisionTitle: 'Betreuung',
-          supervisionText: 'Dana Hlavacova, Martin Hlavac und Jonas Benn betreuen die Veranstaltung und stehen während des gesamten Events als Ansprechpartner zur Verfügung.',
+          supervisionText: 'Unser Team betreut die Veranstaltung und steht während des gesamten Events als Ansprechpartner zur Verfügung.',
           safetyTitle: 'Sicherheit',
           safetyText: 'Die Kinder bleiben während der gesamten Veranstaltung im Kulturhaus. Wir arbeiten in einem geschützten, überwachten Raum.',
           pickupTitle: 'Event-Ende',

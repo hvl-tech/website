@@ -133,21 +133,13 @@ const en = {
           ]
         },
 
-        // Supervisors
-        supervisorsTitle: 'Who supervises?',
-        supervisors: [
-          { name: 'Dana Hlavacova', role: 'Event Supervisor' },
-          { name: 'Martin Hlavac', role: 'Event Supervisor' },
-          { name: 'Jonas Benn', role: 'Event Supervisor' }
-        ],
-
         // For Parents section
         forParentsTitle: 'Information for Parents',
         forParents: {
           stayTitle: 'Parents, stay & enjoy!',
           stayText: 'We ask all parents to stay at the Kulturhaus during the event. Grab a coffee, meet other parents, and be close by if your child needs you.',
           supervisionTitle: 'Supervision',
-          supervisionText: 'Dana Hlavacova, Martin Hlavac and Jonas Benn supervise the event and are available throughout as contact persons.',
+          supervisionText: 'Our team supervises the event and is available throughout as contact persons.',
           safetyTitle: 'Safety',
           safetyText: 'Children remain in the Kulturhaus throughout the entire event. We work in a protected, supervised space.',
           pickupTitle: 'End of Event',
