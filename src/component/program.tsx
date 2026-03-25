@@ -1,4 +1,3 @@
-import jonas from '../assets/speakers/jonas_benn.jpeg'
 import { useTranslation } from "react-i18next";
 import BorderedBox from './borderedBox';
 
@@ -19,8 +18,11 @@ type CardProps = {
 
 const Block = ({ nameBlock, time }: BlockProps) => {
     return (
-        <div className="border-4 border-black  shadow-[4px_4px_0px_#000] p-4 lg:w-2/3 w-full  ">
-            <p>{nameBlock} {time}</p>
+        <div className="flex flex-col md:flex-row w-full md:items-center gap-2 md:gap-4">
+            <div className="md:w-20 shrink-0 md:text-right font-bold text-lg">{time}</div>
+            <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-2 md:p-4 flex-1">
+                <p>{nameBlock}</p>
+            </div>
         </div>
     )
 }
@@ -30,38 +32,39 @@ const Card = ({ photo, startTime, name, role, heading, topic }: CardProps) => {
     const initial = name.split(' ').map((name) => name[0].toUpperCase())
 
     return (
-        <BorderedBox className="p-4">
-            <div
-                className="w-full flex lg:flex-row items-center justify-between flex-col">
-
-                <BorderedBox>
-                {photo ? (<div>
-                    <img src={photo} alt={name}
-                        className="w-auto h-auto md:w-40 md:h-auto image-pixelated " />
-                </div>
-                ) : (
-                    <div
-                        className={`
-                                      w-40 h-40
-                                      image-pixelated
-                                      text-white bg-green-700
-                                      lg:text-4xl md:text-3xl text-6xl
-                                      flex items-center justify-center text-center whitespace-pre-line
-                                      font-['Press_Start_2P']
-                                    `}>
-                        {initial}
+        <div className="flex flex-col md:flex-row w-full md:items-start gap-2 md:gap-4">
+            <div className="md:w-20 shrink-0 md:text-right font-bold text-lg md:pt-4">{startTime}</div>
+            <BorderedBox className="p-2 md:p-4 flex-1">
+                <div className="w-full flex md:flex-row items-center gap-2 md:gap-4 flex-col">
+                    <BorderedBox>
+                    {photo ? (<div>
+                        <img src={photo} alt={name}
+                            className="w-auto h-auto md:w-24 md:h-auto image-pixelated " />
                     </div>
-                )}
-                </BorderedBox>
+                    ) : (
+                        <div
+                            className={`
+                                          w-16 h-16 md:w-24 md:h-24
+                                          image-pixelated
+                                          text-white bg-green-700
+                                          text-xl md:text-2xl
+                                          flex items-center justify-center text-center whitespace-pre-line
+                                          font-['Press_Start_2P']
+                                        `}>
+                            {initial}
+                        </div>
+                    )}
+                    </BorderedBox>
 
-                <div className='flex flex-col lg:w-2/3 w-full justify-start items-start'>
-                    <h3 className="md:text-xl m-2">{startTime}</h3>
-                    <p className="font-bold m-2">{name} <span className='text-sm'> {role}</span></p>
-                    <p className=" text-xl m-2"> {heading} </p>
-                    <p className="italic text-sm m-2">{topic}</p>
+                    <div className='flex flex-col lg:w-2/3 w-full justify-start items-start'>
+                        <p className="text-base md:text-lg font-bold m-1 md:m-2">{name}</p>
+                        {role && <p className="text-xs text-gray-500 mx-1 md:mx-2 -mt-1">{role}</p>}
+                        <p className="text-lg md:text-xl font-semibold m-1 md:m-2">{heading}</p>
+                        <p className="italic text-sm m-1 md:m-2">{topic}</p>
+                    </div>
                 </div>
-            </div>
-        </BorderedBox>
+            </BorderedBox>
+        </div>
     )
 }
 
@@ -70,24 +73,20 @@ const Program = () => {
     return (
         <>
             <div
-                className="bg-white gap-2.5 w-full px-8 py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
+                className="bg-white gap-2.5 w-full px-2 md:px-8 py-4 md:py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
                 <h2 className="font-['Press_Start_2P'] font-normal text-sm text-[#00274a]">Program</h2>
                 <div
-                    className="flex flex-col gap-6 justify-center items-center font-mono mt-8 w-full gap-3 max-w-[1120px] ">
+                    className="flex flex-col gap-3 md:gap-6 justify-center items-center font-mono mt-4 md:mt-8 w-full max-w-[1120px]">
 
                     <Block nameBlock={t('program.start')} time={'18:00'} />
 
-                    <Card name={'Martin Pompéry'} startTime={'18:30'} heading={'Introduction to  Garble'}
-                        topic={'Garble is a simple programming language for Multi-Party Computation and is statically typed, low-level, purely functional and uses a Rust-like syntax.'}
-                    />
+                    <Card name={'Libor Tomsik'} role={'SW Engineer at DEUTA-WERKE'} startTime={'18:30'} heading={'Industry panel with Qt, C++, Linux'} />
 
-                    <Block nameBlock={t('program.disscusion')} time={'18:45-19:15'} />
+                    <Block nameBlock={t('program.disscusion')} time={'18:45'} />
 
-                    <Card name={'Jonas Benn'} photo={jonas} startTime={'19:15'}
-                        heading={'The Fediverse'} topic={'Beyond Centralized Social Networks\n' +
-                            'A short introduction to the Fediverse and its underlying protocol ActivityPub'} />
+                    <Card name={'Christian Ermel'} startTime={'19:15'} heading={'Bluesky: Architecture & ActivityPub Comparison'} />
 
-                    <Block nameBlock={t('program.disscusion')} time={'19:30-20:00'} />
+                    <Block nameBlock={t('program.disscusion')} time={'19:30'} />
 
                     <Block nameBlock={t('program.end')} time={'20:00'} />
 
