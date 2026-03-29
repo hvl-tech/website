@@ -65,9 +65,9 @@ export default function Countdown() {
     return (
         <div className="text-center">
             <div className="drop-shadow-[0_0_10px_black] text-white py-2.5 rounded-[5px] flex justify-center items-center w-full max-w-[280px] sm:max-w-[320px] md:max-w-[400px] mx-auto font-['Press_Start_2P'] font-normal">
-                <div className="flex flex-col md:flex-row justify-center items-center w-full gap-2 md:gap-0">
+                <div className="flex flex-row justify-center items-center w-full">
                     {/* Days section */}
-                    <div className="flex justify-center items-center md:pr-10">
+                    <div className="flex justify-center items-center pr-4 sm:pr-6 md:pr-10">
                         <TextWithCaption
                             value={timeLeft.days}
                             label={t('countdown.days')}

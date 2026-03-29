@@ -389,14 +389,9 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
 
       // Update particle physics first
       for (const p of particles) {
-        const dx = p.homeX - p.x;
-        const dy = p.homeY - p.y;
-        p.vx += dx * 0.025;
-        p.vy += dy * 0.025;
-        p.vx *= 0.9;
-        p.vy *= 0.9;
-        p.x += p.vx;
-        p.y += p.vy;
+        // Exponential lerp — converges within ~1 second
+        p.x += (p.homeX - p.x) * 0.12;
+        p.y += (p.homeY - p.y) * 0.12;
       }
 
       // Shadow pass: draw all particles offset in black
