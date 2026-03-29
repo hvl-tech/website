@@ -22,9 +22,8 @@
     "types": ["vite/client", "node"],
 
     /* Path Aliases */
-    "baseUrl": ".",
     "paths": {
-      "@asset/*": ["src/assets/*"]
+      "@asset/*": ["./src/assets/*"]
     }
   },
   "include": ["src"]
