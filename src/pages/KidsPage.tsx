@@ -360,7 +360,7 @@ function KidsPage() {
                                         <p className="text-sm text-gray-600 mt-1" dangerouslySetInnerHTML={{
                                             __html: t('kids.registrationMinecraftFormHint').replace(
                                                 '<a>',
-                                                '<a href="/anmeldung-minecraft.pdf" download class="text-green-700 font-semibold underline hover:text-green-900">'
+                                                '<a href="/labs/anmeldung-minecraft.pdf" download class="text-green-700 font-semibold underline hover:text-green-900">'
                                             )
                                         }} />
                                     )}
