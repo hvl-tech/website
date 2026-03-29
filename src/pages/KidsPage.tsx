@@ -338,6 +338,15 @@ function KidsPage() {
                         <p className="text-sm text-gray-600">{t('kids.registrationFormNote')}</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
+                                href="/anmeldung-minecraft.pdf"
+                                download
+                                className="inline-flex font-['Press_Start_2P'] text-xs bg-white text-green-700 border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
+                            >
+                                <span className="text-base">⛏</span> {t('kids.registrationFormLinkMinecraft')}
+                            </a>
+                        </div>
+                        <div className="mt-4">
+                            <a
                                 href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
                                 className="inline-flex font-['Press_Start_2P'] text-xs bg-green-600 text-white border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
                             >
@@ -442,12 +451,20 @@ function KidsPage() {
                             meetup@hvltech.de
                         </a>
                     </p>
-                    <Link
-                        to="/"
-                        className="inline-block font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-4 py-2 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
-                    >
-                        ← {t('kids.backToMain')}
-                    </Link>
+                    <div className="flex gap-4 justify-center items-center">
+                        <Link
+                            to="/"
+                            className="inline-block font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-4 py-2 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
+                        >
+                            ← {t('kids.backToMain')}
+                        </Link>
+                        <Link
+                            to="/labs/datenschutz"
+                            className="text-sm text-gray-500 hover:text-green-700 underline"
+                        >
+                            {t('datenschutz.title')}
+                        </Link>
+                    </div>
                 </div>
             </footer>
         </div>

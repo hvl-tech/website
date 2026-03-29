@@ -158,8 +158,9 @@ const de = {
           'Du erhältst innerhalb weniger Tage eine Bestätigung',
           'Falls der Workshop voll ist, setzen wir dich auf die Warteliste'
         ],
-        registrationFormNote: 'Bitte lade das Anmeldeformular herunter, fülle es aus und hänge es an deine E-Mail an.',
-        registrationFormLink: 'Anmeldeformular herunterladen',
+        registrationFormNote: 'Bitte lade das Anmeldeformular für deinen Workshop herunter, fülle es aus und hänge es an deine E-Mail an.',
+        registrationFormLinkElectronics: 'Anmeldung: Elektronik (ab 6 J.)',
+        registrationFormLinkMinecraft: 'Anmeldung: Minecraft (ab 10 J.)',
 
         // Cooperation
         cooperation: {
@@ -178,6 +179,54 @@ const de = {
         // Footer
         footerContact: 'Fragen',
         backToMain: 'Zurück zur Hauptseite'
+      },
+
+      datenschutz: {
+        title: 'Datenschutz',
+        responsible: {
+          title: 'Verantwortliche'
+        },
+        whatData: {
+          title: 'Welche Daten erheben wir?',
+          intro: 'Im Rahmen der Workshop-Anmeldung erfassen wir:',
+          childName: 'Name des Kindes',
+          parentName: 'Name des/der Erziehungsberechtigten',
+          phone: 'Telefonnummer (für Erreichbarkeit während des Workshops)'
+        },
+        purpose: {
+          title: 'Zweck der Verarbeitung',
+          text: 'Die Daten werden ausschließlich für die Organisation und Durchführung der HVLtech Kids Labs Workshops verwendet – insbesondere für die Teilnehmerverwaltung und die Kontaktaufnahme im Notfall.'
+        },
+        legalBasis: {
+          title: 'Rechtsgrundlage',
+          text: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen bzw. Vertragsdurchführung).'
+        },
+        recipients: {
+          title: 'Empfänger der Daten',
+          text: 'Die Daten werden ausschließlich von den Veranstaltern (Dana Hlavacova & Martin Hlavac) eingesehen. Eine Weitergabe an Dritte findet nicht statt.'
+        },
+        retention: {
+          title: 'Speicherdauer',
+          text: 'Alle erhobenen Daten werden spätestens 3 Monate nach der Veranstaltung gelöscht bzw. vernichtet.'
+        },
+        rights: {
+          title: 'Ihre Rechte',
+          intro: 'Sie haben jederzeit das Recht auf:',
+          access: 'Auskunft über Ihre gespeicherten Daten',
+          correction: 'Berichtigung unrichtiger Daten',
+          deletion: 'Löschung Ihrer Daten',
+          restriction: 'Einschränkung der Verarbeitung',
+          complaint: 'Beschwerde bei der zuständigen Aufsichtsbehörde'
+        },
+        revocation: {
+          title: 'Widerruf',
+          text: 'Erteilte Einwilligungen können jederzeit ohne Angabe von Gründen widerrufen werden – per E-Mail an meetup@hvltech.de.'
+        },
+        authority: {
+          title: 'Aufsichtsbehörde',
+          text: 'Die Landesbeauftragte für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg.'
+        },
+        lastUpdated: 'Stand'
       }
   }
 };
