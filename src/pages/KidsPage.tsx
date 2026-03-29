@@ -329,8 +329,19 @@ function KidsPage() {
             </section>
 
             {/* Registration Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-[900px] mx-auto px-4">
+            <section className="py-16 bg-white relative overflow-hidden">
+                {flash && (
+                    <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-green-100/60 animate-[ripple_1.5s_ease-out_forwards]" />
+                    </div>
+                )}
+                <style>{`
+                    @keyframes ripple {
+                        0% { width: 0; height: 0; opacity: 0.7; top: 30%; }
+                        100% { width: 200vw; height: 200vw; opacity: 0; top: -60vw; }
+                    }
+                `}</style>
+                <div className="max-w-[900px] mx-auto px-4 relative">
                     <h2
                         ref={registrationRef}
                         className={`font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center transition-all duration-500 ${flash ? 'scale-110 text-green-500' : ''}`}
