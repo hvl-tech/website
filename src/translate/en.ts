@@ -138,8 +138,8 @@ const en = {
         // For Parents section
         forParentsTitle: 'Information for Parents',
         forParents: {
-          stayTitle: 'Parents, stay & enjoy!',
-          stayText: 'We ask all parents to stay at the Kulturhaus during the event. Grab a coffee, meet other parents, and be close by if your child needs you.',
+          stayTitle: 'Parents at the Electronics Workshop',
+          stayText: 'For the Electronics Workshop, we ask all parents to stay at the Kulturhaus during the workshop. Grab a coffee, meet other parents, and be close by. For Minecraft Modding, children can attend without parents.',
           supervisionTitle: 'Supervision',
           supervisionText: 'Our team supervises the event and is available throughout as contact persons.',
           safetyTitle: 'Safety',

@@ -312,6 +312,13 @@ function KidsPage() {
                                         ))}
                                     </ul>
                                 </div>
+                                <a
+                                    href="/anmeldung-minecraft.pdf"
+                                    download
+                                    className="inline-flex text-sm text-green-700 font-semibold underline hover:text-green-900 items-center gap-1"
+                                >
+                                    📄 {t('kids.registrationFormLinkMinecraft')}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -342,15 +349,6 @@ function KidsPage() {
                             <p className="text-sm text-gray-700">
                                 <span className="font-semibold">⛏ </span>{t('kids.registrationMinecraftNote')}
                             </p>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a
-                                href="/anmeldung-minecraft.pdf"
-                                download
-                                className="inline-flex font-['Press_Start_2P'] text-xs bg-white text-green-700 border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
-                            >
-                                <span className="text-base">⛏</span> {t('kids.registrationFormLinkMinecraft')}
-                            </a>
                         </div>
                         <div className="mt-4">
                             <a

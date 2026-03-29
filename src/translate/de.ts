@@ -137,8 +137,8 @@ const de = {
         // For Parents section
         forParentsTitle: 'Informationen für Eltern',
         forParents: {
-          stayTitle: 'Eltern, bleibt & genießt!',
-          stayText: 'Wir bitten alle Eltern, während des Events im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe, falls euer Kind euch braucht.',
+          stayTitle: 'Eltern beim Elektronik-Workshop',
+          stayText: 'Beim Elektronik-Basteln bitten wir alle Eltern, während des Workshops im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe. Beim Minecraft Modding können die Kinder ohne Eltern teilnehmen.',
           supervisionTitle: 'Betreuung',
           supervisionText: 'Unser Team betreut die Veranstaltung und steht während des gesamten Events als Ansprechpartner zur Verfügung.',
           safetyTitle: 'Sicherheit',
