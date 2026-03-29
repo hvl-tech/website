@@ -155,11 +155,12 @@ const en = {
         // Registration
         registrationTitle: 'How to register',
         registrationSteps: [
-          'Send us an email with the registration form (linked below)',
+          'Send us an email to meetup@hvltech.de',
           'You will receive a confirmation within a few days',
           'If the workshop is full, we will add you to the waitlist'
         ],
-        registrationFormNote: 'Please download the registration form for your workshop, fill it out, and attach it to your email.',
+        registrationElectronicsNote: 'Electronics Workshop (ages 6+): A short email with the child\'s name and age is enough. Parents stay on site for the entire workshop.',
+        registrationMinecraftNote: 'Minecraft Modding (ages 10+): Please download the registration form, fill it out, and attach it to your email. Children attend without parents.',
         registrationFormLinkElectronics: 'Registration: Electronics (ages 6+)',
         registrationFormLinkMinecraft: 'Registration: Minecraft (ages 10+)',
 

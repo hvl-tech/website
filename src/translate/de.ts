@@ -154,11 +154,12 @@ const de = {
         // Registration
         registrationTitle: 'So meldest du dich an',
         registrationSteps: [
-          'Sende uns eine E-Mail mit dem Anmeldeformular (Link unten)',
+          'Sende uns eine E-Mail an meetup@hvltech.de',
           'Du erhältst innerhalb weniger Tage eine Bestätigung',
           'Falls der Workshop voll ist, setzen wir dich auf die Warteliste'
         ],
-        registrationFormNote: 'Bitte lade das Anmeldeformular für deinen Workshop herunter, fülle es aus und hänge es an deine E-Mail an.',
+        registrationElectronicsNote: 'Elektronik-Basteln (ab 6 J.): Eine kurze E-Mail mit Name und Alter des Kindes genügt. Eltern bleiben während des gesamten Workshops vor Ort.',
+        registrationMinecraftNote: 'Minecraft Modding (ab 10 J.): Bitte lade das Anmeldeformular herunter, fülle es aus und hänge es an deine E-Mail an. Kinder nehmen ohne Eltern teil.',
         registrationFormLinkElectronics: 'Anmeldung: Elektronik (ab 6 J.)',
         registrationFormLinkMinecraft: 'Anmeldung: Minecraft (ab 10 J.)',
 

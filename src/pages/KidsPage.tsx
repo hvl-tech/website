@@ -335,7 +335,14 @@ function KidsPage() {
                         ))}
                     </div>
                     <div className="text-center space-y-4">
-                        <p className="text-sm text-gray-600">{t('kids.registrationFormNote')}</p>
+                        <div className="max-w-xl mx-auto text-left space-y-3">
+                            <p className="text-sm text-gray-700">
+                                <span className="font-semibold">⚡ </span>{t('kids.registrationElectronicsNote')}
+                            </p>
+                            <p className="text-sm text-gray-700">
+                                <span className="font-semibold">⛏ </span>{t('kids.registrationMinecraftNote')}
+                            </p>
+                        </div>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="/anmeldung-minecraft.pdf"
