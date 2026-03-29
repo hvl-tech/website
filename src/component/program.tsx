@@ -13,7 +13,7 @@ type CardProps = {
     name: string;
     role?: string;
     heading: string;
-    topic: string;
+    topic?: string;
 };
 
 const Block = ({ nameBlock, time }: BlockProps) => {
@@ -60,7 +60,7 @@ const Card = ({ photo, startTime, name, role, heading, topic }: CardProps) => {
                         <p className="text-base md:text-lg font-bold m-1 md:m-2">{name}</p>
                         {role && <p className="text-xs text-gray-500 mx-1 md:mx-2 -mt-1">{role}</p>}
                         <p className="text-lg md:text-xl font-semibold m-1 md:m-2">{heading}</p>
-                        <p className="italic text-sm m-1 md:m-2">{topic}</p>
+                        {topic && <p className="italic text-sm m-1 md:m-2">{topic}</p>}
                     </div>
                 </div>
             </BorderedBox>

@@ -137,8 +137,8 @@ const de = {
         // For Parents section
         forParentsTitle: 'Informationen für Eltern',
         forParents: {
-          stayTitle: 'Eltern, bleibt & genießt!',
-          stayText: 'Wir bitten alle Eltern, während des Events im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe, falls euer Kind euch braucht.',
+          stayTitle: 'Eltern beim Elektronik-Workshop',
+          stayText: 'Beim Elektronik-Basteln bitten wir alle Eltern, während des Workshops im Kulturhaus zu bleiben. Holt euch einen Kaffee, lernt andere Eltern kennen und seid in der Nähe. Beim Minecraft Modding können die Kinder ohne Eltern teilnehmen.',
           supervisionTitle: 'Betreuung',
           supervisionText: 'Unser Team betreut die Veranstaltung und steht während des gesamten Events als Ansprechpartner zur Verfügung.',
           safetyTitle: 'Sicherheit',
@@ -154,12 +154,12 @@ const de = {
         // Registration
         registrationTitle: 'So meldest du dich an',
         registrationSteps: [
-          'Sende uns eine E-Mail mit dem Anmeldeformular (Link unten)',
+          'Sende uns eine E-Mail an meetup@hvltech.de – sag uns, wie viele Kinder ihr mitbringt und für welchen Workshop.',
           'Du erhältst innerhalb weniger Tage eine Bestätigung',
           'Falls der Workshop voll ist, setzen wir dich auf die Warteliste'
         ],
-        registrationFormNote: 'Bitte lade das Anmeldeformular herunter, fülle es aus und hänge es an deine E-Mail an.',
-        registrationFormLink: 'Anmeldeformular herunterladen',
+        registrationMinecraftFormHint: 'Für Minecraft bitte das ausgefüllte <a>Anmeldeformular</a> anhängen.',
+        registrationFormLinkMinecraft: 'Anmeldung: Minecraft (ab 10 J.)',
 
         // Cooperation
         cooperation: {
@@ -178,6 +178,54 @@ const de = {
         // Footer
         footerContact: 'Fragen',
         backToMain: 'Zurück zur Hauptseite'
+      },
+
+      datenschutz: {
+        title: 'Datenschutz',
+        responsible: {
+          title: 'Verantwortliche'
+        },
+        whatData: {
+          title: 'Welche Daten erheben wir?',
+          intro: 'Im Rahmen der Workshop-Anmeldung erfassen wir:',
+          childName: 'Name des Kindes',
+          parentName: 'Name des/der Erziehungsberechtigten',
+          phone: 'Telefonnummer (für Erreichbarkeit während des Workshops)'
+        },
+        purpose: {
+          title: 'Zweck der Verarbeitung',
+          text: 'Die Daten werden ausschließlich für die Organisation und Durchführung der HVLtech Kids Labs Workshops verwendet – insbesondere für die Teilnehmerverwaltung und die Kontaktaufnahme im Notfall.'
+        },
+        legalBasis: {
+          title: 'Rechtsgrundlage',
+          text: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen bzw. Vertragsdurchführung).'
+        },
+        recipients: {
+          title: 'Empfänger der Daten',
+          text: 'Die Daten werden ausschließlich von den Veranstaltern eingesehen. Eine Weitergabe an Dritte findet nicht statt.'
+        },
+        retention: {
+          title: 'Speicherdauer',
+          text: 'Alle erhobenen Daten werden spätestens 3 Monate nach der Veranstaltung gelöscht bzw. vernichtet.'
+        },
+        rights: {
+          title: 'Ihre Rechte',
+          intro: 'Sie haben jederzeit das Recht auf:',
+          access: 'Auskunft über Ihre gespeicherten Daten',
+          correction: 'Berichtigung unrichtiger Daten',
+          deletion: 'Löschung Ihrer Daten',
+          restriction: 'Einschränkung der Verarbeitung',
+          complaint: 'Beschwerde bei der zuständigen Aufsichtsbehörde'
+        },
+        revocation: {
+          title: 'Widerruf',
+          text: 'Erteilte Einwilligungen können jederzeit ohne Angabe von Gründen widerrufen werden – per E-Mail an meetup@hvltech.de.'
+        },
+        authority: {
+          title: 'Aufsichtsbehörde',
+          text: 'Die Landesbeauftragte für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg.'
+        },
+        lastUpdated: 'Stand'
       }
   }
 };

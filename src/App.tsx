@@ -3,6 +3,7 @@ import TranslateBtn from "./component/translateBtn";
 import Footer from "./component/footer";
 import HomePage from "./pages/HomePage";
 import KidsPage from "./pages/KidsPage";
+import DatenschutzPage from "./pages/DatenschutzPage";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/labs" element={<KidsPage />} />
+                    <Route path="/labs/datenschutz" element={<DatenschutzPage />} />
                 </Routes>
             </main>
             <Footer/>

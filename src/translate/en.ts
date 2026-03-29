@@ -138,8 +138,8 @@ const en = {
         // For Parents section
         forParentsTitle: 'Information for Parents',
         forParents: {
-          stayTitle: 'Parents, stay & enjoy!',
-          stayText: 'We ask all parents to stay at the Kulturhaus during the event. Grab a coffee, meet other parents, and be close by if your child needs you.',
+          stayTitle: 'Parents at the Electronics Workshop',
+          stayText: 'For the Electronics Workshop, we ask all parents to stay at the Kulturhaus during the workshop. Grab a coffee, meet other parents, and be close by. For Minecraft Modding, children can attend without parents.',
           supervisionTitle: 'Supervision',
           supervisionText: 'Our team supervises the event and is available throughout as contact persons.',
           safetyTitle: 'Safety',
@@ -155,12 +155,12 @@ const en = {
         // Registration
         registrationTitle: 'How to register',
         registrationSteps: [
-          'Send us an email with the registration form (linked below)',
+          'Send us an email to meetup@hvltech.de – let us know how many kids you\'re bringing and which workshop.',
           'You will receive a confirmation within a few days',
           'If the workshop is full, we will add you to the waitlist'
         ],
-        registrationFormNote: 'Please download and fill out the registration form and attach it to your email.',
-        registrationFormLink: 'Download Registration Form',
+        registrationMinecraftFormHint: 'For Minecraft, please attach the filled <a>registration form</a>.',
+        registrationFormLinkMinecraft: 'Registration: Minecraft (ages 10+)',
 
         // Cooperation
         cooperation: {
@@ -179,6 +179,54 @@ const en = {
         // Footer
         footerContact: 'Questions',
         backToMain: 'Back to main page'
+      },
+
+      datenschutz: {
+        title: 'Privacy Policy',
+        responsible: {
+          title: 'Responsible parties'
+        },
+        whatData: {
+          title: 'What data do we collect?',
+          intro: 'As part of workshop registration, we collect:',
+          childName: 'Child\'s name',
+          parentName: 'Parent/guardian name',
+          phone: 'Phone number (for reachability during the workshop)'
+        },
+        purpose: {
+          title: 'Purpose of processing',
+          text: 'The data is used exclusively for organizing and running the HVLtech Kids Labs workshops – in particular for participant management and emergency contact.'
+        },
+        legalBasis: {
+          title: 'Legal basis',
+          text: 'Processing is based on Art. 6(1)(b) GDPR (performance of pre-contractual measures or contract performance).'
+        },
+        recipients: {
+          title: 'Data recipients',
+          text: 'The data is only accessed by the organizers. No data is shared with third parties.'
+        },
+        retention: {
+          title: 'Retention period',
+          text: 'All collected data is deleted or destroyed no later than 3 months after the event.'
+        },
+        rights: {
+          title: 'Your rights',
+          intro: 'You have the right at any time to:',
+          access: 'Access your stored data',
+          correction: 'Correct inaccurate data',
+          deletion: 'Delete your data',
+          restriction: 'Restrict processing',
+          complaint: 'File a complaint with the supervisory authority'
+        },
+        revocation: {
+          title: 'Revocation',
+          text: 'Granted consents can be revoked at any time without giving reasons – by email to meetup@hvltech.de.'
+        },
+        authority: {
+          title: 'Supervisory authority',
+          text: 'Die Landesbeauftragte für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg.'
+        },
+        lastUpdated: 'Last updated'
       }
   }
 };

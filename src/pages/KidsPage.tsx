@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -136,6 +136,16 @@ function KidsPage() {
     }>;
 
     const registrationSteps = t('kids.registrationSteps', { returnObjects: true }) as string[];
+    const registrationRef = useRef<HTMLHeadingElement>(null);
+    const [flash, setFlash] = useState(false);
+
+    const scrollToRegistration = () => {
+        registrationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            setFlash(true);
+            setTimeout(() => setFlash(false), 1500);
+        }, 600);
+    };
 
     const forParents = t('kids.forParents', { returnObjects: true }) as {
         stayTitle: string;
@@ -201,12 +211,12 @@ function KidsPage() {
                         </div>
 
                         {/* CTA */}
-                        <a
-                            href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
-                            className="inline-flex font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-3 mb-4"
+                        <button
+                            onClick={scrollToRegistration}
+                            className="inline-flex font-['Press_Start_2P'] text-sm md:text-base bg-white text-green-700 border-4 border-white px-8 py-4 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 cursor-pointer items-center gap-3 mb-4"
                         >
                             <MailOutlineIcon /> {t('kids.cta')}
-                        </a>
+                        </button>
 
                         <p className="text-sm opacity-90 mb-4">
                             {t('kids.language')}
@@ -319,9 +329,23 @@ function KidsPage() {
             </section>
 
             {/* Registration Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-[900px] mx-auto px-4">
-                    <h2 className="font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center">
+            <section className="py-16 bg-white relative overflow-hidden">
+                {flash && (
+                    <div className="absolute inset-0 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-green-100/60 animate-[ripple_1.5s_ease-out_forwards]" />
+                    </div>
+                )}
+                <style>{`
+                    @keyframes ripple {
+                        0% { width: 0; height: 0; opacity: 0.7; top: 30%; }
+                        100% { width: 200vw; height: 200vw; opacity: 0; top: -60vw; }
+                    }
+                `}</style>
+                <div className="max-w-[900px] mx-auto px-4 relative">
+                    <h2
+                        ref={registrationRef}
+                        className={`font-['Press_Start_2P'] text-lg md:text-xl text-green-700 mb-8 text-center transition-all duration-500 ${flash ? 'scale-110 text-green-500' : ''}`}
+                    >
                         {t('kids.registrationTitle')}
                     </h2>
                     <div className="max-w-xl mx-auto space-y-4 mb-8">
@@ -330,20 +354,27 @@ function KidsPage() {
                                 <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-['Press_Start_2P'] text-xs flex-shrink-0">
                                     {i + 1}
                                 </div>
-                                <p className="text-gray-700 pt-1">{step}</p>
+                                <div className="text-gray-700 pt-1">
+                                    <p>{step}</p>
+                                    {i === 0 && (
+                                        <p className="text-sm text-gray-600 mt-1" dangerouslySetInnerHTML={{
+                                            __html: t('kids.registrationMinecraftFormHint').replace(
+                                                '<a>',
+                                                '<a href="/labs/anmeldung-minecraft.pdf" download class="text-green-700 font-semibold underline hover:text-green-900">'
+                                            )
+                                        }} />
+                                    )}
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <div className="text-center space-y-4">
-                        <p className="text-sm text-gray-600">{t('kids.registrationFormNote')}</p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a
-                                href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
-                                className="inline-flex font-['Press_Start_2P'] text-xs bg-green-600 text-white border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
-                            >
-                                <MailOutlineIcon fontSize="small" /> {t('kids.cta')}
-                            </a>
-                        </div>
+                    <div className="text-center">
+                        <a
+                            href="mailto:meetup@hvltech.de?subject=Kids%20Labs%20Anmeldung"
+                            className="inline-flex font-['Press_Start_2P'] text-xs bg-green-600 text-white border-4 border-green-700 px-6 py-3 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline items-center gap-2"
+                        >
+                            <MailOutlineIcon fontSize="small" /> {t('kids.cta')}
+                        </a>
                     </div>
                 </div>
             </section>
@@ -363,7 +394,7 @@ function KidsPage() {
                         <p className="text-gray-700 leading-relaxed">{forParents.stayText}</p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid md:grid-cols-3 gap-6">
                         <div className="bg-white rounded-lg p-6 border-2 border-green-100">
                             <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
                                 <span>👥</span> {forParents.supervisionTitle}
@@ -381,12 +412,6 @@ function KidsPage() {
                                 <span>🕐</span> {forParents.pickupTitle}
                             </h3>
                             <p className="text-sm text-gray-700">{forParents.pickupText}</p>
-                        </div>
-                        <div className="bg-white rounded-lg p-6 border-2 border-green-100">
-                            <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
-                                <span>📷</span> {forParents.photosTitle}
-                            </h3>
-                            <p className="text-sm text-gray-700">{forParents.photosText}</p>
                         </div>
                     </div>
                     <div className="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-6 text-center">
@@ -442,12 +467,20 @@ function KidsPage() {
                             meetup@hvltech.de
                         </a>
                     </p>
-                    <Link
-                        to="/"
-                        className="inline-block font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-4 py-2 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
-                    >
-                        ← {t('kids.backToMain')}
-                    </Link>
+                    <div className="flex gap-4 justify-center items-center">
+                        <Link
+                            to="/"
+                            className="inline-block font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-4 py-2 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
+                        >
+                            ← {t('kids.backToMain')}
+                        </Link>
+                        <Link
+                            to="/labs/datenschutz"
+                            className="text-sm text-gray-500 hover:text-green-700 underline"
+                        >
+                            {t('datenschutz.title')}
+                        </Link>
+                    </div>
                 </div>
             </footer>
         </div>
