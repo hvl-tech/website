@@ -155,13 +155,11 @@ const en = {
         // Registration
         registrationTitle: 'How to register',
         registrationSteps: [
-          'Send us an email to meetup@hvltech.de',
+          'Send us an email to meetup@hvltech.de – let us know how many kids you\'re bringing and which workshop.',
           'You will receive a confirmation within a few days',
           'If the workshop is full, we will add you to the waitlist'
         ],
-        registrationElectronicsNote: 'Electronics Workshop (ages 6+): A short email with the child\'s name and age is enough. Parents stay on site for the entire workshop.',
-        registrationMinecraftNote: 'Minecraft Modding (ages 10+): Please download the registration form, fill it out, and attach it to your email. Children attend without parents.',
-        registrationFormLinkElectronics: 'Registration: Electronics (ages 6+)',
+        registrationMinecraftFormHint: 'For Minecraft, please attach the filled <a>registration form</a>.',
         registrationFormLinkMinecraft: 'Registration: Minecraft (ages 10+)',
 
         // Cooperation
@@ -205,7 +203,7 @@ const en = {
         },
         recipients: {
           title: 'Data recipients',
-          text: 'The data is only accessed by the organizers (Dana Hlavacova & Martin Hlavac). No data is shared with third parties.'
+          text: 'The data is only accessed by the organizers. No data is shared with third parties.'
         },
         retention: {
           title: 'Retention period',
