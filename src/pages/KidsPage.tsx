@@ -5,6 +5,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../assets/logo/logo_no_text.svg";
 import heroImg from "../assets/kids-hero.jpg";
+import { useSeo } from "../utils/useSeo";
 
 interface GalleryItem {
     src: string;
@@ -47,7 +48,7 @@ function PhotoGallery({ photos, placeholderIcon }: { photos: GalleryItem[]; plac
                         className="flex-shrink-0 w-32 h-24 rounded-lg overflow-hidden border border-gray-200 bg-gray-100 hover:border-green-400 transition-colors cursor-pointer"
                     >
                         {photo.src ? (
-                            <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" />
+                            <img src={photo.src} alt={photo.alt} loading="lazy" className="w-full h-full object-cover" />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center">
                                 <span className="text-2xl opacity-25">{placeholderIcon}</span>
@@ -117,6 +118,11 @@ function PhotoGallery({ photos, placeholderIcon }: { photos: GalleryItem[]; plac
 
 function KidsPage() {
     const { t } = useTranslation();
+    useSeo({
+        title: 'Kids Labs — HVLtech: Free Tech Workshops for Kids in Falkensee',
+        description: 'Free hands-on tech workshops for kids: build electronic circuits or mod Minecraft. Sunday April 19, 2026 at Kulturhaus „J. R. Becher" in Falkensee.',
+        path: '/labs',
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);

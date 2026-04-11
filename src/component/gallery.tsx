@@ -59,7 +59,7 @@ const Gallery = () => {
             >
                 {images.map((image, index) => (
                     <SwiperSlide key={index}>
-                        <img src={image.src} alt={image.alt} className="w-full h-auto object-cover max-h-[500px] aspect-square" />
+                        <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-auto object-cover max-h-[500px] aspect-square" />
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -82,6 +82,7 @@ const Gallery = () => {
                             <img
                                 src={image.src}
                                 alt={image.alt}
+                                loading="lazy"
                                 className="w-full object-cover cursor-pointer md:h-24 aspect-square"
                             />
                         </button>
