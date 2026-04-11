@@ -2,9 +2,15 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/logo_no_text.svg";
+import { useSeo } from "../utils/useSeo";
 
 function DatenschutzPage() {
     const { t } = useTranslation();
+    useSeo({
+        title: 'Datenschutz — HVLtech Kids Labs',
+        description: 'Datenschutzerklärung für die HVLtech Kids Labs Workshops: welche Daten wir erheben, warum und wie lange wir sie speichern.',
+        path: '/labs/datenschutz',
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);

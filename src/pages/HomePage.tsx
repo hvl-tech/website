@@ -4,10 +4,16 @@ import AboutUs from "../component/aboutUs";
 import Event from "../component/event";
 import Gallery from "../component/gallery";
 import Countdown from "../component/countdown";
+import { useSeo } from "../utils/useSeo";
 
 
 function HomePage() {
     const {t} = useTranslation();
+    useSeo({
+        title: 'Havelland Tech Community — Meetup for Developers in Falkensee',
+        description: 'A friendly monthly meetup for developers, makers and tech enthusiasts in Falkensee and the Havelland region. Free talks, workshops and Kids Labs.',
+        path: '/',
+    });
 
     return (
         <>
