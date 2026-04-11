@@ -42,6 +42,7 @@ export default function TranslateBtn() {
                     key={lng}
                     onClick={() => handleLanguageChange(lng)}
                     disabled={i18n.resolvedLanguage === lng}
+                    aria-label={`Switch language to ${lngs[lng].nativeName}`}
                 >
                     {lngs[lng].svg}
                 </button>

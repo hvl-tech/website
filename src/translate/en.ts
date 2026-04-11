@@ -85,6 +85,7 @@ const en = {
       at: 'at',
       oclock: '',
       fromTo: 'from {{from}} to {{to}}',
+      nextEvent: 'Next Event',
     },
       gallery:
           {highline: 'Gallery'},
