@@ -9,12 +9,8 @@ interface AnimatedPixelBackgroundProps {
 }
 
 interface LogoParticle {
-  homeX: number;
-  homeY: number;
   x: number;
   y: number;
-  vx: number;
-  vy: number;
   r: number;
   g: number;
   b: number;
@@ -28,6 +24,17 @@ interface Ripple {
   startTime: number;
   duration: number;
   maxRadius: number;
+}
+
+interface WaterCell {
+  col: number;
+  row: number;
+  x: number;
+  y: number;
+  baseColor: RGB;
+  alpha: number;
+  opacity: number;
+  fadeT: number;
 }
 
 type RGB = { r: number; g: number; b: number };
@@ -67,47 +74,39 @@ const generateExtendedPalette = () => {
 
 const COLOR_PALETTE = generateExtendedPalette();
 
-const findClosestColor = (r: number, g: number, b: number): RGB => {
-  let minDist = Infinity;
-  let closest = COLOR_PALETTE[0];
-  for (const c of COLOR_PALETTE) {
-    const d = (r - c.r) ** 2 + (g - c.g) ** 2 + (b - c.b) ** 2;
-    if (d < minDist) { minDist = d; closest = c; }
+// Precomputed 5-bits-per-channel palette lookup table (32768 entries).
+// Built once at module load; O(1) per lookup at runtime.
+const PALETTE_LUT = (() => {
+  const lut = new Uint16Array(32768);
+  for (let r5 = 0; r5 < 32; r5++) {
+    for (let g5 = 0; g5 < 32; g5++) {
+      for (let b5 = 0; b5 < 32; b5++) {
+        const r = (r5 << 3) | 4;
+        const g = (g5 << 3) | 4;
+        const b = (b5 << 3) | 4;
+        let minDist = Infinity;
+        let best = 0;
+        for (let i = 0; i < COLOR_PALETTE.length; i++) {
+          const c = COLOR_PALETTE[i];
+          const d = (r - c.r) ** 2 + (g - c.g) ** 2 + (b - c.b) ** 2;
+          if (d < minDist) { minDist = d; best = i; }
+        }
+        lut[(r5 << 10) | (g5 << 5) | b5] = best;
+      }
+    }
   }
-  return closest;
-};
+  return lut;
+})();
+
+const findClosestColor = (r: number, g: number, b: number): RGB =>
+  COLOR_PALETTE[PALETTE_LUT[((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3)]];
 
 // ---------- Water Detection & Effects ----------
 
 const isWaterPixel = (r: number, g: number, b: number) =>
   b > r && b > g && r <= 120 && g >= 80 && g <= 180 && b >= 120;
 
-const applyWaterSparkle = (
-  color: RGB, x: number, y: number, time: number,
-  col: number, row: number, totalRows: number,
-): RGB => {
-  if (row < totalRows * 0.1) return color;
-
-  const gradientX = Math.sin(x * 0.005 + time * 0.0001) * 0.5 + 0.5;
-  const gradientY = Math.sin(y * 0.008 + time * 0.00007) * 0.5 + 0.5;
-  const effectStrength = (gradientX + gradientY) * 0.5;
-
-  const baseWave = (Math.sin(x * 0.02 + time * 0.0002) * 0.05 + Math.sin(y * 0.015 + time * 0.00014) * 0.05) / 2;
-  const baseIntensity = 0.97 + baseWave * 0.03;
-
-  const hash = (col * 7919 + row * 6271) % 100;
-  const chance = hash / 100;
-  let sparkle = 0;
-  if (chance < 0.15) sparkle = Math.pow(Math.sin(time * 0.00075 + hash * 0.1) * 0.5 + 0.5, 8) * 0.24;
-  else if (chance < 0.25) sparkle = Math.pow(Math.sin(time * 0.00125 + hash * 0.2) * 0.5 + 0.5, 6) * 0.18;
-  else if (chance < 0.35) sparkle = Math.pow(Math.sin(time * 0.0005 + hash * 0.15) * 0.5 + 0.5, 4) * 0.12;
-
-  return {
-    r: Math.min(255, Math.floor(color.r * baseIntensity + sparkle * 100 * effectStrength)),
-    g: Math.min(255, Math.floor(color.g * baseIntensity + sparkle * 90 * effectStrength)),
-    b: Math.min(255, Math.floor(color.b * (1 - effectStrength) + color.b * (baseIntensity + sparkle * effectStrength) * effectStrength)),
-  };
-};
+const FRAME_INTERVAL_MS = 100; // 10 fps
 
 // ---------- Component ----------
 
@@ -123,7 +122,8 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
   const animationRef = useRef<number | undefined>(undefined);
   const pixelDataRef = useRef<{ color: RGBA; isWater: boolean }[][]>([]);
   const startTimeRef = useRef(Date.now());
-  const columnCutoffRef = useRef<number[]>([]);
+  const lastFrameRef = useRef(0);
+  const reducedMotionRef = useRef(false);
 
   // Logo particle system
   const logoParticlesRef = useRef<LogoParticle[]>([]);
@@ -132,17 +132,12 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
   // Automated water ripples
   const ripplesRef = useRef<Ripple[]>([]);
   const lastAutoRippleRef = useRef(0);
-  // Store water pixel positions for spawning ripples
   const waterPixelCoordsRef = useRef<{ x: number; y: number }[]>([]);
 
-  // Periodic glitch state
-  const glitchRef = useRef({
-    nextTime: 3000 + Math.random() * 5000,
-    active: false,
-    endTime: 0,
-    sliceOffsets: [] as number[],
-    bands: 8,
-  });
+  // Cached layers — built once per (re)load, blitted per frame
+  const bgCacheRef = useRef<HTMLCanvasElement | null>(null);
+  const overlayCacheRef = useRef<HTMLCanvasElement | null>(null);
+  const waterCellsRef = useRef<WaterCell[]>([]);
 
   // ---------- Logo Particle Init ----------
 
@@ -163,7 +158,7 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
 
     const data = ctx.getImageData(0, 0, targetW, targetH).data;
     const particles: LogoParticle[] = [];
-    const step = 2; // finer particles for sharper logo
+    const step = 2;
 
     for (let py = 0; py < targetH; py += step) {
       for (let px = 0; px < targetW; px += step) {
@@ -171,12 +166,8 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
         if (data[i + 3] < 100) continue;
 
         particles.push({
-          homeX: logoX + px,
-          homeY: logoY + py,
-          x: Math.random() * canvasWidth,
-          y: Math.random() * height * 0.5,
-          vx: (Math.random() - 0.5) * 6,
-          vy: (Math.random() - 0.5) * 6,
+          x: logoX + px,
+          y: logoY + py,
           r: data[i],
           g: data[i + 1],
           b: data[i + 2],
@@ -187,16 +178,13 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
     }
 
     logoParticlesRef.current = particles;
-  }, [height]);
+  }, []);
 
-  // ---------- Pixelate Source Image ----------
+  // ---------- Pixelate Source Image (compute pixel data only) ----------
 
-  const drawPixelatedImage = useCallback((image: HTMLImageElement) => {
+  const computePixelData = useCallback((image: HTMLImageElement) => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
-
     canvas.width = window.innerWidth;
     canvas.height = height;
 
@@ -214,7 +202,6 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
 
     const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const cols = Math.ceil(canvas.width / pixelSize);
     const rows = Math.ceil(canvas.height / pixelSize);
@@ -241,29 +228,222 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
         const water = isWaterPixel(r, g, b);
         pixelDataRef.current[row][col] = { color: { ...qc, a }, isWater: water };
 
-        // Collect water pixel positions for auto-ripples
         if (water) waterCoords.push({ x: x + pixelSize / 2, y: y + pixelSize / 2 });
-
-        ctx.fillStyle = `rgba(${qc.r},${qc.g},${qc.b},${a / 255})`;
-        ctx.fillRect(x, y, pixelSize, pixelSize);
       }
     }
 
     waterPixelCoordsRef.current = waterCoords;
   }, [pixelSize, height]);
 
-  // ---------- Animation Loop ----------
+  // ---------- Render Static Cache Layers ----------
 
-  const animate = useCallback(() => {
-    if (!canvasRef.current || pixelDataRef.current.length === 0) return;
+  const renderStaticCaches = useCallback(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    const w = canvas.width;
+    const h = canvas.height;
+
+    const bg = document.createElement('canvas');
+    bg.width = w;
+    bg.height = h;
+    const bgCtx = bg.getContext('2d')!;
+
+    const rows = pixelDataRef.current.length;
+    const cols = pixelDataRef.current[0]?.length || 0;
+    const bottomCut = 5;
+    const fadeRowCount = 18;
+
+    const cutoffs: number[] = [];
+    for (let col = 0; col < cols; col++) {
+      cutoffs[col] = rows - bottomCut + Math.floor(Math.sin(col * 0.15) * 1.5);
+    }
+
+    const waterCells: WaterCell[] = [];
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const pd = pixelDataRef.current[row][col];
+        if (!pd || row >= cutoffs[col]) continue;
+
+        const x = col * pixelSize;
+        const y = row * pixelSize;
+
+        let opacity = 1;
+        const edgeDist = cutoffs[col] - row;
+        if (edgeDist <= 3) opacity = edgeDist / 3;
+
+        const fadeStart = cutoffs[col] - fadeRowCount;
+        const fadeT = row >= fadeStart ? Math.min(1, (row - fadeStart) / fadeRowCount) : 0;
+
+        let c: RGB = pd.color;
+        if (fadeT > 0) {
+          c = {
+            r: Math.round(c.r + (255 - c.r) * fadeT),
+            g: Math.round(c.g + (255 - c.g) * fadeT),
+            b: Math.round(c.b + (255 - c.b) * fadeT),
+          };
+        }
+        bgCtx.fillStyle = `rgba(${c.r},${c.g},${c.b},${(pd.color.a / 255) * opacity})`;
+        bgCtx.fillRect(x, y, pixelSize, pixelSize);
+
+        if (pd.isWater) {
+          waterCells.push({
+            col, row, x, y,
+            baseColor: { r: pd.color.r, g: pd.color.g, b: pd.color.b },
+            alpha: pd.color.a / 255,
+            opacity,
+            fadeT,
+          });
+        }
+      }
+    }
+
+    const lowestCutoff = Math.min(...cutoffs) * pixelSize;
+    bgCtx.fillStyle = '#ffffff';
+    bgCtx.fillRect(0, lowestCutoff, w, h - lowestCutoff);
+
+    // Logo shadow + particles
+    const particles = logoParticlesRef.current;
+    if (particles.length > 0) {
+      const logoPos = logoPosRef.current;
+      const shCx = logoPos.x + logoPos.w / 2;
+      const shCy = logoPos.y + logoPos.h / 2 + 4;
+      const shR = Math.max(logoPos.w, logoPos.h) * 0.65;
+      const shadow = bgCtx.createRadialGradient(shCx, shCy, 0, shCx, shCy, shR);
+      shadow.addColorStop(0, 'rgba(0, 0, 0, 0.7)');
+      shadow.addColorStop(0.35, 'rgba(0, 0, 0, 0.5)');
+      shadow.addColorStop(0.65, 'rgba(0, 0, 0, 0.2)');
+      shadow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      bgCtx.fillStyle = shadow;
+      bgCtx.fillRect(shCx - shR, shCy - shR, shR * 2, shR * 2);
+
+      const shadowOff = 3;
+      for (const p of particles) {
+        bgCtx.fillStyle = `rgba(0,0,0,${p.a * 0.55})`;
+        bgCtx.fillRect(p.x + shadowOff, p.y + shadowOff, p.size, p.size);
+      }
+      for (const p of particles) {
+        bgCtx.fillStyle = `rgba(${p.r},${p.g},${p.b},${p.a})`;
+        bgCtx.fillRect(p.x, p.y, p.size, p.size);
+      }
+    }
+
+    // Overlay: scanlines + vignette
+    const fg = document.createElement('canvas');
+    fg.width = w;
+    fg.height = h;
+    const fgCtx = fg.getContext('2d')!;
+
+    const scanlineLimit = (rows - bottomCut - fadeRowCount) * pixelSize;
+    fgCtx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+    for (let y = 0; y < scanlineLimit; y += 3) {
+      fgCtx.fillRect(0, y, w, 1);
+    }
+
+    const vigCy = h * 0.4;
+    const vignette = fgCtx.createRadialGradient(
+      w / 2, vigCy, h * 0.3,
+      w / 2, vigCy, h * 0.75,
+    );
+    vignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    vignette.addColorStop(1, 'rgba(0, 0, 0, 0.12)');
+    fgCtx.fillStyle = vignette;
+    fgCtx.fillRect(0, 0, w, scanlineLimit);
+
+    bgCacheRef.current = bg;
+    overlayCacheRef.current = fg;
+    waterCellsRef.current = waterCells;
+  }, [pixelSize]);
+
+  // ---------- Draw Single Frame ----------
+
+  const drawFrame = useCallback((time: number) => {
+    const canvas = canvasRef.current;
+    const bg = bgCacheRef.current;
+    const fg = overlayCacheRef.current;
+    if (!canvas || !bg || !fg) return;
+
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    const time = Date.now() - startTimeRef.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bg, 0, 0);
 
-    // --- Spawn automated ripples on water ---
+    const ripples = ripplesRef.current;
+    if (ripples.length > 0) {
+      const waterCells = waterCellsRef.current;
+      const half = pixelSize / 2;
+      const ringWidth = 14;
+
+      // Precompute per-ripple state + AABB bounds (y stretched 2x for elliptical perspective)
+      const rippleState = ripples.map(ripple => {
+        const progress = (time - ripple.startTime) / ripple.duration;
+        const curRadius = ripple.maxRadius * progress;
+        const reach = curRadius + ringWidth;
+        return {
+          cx: ripple.cx,
+          cy: ripple.cy,
+          curRadius,
+          fade: 1 - progress,
+          reachX: reach * 2, // dx is compressed 0.5x, so AABB in world space is 2x
+          reachY: reach,
+        };
+      });
+
+      for (const wc of waterCells) {
+        const px = wc.x + half;
+        const py = wc.y + half;
+
+        let rippleBrightness = 0;
+        for (const rs of rippleState) {
+          const wdx = px - rs.cx;
+          const wdy = py - rs.cy;
+          if (Math.abs(wdx) > rs.reachX || Math.abs(wdy) > rs.reachY) continue;
+          const dx = wdx * 0.5;
+          const d = Math.sqrt(dx * dx + wdy * wdy);
+          const ringDist = Math.abs(d - rs.curRadius);
+          if (ringDist < ringWidth) {
+            rippleBrightness += (1 - ringDist / ringWidth) * rs.fade * 0.35;
+          }
+        }
+        if (rippleBrightness === 0) continue;
+
+        let c: RGB = {
+          r: Math.min(255, wc.baseColor.r + Math.floor(rippleBrightness * 120)),
+          g: Math.min(255, wc.baseColor.g + Math.floor(rippleBrightness * 120)),
+          b: Math.min(255, wc.baseColor.b + Math.floor(rippleBrightness * 80)),
+        };
+        c = findClosestColor(c.r, c.g, c.b);
+
+        if (wc.fadeT > 0) {
+          c = {
+            r: Math.round(c.r + (255 - c.r) * wc.fadeT),
+            g: Math.round(c.g + (255 - c.g) * wc.fadeT),
+            b: Math.round(c.b + (255 - c.b) * wc.fadeT),
+          };
+        }
+
+        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${wc.alpha * wc.opacity})`;
+        ctx.fillRect(wc.x, wc.y, pixelSize, pixelSize);
+      }
+    }
+
+    ctx.drawImage(fg, 0, 0);
+  }, [pixelSize]);
+
+  // ---------- Animation Loop ----------
+
+  const animate = useCallback(() => {
+    const now = Date.now();
+    if (now - lastFrameRef.current < FRAME_INTERVAL_MS) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+    lastFrameRef.current = now;
+
+    const time = now - startTimeRef.current;
+
+    // Spawn automated ripples on water
     const waterCoords = waterPixelCoordsRef.current;
     if (waterCoords.length > 0 && time - lastAutoRippleRef.current > 1200) {
       const spot = waterCoords[Math.floor(Math.random() * waterCoords.length)];
@@ -277,212 +457,52 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
       lastAutoRippleRef.current = time;
       if (ripplesRef.current.length > 6) ripplesRef.current.shift();
     }
-
-    // --- Clean up expired ripples ---
     ripplesRef.current = ripplesRef.current.filter(r => time - r.startTime < r.duration);
 
-    // --- 1. Draw pixelated background ---
-    const rows = pixelDataRef.current.length;
-    const cols = pixelDataRef.current[0]?.length || 0;
-    const bottomCut = 5;
-
-    for (let col = 0; col < cols; col++) {
-      columnCutoffRef.current[col] = rows - bottomCut + Math.floor(Math.sin(col * 0.15) * 1.5);
-    }
-
-    // Number of rows before each column's cutoff to start fading to white
-    const fadeRowCount = 18;
-
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < pixelDataRef.current[row].length; col++) {
-        const pd = pixelDataRef.current[row][col];
-        if (!pd || row >= columnCutoffRef.current[col]) continue;
-
-        const x = col * pixelSize;
-        const y = row * pixelSize;
-
-        let opacity = 1;
-        const edgeDist = columnCutoffRef.current[col] - row;
-        if (edgeDist <= 3) opacity = edgeDist / 3;
-
-        let c: RGB;
-        if (pd.isWater) {
-          c = applyWaterSparkle(pd.color, x, y, time, col, row, rows);
-
-          // Apply elliptical ripple brightness (2:1 horizontal stretch for perspective)
-          let rippleBrightness = 0;
-          for (const ripple of ripplesRef.current) {
-            const elapsed = time - ripple.startTime;
-            const progress = elapsed / ripple.duration;
-            const curRadius = ripple.maxRadius * progress;
-            const ringWidth = 14;
-            const dx = (x + pixelSize / 2 - ripple.cx) * 0.5; // compress horizontal → 2x wider ellipse
-            const dy = y + pixelSize / 2 - ripple.cy;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            const ringDist = Math.abs(d - curRadius);
-            if (ringDist < ringWidth) {
-              rippleBrightness += (1 - ringDist / ringWidth) * (1 - progress) * 0.35;
-            }
-          }
-          if (rippleBrightness > 0) {
-            c = {
-              r: Math.min(255, c.r + Math.floor(rippleBrightness * 120)),
-              g: Math.min(255, c.g + Math.floor(rippleBrightness * 120)),
-              b: Math.min(255, c.b + Math.floor(rippleBrightness * 80)),
-            };
-          }
-        } else {
-          c = pd.color;
-        }
-
-        // Fade to white near each column's cutoff for seamless page blend
-        const colCutoff = columnCutoffRef.current[col];
-        const fadeStart = colCutoff - fadeRowCount;
-        if (row >= fadeStart) {
-          const t = Math.min(1, (row - fadeStart) / fadeRowCount);
-          c = {
-            r: Math.round(c.r + (255 - c.r) * t),
-            g: Math.round(c.g + (255 - c.g) * t),
-            b: Math.round(c.b + (255 - c.b) * t),
-          };
-        }
-
-        ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${(pd.color.a / 255) * opacity})`;
-        ctx.fillRect(x, y, pixelSize, pixelSize);
-      }
-    }
-
-    // Fill bottom of canvas with white (below cutoff) for clean page blend
-    const lowestCutoff = Math.min(...columnCutoffRef.current) * pixelSize;
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, lowestCutoff, canvas.width, canvas.height - lowestCutoff);
-
-    // --- 2. Logo particle system with periodic glitch ---
-    const particles = logoParticlesRef.current;
-    if (particles.length > 0) {
-      const g = glitchRef.current;
-      const logoPos = logoPosRef.current;
-
-      // Update glitch timing
-      if (!g.active && time > g.nextTime) {
-        g.active = true;
-        g.endTime = time + 150 + Math.random() * 200;
-        g.sliceOffsets = Array.from({ length: g.bands }, () => (Math.random() - 0.5) * 30);
-      }
-      if (g.active && time > g.endTime) {
-        g.active = false;
-        g.nextTime = time + 4000 + Math.random() * 6000;
-        g.sliceOffsets = [];
-      }
-
-      // Soft dark radial gradient shadow behind the logo (no hard edges)
-      const shCx = logoPos.x + logoPos.w / 2;
-      const shCy = logoPos.y + logoPos.h / 2 + 4;
-      const shR = Math.max(logoPos.w, logoPos.h) * 0.65;
-      const shadow = ctx.createRadialGradient(shCx, shCy, 0, shCx, shCy, shR);
-      shadow.addColorStop(0, 'rgba(0, 0, 0, 0.7)');
-      shadow.addColorStop(0.35, 'rgba(0, 0, 0, 0.5)');
-      shadow.addColorStop(0.65, 'rgba(0, 0, 0, 0.2)');
-      shadow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = shadow;
-      ctx.fillRect(shCx - shR, shCy - shR, shR * 2, shR * 2);
-
-      // Update particle physics first
-      for (const p of particles) {
-        // Exponential lerp — converges within ~1 second
-        p.x += (p.homeX - p.x) * 0.12;
-        p.y += (p.homeY - p.y) * 0.12;
-      }
-
-      // Shadow pass: draw all particles offset in black
-      const shadowOff = 3;
-      for (const p of particles) {
-        let drawX = p.x;
-        if (g.active) {
-          const bandIdx = Math.floor(((p.homeY - logoPos.y) / logoPos.h) * g.bands);
-          drawX += g.sliceOffsets[Math.min(bandIdx, g.bands - 1)] || 0;
-        }
-        ctx.fillStyle = `rgba(0,0,0,${p.a * 0.55})`;
-        ctx.fillRect(drawX + shadowOff, p.y + shadowOff, p.size, p.size);
-      }
-
-      // Color pass: draw particles on top
-      for (const p of particles) {
-        let drawX = p.x;
-        let pr = p.r, pg = p.g, pb = p.b;
-
-        if (g.active) {
-          const bandIdx = Math.floor(((p.homeY - logoPos.y) / logoPos.h) * g.bands);
-          drawX += g.sliceOffsets[Math.min(bandIdx, g.bands - 1)] || 0;
-
-          const glitchSeed = (p.homeX * 31 + p.homeY * 17 + Math.floor(time / 50)) % 100;
-          if (glitchSeed < 20) {
-            pr = Math.min(255, pr + 80); pg = Math.max(0, pg - 40);
-          } else if (glitchSeed < 40) {
-            pb = Math.min(255, pb + 80); pr = Math.max(0, pr - 40);
-          }
-        }
-
-        ctx.fillStyle = `rgba(${pr},${pg},${pb},${p.a})`;
-        ctx.fillRect(drawX, p.y, p.size, p.size);
-      }
-
-      // Static noise during glitch
-      if (g.active) {
-        for (let i = 0; i < 12; i++) {
-          const nx = logoPos.x + (Math.random() - 0.2) * logoPos.w * 1.4;
-          const ny = logoPos.y + (Math.random() - 0.1) * logoPos.h * 1.2;
-          const brightness = Math.random() > 0.5 ? 255 : 0;
-          ctx.fillStyle = `rgba(${brightness},${brightness},${brightness},${0.15 + Math.random() * 0.2})`;
-          ctx.fillRect(nx, ny, 3 + Math.random() * 4, 2);
-        }
-      }
-    }
-
-    // --- 3. CRT scanline overlay (only above the fade zone) ---
-    const scanlineLimit = (rows - bottomCut - fadeRowCount) * pixelSize;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-    for (let y = 0; y < scanlineLimit; y += 3) {
-      ctx.fillRect(0, y, canvas.width, 1);
-    }
-
-    // Subtle vignette (centered higher so bottom stays white)
-    const vigCy = canvas.height * 0.4;
-    const vignette = ctx.createRadialGradient(
-      canvas.width / 2, vigCy, canvas.height * 0.3,
-      canvas.width / 2, vigCy, canvas.height * 0.75,
-    );
-    vignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
-    vignette.addColorStop(1, 'rgba(0, 0, 0, 0.12)');
-    ctx.fillStyle = vignette;
-    ctx.fillRect(0, 0, canvas.width, scanlineLimit);
+    drawFrame(time);
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [pixelSize]);
+  }, [drawFrame]);
 
-  // ---------- Load logo & init particles ----------
-
-  useEffect(() => {
-    if (!logoSrc || !isLoaded || !canvasRef.current) return;
-    const img = new Image();
-    img.onload = () => initLogoParticles(img, canvasRef.current!.width);
-    img.src = logoSrc;
-  }, [logoSrc, isLoaded, initLogoParticles]);
-
-  // ---------- Load main image & start animation ----------
+  // ---------- Load assets, build caches, start loop ----------
 
   useEffect(() => {
+    reducedMotionRef.current =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const startAfterAssets = () => {
+      renderStaticCaches();
+      setIsLoaded(true);
+      startTimeRef.current = Date.now();
+      lastFrameRef.current = 0;
+
+      if (reducedMotionRef.current) {
+        drawFrame(0);
+      } else {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
     const image = new Image();
     image.crossOrigin = 'anonymous';
     image.onload = () => {
-      drawPixelatedImage(image);
-      setIsLoaded(true);
-      startTimeRef.current = Date.now();
-      animationRef.current = requestAnimationFrame(animate);
+      computePixelData(image);
+      if (logoSrc) {
+        const logoImg = new Image();
+        logoImg.onload = () => {
+          initLogoParticles(logoImg, canvasRef.current!.width);
+          startAfterAssets();
+        };
+        logoImg.src = logoSrc;
+      } else {
+        startAfterAssets();
+      }
     };
     image.src = imageSrc;
+
     return () => { if (animationRef.current) cancelAnimationFrame(animationRef.current); };
-  }, [imageSrc, drawPixelatedImage, animate]);
+  }, [imageSrc, logoSrc, computePixelData, initLogoParticles, renderStaticCaches, drawFrame, animate]);
 
   // ---------- Resize handler ----------
 
@@ -494,21 +514,37 @@ const AnimatedPixelBackground: React.FC<AnimatedPixelBackgroundProps> = ({
       const image = new Image();
       image.crossOrigin = 'anonymous';
       image.onload = () => {
-        drawPixelatedImage(image);
+        computePixelData(image);
+        const finish = () => {
+          renderStaticCaches();
+          startTimeRef.current = Date.now();
+          lastFrameRef.current = 0;
+          ripplesRef.current = [];
+
+          if (reducedMotionRef.current) {
+            drawFrame(0);
+          } else {
+            animationRef.current = requestAnimationFrame(animate);
+          }
+        };
+
         if (logoSrc) {
           const logoImg = new Image();
-          logoImg.onload = () => initLogoParticles(logoImg, canvasRef.current!.width);
+          logoImg.onload = () => {
+            initLogoParticles(logoImg, canvasRef.current!.width);
+            finish();
+          };
           logoImg.src = logoSrc;
+        } else {
+          finish();
         }
-        startTimeRef.current = Date.now();
-        animationRef.current = requestAnimationFrame(animate);
       };
       image.src = imageSrc;
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isLoaded, imageSrc, logoSrc, drawPixelatedImage, animate, initLogoParticles]);
+  }, [isLoaded, imageSrc, logoSrc, computePixelData, renderStaticCaches, initLogoParticles, drawFrame, animate]);
 
   return (
     <canvas
