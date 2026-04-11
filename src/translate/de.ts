@@ -84,9 +84,10 @@ const de = {
       at: 'um',
       oclock: 'Uhr',
       fromTo: 'von {{from}} bis {{to}}',
+      nextEvent: 'Nächstes Event',
     },
       gallery: {
-        highline: 'Gallery'},
+        highline: 'Galerie'},
       kids: {
         // Hero
         title: 'KIDS LABS',

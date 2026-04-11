@@ -26,13 +26,37 @@ function formatLocalISO(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
+const MAX_DESCRIPTION_LENGTH = 180;
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\\([-_*`[\](){}#+!])/g, '$1')
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/(\*\*|__)(.*?)\1/g, '$2')
+    .replace(/(\*|_)(.*?)\1/g, '$2')
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*>+\s?/gm, '')
+    .replace(/^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut).trimEnd() + '…';
+}
+
 function cleanDescription(desc: string): string {
-  // iCal descriptions often start with the group name on the first line - strip it
   const lines = desc.split('\n');
-  if (lines.length > 1 && lines[0].includes('Havelland Technology')) {
-    return lines.slice(1).join('\n').trim();
-  }
-  return desc.trim();
+  const body = lines.length > 1 && lines[0].includes('Havelland Technology')
+    ? lines.slice(1).join('\n')
+    : desc;
+  return truncate(stripMarkdown(body), MAX_DESCRIPTION_LENGTH);
 }
 
 async function fetchEvents(): Promise<void> {

@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import Program from "./program";
 import BorderedBox from "./borderedBox";
 import meetupData from "../data/meetup-events.json";
@@ -10,6 +11,7 @@ type CardProps = {
     address: string;
     contain: string;
     link?: string;
+    internalLink?: string;
     isLast?: boolean;
     showProgram?: boolean;
 };
@@ -56,13 +58,16 @@ function useEventCards(events: MeetupEvent[]): CardProps[] {
 
         const place = venueName ? `${venueName} ${timeStr}` : timeStr;
 
+        const isKidsLabs = /kids\s*labs/i.test(event.title);
+
         return {
             datum,
             header: event.title,
             place,
             address,
             contain: event.description,
-            link: event.eventUrl || undefined,
+            link: isKidsLabs ? undefined : (event.eventUrl || undefined),
+            internalLink: isKidsLabs ? '/labs' : undefined,
         };
     });
 }
@@ -80,13 +85,14 @@ function formatTime(date: Date, lang: string): string {
     return minutes === 0 ? `${h12}${period}` : `${h12}:${String(minutes).padStart(2, '0')}${period}`;
 }
 
-const Card = ({ datum, header, place, address, contain, link, showProgram }: CardProps) => {
+const Card = ({ datum, header, place, address, contain, link, internalLink, showProgram }: CardProps) => {
     const isCafe = header.toLowerCase().includes('programmiercaf');
+    const hasLink = Boolean(link || internalLink);
     const cardContent = (
         <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-2 md:p-4 w-full flex flex-col items-center justify-center">
             <div
                 key={`contentCard-${datum}`}
-                className={` w-full flex md:flex-row flex-col items-center justify-between md:gap-6 gap-3 max-w-[1120px] bg-white ${link ? 'hover:shadow-[6px_6px_0px_#000] cursor-pointer hover:bg-green-50' : ''}`}>
+                className={` w-full flex md:flex-row flex-col items-center justify-between md:gap-6 gap-3 max-w-[1120px] bg-white ${hasLink ? 'hover:shadow-[6px_6px_0px_#000] cursor-pointer hover:bg-green-50' : ''}`}>
                 <BorderedBox>
                     <div
                         className={`
@@ -110,6 +116,14 @@ const Card = ({ datum, header, place, address, contain, link, showProgram }: Car
         </div>
     );
 
+    if (internalLink) {
+        return (
+            <Link to={internalLink} className="w-full flex justify-center no-underline text-inherit">
+                {cardContent}
+            </Link>
+        );
+    }
+
     if (link) {
         return (
             <a href={link} target="_blank" rel="noopener noreferrer" className="w-full flex justify-center no-underline text-inherit">
@@ -122,12 +136,13 @@ const Card = ({ datum, header, place, address, contain, link, showProgram }: Car
 }
 
 const Event = () => {
+    const { t } = useTranslation();
     const cardData = useEventCards(meetupData.upcomingEvents);
 
     return (
         <div
             className="bg-white gap-2.5 w-full px-2 md:px-8 py-4 md:py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-            <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">Next Event</h2>
+            <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('event.nextEvent')}</h2>
             {cardData.map((event: CardProps, index: number) => (
                 <Card key={index} {...event} />
             ))}
