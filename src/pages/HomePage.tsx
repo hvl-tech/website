@@ -1,9 +1,11 @@
 import {useTranslation} from "react-i18next";
 import pixelHavel from "../assets/pixel_havel.png";
+import pearLogo from "../assets/logo/logo_no_text.svg";
 import AboutUs from "../component/aboutUs";
 import Event from "../component/event";
 import Gallery from "../component/gallery";
 import Countdown from "../component/countdown";
+import AnimatedPixelBackground from "../component/AnimatedPixelBackground";
 import { useSeo } from "../utils/useSeo";
 
 
@@ -19,22 +21,31 @@ function HomePage() {
         <>
             <section
                 id="head-event"
-                className="bg-cover bg-center bg-no-repeat h-[598px] w-full max-w-[1120px] mx-auto"
-                style={{ backgroundImage: `url(${pixelHavel})` }}
+                className="relative h-[598px] w-full overflow-hidden bg-white"
             >
-                <div className="px-8 py-8 flex flex-col items-center justify-around h-[92%] w-full">
-                    <h1 className="font-['Press_Start_2P'] font-normal text-[1.8rem] text-center text-[#00274a] drop-shadow-[0_0_10px_white]">
-                        Havelland <br /> Tech <br /> Community
-                    </h1>
-                    <div className="flex flex-col items-center justify-center gap-5 w-full">
-                        <Countdown />
-                        <a
-                            id="btn-joinUs"
-                            href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
-                            className="no-underline uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
-                        >
-                            {t('buttonJoinUs')}
-                        </a>
+                <AnimatedPixelBackground
+                    imageSrc={pixelHavel}
+                    logoSrc={pearLogo}
+                    pixelSize={8}
+                    className="absolute inset-0 w-full h-full"
+                    height={598}
+                />
+                <div className="relative z-10 max-w-[1120px] mx-auto">
+                    <div className="px-8 flex flex-col items-center h-[598px] w-full">
+                        <div className="h-[280px]" />
+                        <h1 className="font-['Press_Start_2P'] font-normal text-[2.2rem] text-center text-[#27945c] [text-shadow:_3px_3px_0_#000,_-2px_-2px_0_#000,_2px_-2px_0_#000,_-2px_2px_0_#000,_0_3px_0_#000,_3px_0_0_#000,_0_-2px_0_#000,_-2px_0_0_#000,_0_0_25px_rgba(0,0,0,0.8)]">
+                            HVLtech
+                        </h1>
+                        <div className="flex flex-col items-center gap-5 mt-5">
+                            <Countdown />
+                            <a
+                                id="btn-joinUs"
+                                href="https://www.meetup.com/de-DE/havelland-technology-falkensee/?eventOrigin=your_groups"
+                                className="no-underline uppercase font-['Press_Start_2P'] bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-6 py-3 text-sm cursor-pointer shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 focus:outline-none focus:ring-0"
+                            >
+                                {t('buttonJoinUs')}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
