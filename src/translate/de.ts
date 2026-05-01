@@ -88,6 +88,53 @@ const de = {
     },
       gallery: {
         highline: 'Galerie'},
+      callForSpeakers: {
+        headline: 'Du hast etwas zu erzählen? Wir hören gern zu.',
+        intro: 'Egal ob fertiger Vortrag oder halbgare Idee – wir freuen uns, von dir zu hören. Keine Vortragserfahrung nötig — wir helfen dir bei der Vorbereitung.',
+        teaser: 'Du hast etwas Cooles gebaut, etwas auf die harte Tour gelernt oder eine starke Meinung zu einem Tech-Thema? Teile es mit unserer Community in Falkensee.',
+        audienceTitle: 'Vor wem du sprichst',
+        audience: 'Etwa 20–50 Teilnehmer*innen aus Falkensee und dem Havelland — Hobbyist*innen und Profis, gemischte Erfahrungslevel, freundliche Atmosphäre. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
+        formatsTitle: 'Wähle ein Format',
+        formats: [
+          { key: 'lightning', icon: '⚡', label: 'Lightning · 5–10 Min.', description: 'Eine kurze Demo, eine pointierte Meinung, ein Tool, das du liebst. Perfekt für den ersten Vortrag.' },
+          { key: 'standard',  icon: '🎤', label: 'Standard · 20–25 Min. + Q&A', description: 'Ein tieferer Einblick in ein Thema deiner Wahl, gefolgt von einer offenen Diskussion.' },
+          { key: 'workshop',  icon: '🛠️', label: 'Workshop · 45–60 Min.', description: 'Eine praktische Session, bei der das Publikum mitbaut oder mitlernt.' }
+        ],
+        offerTitle: 'Was wir Vortragenden bieten',
+        offer: [
+          'Ein freundliches Publikum und hausgemachten Kuchen',
+          'Auf Wunsch eine Generalprobe mit einem Organisator',
+          'Folien-Review und Themen-Brainstorming, wenn du magst',
+          'Such dir die Sprache aus: Deutsch, Englisch oder egal',
+          'Optionale Aufzeichnung — nur wenn du zustimmst'
+        ],
+        emailContentsTitle: 'Was sollte in deine E-Mail',
+        emailContents: [
+          'Dein Name',
+          'Titel des Vortrags',
+          'Kurze Beschreibung (2–4 Sätze)',
+          'Gewünschtes Format (Lightning / Standard / Workshop)',
+          'Sprache (DE / EN / egal)',
+          'Kurzvita (optional, ein Satz)'
+        ],
+        selection: 'Wir nehmen laufend Einreichungen an — Antwort kommt meist innerhalb von etwa zwei Wochen.',
+        buttonSubmit: 'Talk einreichen',
+        buttonLearnMore: 'Mehr erfahren',
+        backToMain: 'Zurück zur Hauptseite',
+        mailtoSubject: 'Talk-Vorschlag für HVLtech',
+        mailtoBody:
+          'Hallo HVLtech-Team,\n\n' +
+          'ich möchte einen Vortrag einreichen:\n\n' +
+          'Name:\n' +
+          'Titel des Vortrags:\n' +
+          'Kurze Beschreibung (2–4 Sätze):\n' +
+          '\n' +
+          'Gewünschtes Format (Lightning / Standard / Workshop):\n' +
+          'Sprache (DE / EN / egal):\n' +
+          'Kurzvita (optional, ein Satz):\n\n' +
+          'Danke!\n'
+      },
+      footerSpeakers: 'Vortragende',
       kids: {
         // Hero
         title: 'KIDS LABS',

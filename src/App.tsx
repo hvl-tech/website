@@ -4,6 +4,7 @@ import Footer from "./component/footer";
 import HomePage from "./pages/HomePage";
 import KidsPage from "./pages/KidsPage";
 import DatenschutzPage from "./pages/DatenschutzPage";
+import SpeakersPage from "./pages/SpeakersPage";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/labs" element={<KidsPage />} />
                     <Route path="/labs/datenschutz" element={<DatenschutzPage />} />
+                    <Route path="/speakers" element={<SpeakersPage />} />
                 </Routes>
             </main>
             <Footer/>
