@@ -22,7 +22,6 @@ export default function Footer() {
                 </Link>
                 <Link
                     to="/speakers"
-                    onClick={() => window.scrollTo(0, 0)}
                     className="text-white text-xs font-['Press_Start_2P'] hover:text-green-400 transition-colors no-underline flex items-center gap-1"
                 >
                     {t('footerSpeakers')}

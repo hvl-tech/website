@@ -97,9 +97,9 @@ const en = {
         audience: 'Around 20–50 attendees from Falkensee and the Havelland — hobbyists and professionals, mixed levels, friendly atmosphere. Talks can be in German, English, or whichever you prefer.',
         formatsTitle: 'Pick a format',
         formats: [
-          { key: 'lightning', icon: '⚡', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },
-          { key: 'standard',  icon: '🎤', label: 'Standard · 20–25 min + Q&A', description: 'A deeper dive into a topic of your choice, followed by an open discussion.' },
-          { key: 'workshop',  icon: '🛠️', label: 'Workshop · 45–60 min', description: 'A hands-on session where the audience builds or learns alongside you.' }
+          { icon: '⚡', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },
+          { icon: '🎤', label: 'Standard · 20–25 min + Q&A', description: 'A deeper dive into a topic of your choice, followed by an open discussion.' },
+          { icon: '🛠️', label: 'Workshop · 45–60 min', description: 'A hands-on session where the audience builds or learns alongside you.' }
         ],
         offerTitle: 'What we offer speakers',
         offer: [

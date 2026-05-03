@@ -96,9 +96,9 @@ const de = {
         audience: 'Etwa 20–50 Teilnehmer*innen aus Falkensee und dem Havelland — Hobbyist*innen und Profis, gemischte Erfahrungslevel, freundliche Atmosphäre. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
         formatsTitle: 'Wähle ein Format',
         formats: [
-          { key: 'lightning', icon: '⚡', label: 'Lightning · 5–10 Min.', description: 'Eine kurze Demo, eine pointierte Meinung, ein Tool, das du liebst. Perfekt für den ersten Vortrag.' },
-          { key: 'standard',  icon: '🎤', label: 'Standard · 20–25 Min. + Q&A', description: 'Ein tieferer Einblick in ein Thema deiner Wahl, gefolgt von einer offenen Diskussion.' },
-          { key: 'workshop',  icon: '🛠️', label: 'Workshop · 45–60 Min.', description: 'Eine praktische Session, bei der das Publikum mitbaut oder mitlernt.' }
+          { icon: '⚡', label: 'Lightning · 5–10 Min.', description: 'Eine kurze Demo, eine pointierte Meinung, ein Tool, das du liebst. Perfekt für den ersten Vortrag.' },
+          { icon: '🎤', label: 'Standard · 20–25 Min. + Q&A', description: 'Ein tieferer Einblick in ein Thema deiner Wahl, gefolgt von einer offenen Diskussion.' },
+          { icon: '🛠️', label: 'Workshop · 45–60 Min.', description: 'Eine praktische Session, bei der das Publikum mitbaut oder mitlernt.' }
         ],
         offerTitle: 'Was wir Vortragenden bieten',
         offer: [
