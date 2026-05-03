@@ -89,53 +89,6 @@ const en = {
     },
       gallery:
           {highline: 'Gallery'},
-      callForSpeakers: {
-        headline: 'Got something to share? We want to hear it.',
-        intro: 'Whether you have a polished talk or a half-baked idea, we would love to hear from you. No experience required — we will help you prepare.',
-        teaser: 'Built something cool, learned something the hard way, or have a strong opinion about a tech topic? Share it with our community in Falkensee.',
-        audienceTitle: 'Who you will be talking to',
-        audience: 'Around 20–50 attendees from Falkensee and the Havelland — hobbyists and professionals, mixed levels, friendly atmosphere. Talks can be in German, English, or whichever you prefer.',
-        formatsTitle: 'Pick a format',
-        formats: [
-          { icon: '⚡', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },
-          { icon: '🎤', label: 'Standard · 20–25 min + Q&A', description: 'A deeper dive into a topic of your choice, followed by an open discussion.' },
-          { icon: '🛠️', label: 'Workshop · 45–60 min', description: 'A hands-on session where the audience builds or learns alongside you.' }
-        ],
-        offerTitle: 'What we offer speakers',
-        offer: [
-          'A friendly audience and homemade cake',
-          'Optional dry-run with an organizer beforehand',
-          'Slide review and topic brainstorming if you want',
-          'Pick your language: German, English, or either',
-          'Optional recording — only if you opt in'
-        ],
-        emailContentsTitle: 'What to include in your email',
-        emailContents: [
-          'Your name',
-          'Talk title',
-          'Short abstract (2–4 sentences)',
-          'Preferred format (Lightning / Standard / Workshop)',
-          'Language (DE / EN / either)',
-          'Optional one-sentence bio'
-        ],
-        selection: 'Rolling submissions — we usually reply within about two weeks.',
-        buttonSubmit: 'Submit a talk',
-        buttonLearnMore: 'Learn more',
-        backToMain: 'Back to main page',
-        mailtoSubject: 'Talk submission for HVLtech',
-        mailtoBody:
-          'Hi HVLtech organizers,\n\n' +
-          'I would like to submit a talk:\n\n' +
-          'Name:\n' +
-          'Talk title:\n' +
-          'Short abstract (2–4 sentences):\n' +
-          '\n' +
-          'Preferred format (Lightning / Standard / Workshop):\n' +
-          'Language (DE / EN / either):\n' +
-          'Short bio (optional, one sentence):\n\n' +
-          'Thanks!\n'
-      },
-      footerSpeakers: 'Speakers',
       kids: {
         // Hero
         title: 'KIDS LABS',
