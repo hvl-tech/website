@@ -6,6 +6,7 @@ import Event from "../component/event";
 import Gallery from "../component/gallery";
 import Countdown from "../component/countdown";
 import AnimatedPixelBackground from "../component/AnimatedPixelBackground";
+import CallForSpeakers from "../component/callForSpeakers";
 import { useSeo } from "../utils/useSeo";
 
 
@@ -70,6 +71,10 @@ function HomePage() {
                         <ListItem>{t('whyTakePart.benefits5')}</ListItem>
                     </ul>
                 </div>
+            </section>
+
+            <section id="callForSpeakers">
+                <CallForSpeakers/>
             </section>
 
             <section>
