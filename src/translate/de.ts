@@ -85,6 +85,10 @@ const de = {
       oclock: 'Uhr',
       fromTo: 'von {{from}} bis {{to}}',
       nextEvent: 'Nächstes Event',
+      actions: {
+        map: 'KARTE',
+        calendar: 'KALENDER',
+      },
     },
       gallery: {
         highline: 'Galerie'},

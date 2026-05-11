@@ -7,13 +7,16 @@ import meetupData from "../data/meetup-events.json";
 type CardProps = {
     datum: string;
     header: string;
-    place: string;
+    timeStr: string;
+    venueName: string;
     address: string;
     contain: string;
     link?: string;
     internalLink?: string;
     isLast?: boolean;
     showProgram?: boolean;
+    mapUrl?: string;
+    calendarUrl?: string;
 };
 
 interface MeetupEvent {
@@ -23,6 +26,48 @@ interface MeetupEvent {
     location: string;
     description: string;
     eventUrl: string;
+}
+
+const DEFAULT_VENUE_BY_TITLE: Record<string, string> = {
+    'Programmiercafé': 'Kulturhaus „Johannes R. Becher" (Havelländer Weg 67, 14612 Falkensee)',
+};
+
+function parseLocation(raw: string, title: string): { venueName: string; address: string } {
+    const value = raw.trim().length > 0 ? raw : (DEFAULT_VENUE_BY_TITLE[title] || '');
+    const match = value.match(/^([^(]+)\(([^)]+)\)/);
+    if (match) return { venueName: match[1].trim(), address: match[2].trim() };
+    return { venueName: value, address: '' };
+}
+
+function buildMapUrl(venueName: string, address: string): string | undefined {
+    const query = address || venueName;
+    if (!query) return undefined;
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+function pad(n: number): string {
+    return String(n).padStart(2, '0');
+}
+
+function toCalendarStamp(date: Date): string {
+    return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}00`;
+}
+
+function buildCalendarUrl(event: MeetupEvent, venueName: string, address: string): string | undefined {
+    const start = new Date(event.dateTime);
+    if (isNaN(start.getTime())) return undefined;
+    const end = event.endTime ? new Date(event.endTime) : new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    const dates = `${toCalendarStamp(start)}/${toCalendarStamp(end)}`;
+    const locationStr = [venueName, address].filter(Boolean).join(', ');
+    const params = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: event.title,
+        dates,
+        location: locationStr,
+        details: event.description + (event.eventUrl ? `\n\n${event.eventUrl}` : ''),
+        ctz: 'Europe/Berlin',
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
 function useEventCards(events: MeetupEvent[]): CardProps[] {
@@ -41,9 +86,7 @@ function useEventCards(events: MeetupEvent[]): CardProps[] {
             ? `${day}\n${month}`
             : `${month}\n${day}`;
 
-        const locationParts = event.location.match(/^([^(]+)\(([^)]+)\)/);
-        const venueName = locationParts ? locationParts[1].trim() : event.location;
-        const address = locationParts ? locationParts[2].trim() : '';
+        const { venueName, address } = parseLocation(event.location, event.title);
 
         let timeStr: string;
         if (end && end.getTime() !== start.getTime()) {
@@ -56,18 +99,19 @@ function useEventCards(events: MeetupEvent[]): CardProps[] {
             timeStr = `${t('event.at')} ${timeFormatted}${oclock ? ' ' + oclock : ''}`;
         }
 
-        const place = venueName ? `${venueName} ${timeStr}` : timeStr;
-
         const isKidsLabs = /kids\s*labs/i.test(event.title);
 
         return {
             datum,
             header: event.title,
-            place,
+            timeStr,
+            venueName,
             address,
             contain: event.description,
             link: isKidsLabs ? undefined : (event.eventUrl || undefined),
             internalLink: isKidsLabs ? '/labs' : undefined,
+            mapUrl: buildMapUrl(venueName, address),
+            calendarUrl: buildCalendarUrl(event, venueName, address),
         };
     });
 }
@@ -85,14 +129,52 @@ function formatTime(date: Date, lang: string): string {
     return minutes === 0 ? `${h12}${period}` : `${h12}:${String(minutes).padStart(2, '0')}${period}`;
 }
 
-const Card = ({ datum, header, place, address, contain, link, internalLink, showProgram }: CardProps) => {
+const PinIcon = ({ size = 16, color = "#15803d" }: { size?: number; color?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 16 16" shapeRendering="crispEdges" className="flex-shrink-0">
+        <rect x="6" y="1" width="4" height="2" fill={color} />
+        <rect x="4" y="3" width="8" height="6" fill={color} />
+        <rect x="6" y="5" width="4" height="2" fill="#fff" />
+        <rect x="7" y="9" width="2" height="4" fill={color} />
+    </svg>
+);
+
+const RssIcon = ({ size = 12, color = "#0d1b21" }: { size?: number; color?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 14 14" shapeRendering="crispEdges">
+        <rect x="1" y="9" width="3" height="3" fill={color} />
+        <rect x="1" y="5" width="3" height="3" fill={color} /><rect x="5" y="9" width="3" height="3" fill={color} />
+        <rect x="1" y="1" width="3" height="3" fill={color} /><rect x="5" y="5" width="3" height="3" fill={color} /><rect x="9" y="9" width="3" height="3" fill={color} />
+    </svg>
+);
+
+const FeedGroup = () => (
+    <div className="inline-flex border-[3px] border-black shadow-[3px_3px_0_#000]">
+        <a
+            href="/rss.xml"
+            className="inline-flex items-center gap-1.5 px-3 py-2 no-underline font-['Press_Start_2P'] text-[8px] text-[#0d1b21] bg-amber-400 border-r-[3px] border-black hover:bg-green-700 hover:text-white active:translate-x-px active:translate-y-px"
+        >
+            <RssIcon />
+            RSS
+        </a>
+        <a
+            href="/events.ics"
+            className="inline-flex items-center gap-1.5 px-3 py-2 no-underline font-['Press_Start_2P'] text-[8px] text-[#0d1b21] bg-white hover:bg-green-700 hover:text-white active:translate-x-px active:translate-y-px"
+        >
+            📅 iCAL
+        </a>
+    </div>
+);
+
+const actionBtn = "inline-flex items-center gap-1.5 no-underline bg-white text-[#0d1b21] border-[3px] border-black shadow-[3px_3px_0_#000] px-2.5 py-1.5 font-['Press_Start_2P'] text-[8px] hover:bg-amber-100 active:translate-x-px active:translate-y-px";
+
+const Card = ({ datum, header, timeStr, venueName, address, contain, link, internalLink, showProgram, mapUrl, calendarUrl }: CardProps) => {
+    const { t } = useTranslation();
     const isCafe = header.toLowerCase().includes('programmiercaf');
-    const hasLink = Boolean(link || internalLink);
-    const cardContent = (
+    const venueShortAddress = address.split(',')[0].trim();
+    const hasActions = Boolean(venueName || mapUrl || calendarUrl);
+
+    return (
         <div className="border-4 border-black shadow-[4px_4px_0px_#000] p-2 md:p-4 w-full flex flex-col items-center justify-center">
-            <div
-                key={`contentCard-${datum}`}
-                className={` w-full flex md:flex-row flex-col items-center justify-between md:gap-6 gap-3 max-w-[1120px] bg-white ${hasLink ? 'hover:shadow-[6px_6px_0px_#000] cursor-pointer hover:bg-green-50' : ''}`}>
+            <div className="w-full flex md:flex-row flex-col items-center md:items-start justify-between md:gap-6 gap-3 max-w-[1120px] bg-white">
                 <BorderedBox>
                     <div
                         className={`
@@ -105,34 +187,48 @@ const Card = ({ datum, header, place, address, contain, link, internalLink, show
                         {datum}
                     </div>
                 </BorderedBox>
-                <div className='flex md:items-start items-center flex-col w-full px-10'>
-                    <h3 className={`md:text-xl ${isCafe ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto`}>{header}</h3>
-                    <p className="font-bold py-2 ">{place}</p>
-                    <p className='text-sm text-pretty py-2'> {address}</p>
-                    <p className="italic">{contain}</p>
+                <div className='flex md:items-start items-center flex-col w-full px-4 md:px-6 gap-2'>
+                    {internalLink ? (
+                        <Link to={internalLink} className={`md:text-xl ${isCafe ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto no-underline hover:underline`}>
+                            <h3 className="m-0">{header}</h3>
+                        </Link>
+                    ) : link ? (
+                        <a href={link} target="_blank" rel="noopener noreferrer" className={`md:text-xl ${isCafe ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto no-underline hover:underline`}>
+                            <h3 className="m-0">{header}</h3>
+                        </a>
+                    ) : (
+                        <h3 className={`md:text-xl ${isCafe ? "text-cyan-700" : "text-green-700"} font-['Press_Start_2P'] self-center md:self-auto m-0`}>{header}</h3>
+                    )}
+                    <p className="font-bold">{timeStr}</p>
+                    {contain && <p className="italic text-gray-700 whitespace-pre-line">{contain}</p>}
+                    {hasActions && (
+                        <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-1 w-full md:justify-start justify-center">
+                            {venueName && (
+                                <span className="inline-flex items-center gap-2 bg-amber-100 text-[#0d1b21] border-[3px] border-black shadow-[3px_3px_0_#000] px-2.5 py-1.5 text-[13px] leading-tight">
+                                    <PinIcon size={16} color="#92400e" />
+                                    <span>
+                                        <strong className="text-[#00274a] font-bold">{venueName}</strong>
+                                        {venueShortAddress && <span> · {venueShortAddress}</span>}
+                                    </span>
+                                </span>
+                            )}
+                            {mapUrl && (
+                                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={actionBtn}>
+                                    🗺 {t('event.actions.map')}
+                                </a>
+                            )}
+                            {calendarUrl && (
+                                <a href={calendarUrl} target="_blank" rel="noopener noreferrer" className={actionBtn}>
+                                    📥 {t('event.actions.calendar')}
+                                </a>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             {showProgram && <Program />}
         </div>
     );
-
-    if (internalLink) {
-        return (
-            <Link to={internalLink} className="w-full flex justify-center no-underline text-inherit">
-                {cardContent}
-            </Link>
-        );
-    }
-
-    if (link) {
-        return (
-            <a href={link} target="_blank" rel="noopener noreferrer" className="w-full flex justify-center no-underline text-inherit">
-                {cardContent}
-            </a>
-        );
-    }
-
-    return cardContent;
 }
 
 const Event = () => {
@@ -142,7 +238,10 @@ const Event = () => {
     return (
         <div
             className="bg-white gap-2.5 w-full px-2 md:px-8 py-4 md:py-8 flex flex-col items-center justify-around max-w-[1120px] mx-auto">
-            <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a]">{t('event.nextEvent')}</h2>
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-2">
+                <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a] m-0">{t('event.nextEvent')}</h2>
+                <FeedGroup />
+            </div>
             {cardData.map((event: CardProps, index: number) => (
                 <Card key={index} {...event} />
             ))}

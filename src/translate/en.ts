@@ -86,6 +86,10 @@ const en = {
       oclock: '',
       fromTo: 'from {{from}} to {{to}}',
       nextEvent: 'Next Event',
+      actions: {
+        map: 'MAP',
+        calendar: 'CALENDAR',
+      },
     },
       gallery:
           {highline: 'Gallery'},

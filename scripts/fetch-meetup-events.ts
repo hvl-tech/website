@@ -59,6 +59,15 @@ function cleanDescription(desc: string): string {
   return truncate(stripMarkdown(body), MAX_DESCRIPTION_LENGTH);
 }
 
+const DEFAULT_VENUE_BY_TITLE: Record<string, string> = {
+  'Programmiercafé': 'Kulturhaus „Johannes R. Becher" (Havelländer Weg 67, 14612 Falkensee)',
+};
+
+function resolveLocation(rawLocation: string, title: string): string {
+  if (rawLocation.trim().length > 0) return rawLocation;
+  return DEFAULT_VENUE_BY_TITLE[title] || '';
+}
+
 async function fetchEvents(): Promise<void> {
   console.log(`Fetching iCal feed from ${ICAL_URL}...`);
 
@@ -83,11 +92,12 @@ async function fetchEvents(): Promise<void> {
           ? String((rawUrl as { val: string }).val)
           : '';
 
+      const title = String(value.summary || '');
       events.push({
-        title: String(value.summary || ''),
+        title,
         dateTime: formatLocalISO(start),
         endTime: end && !isNaN(end.getTime()) ? formatLocalISO(end) : '',
-        location: String(value.location || ''),
+        location: resolveLocation(String(value.location || ''), title),
         description: cleanDescription(String(value.description || '')),
         eventUrl,
       });
