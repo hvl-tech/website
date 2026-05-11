@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run generate-feeds",
     "build": "vite build",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
@@ -12,7 +13,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "fetch-events": "tsx scripts/fetch-meetup-events.ts"
+    "fetch-events": "tsx scripts/fetch-meetup-events.ts",
+    "generate-feeds": "tsx scripts/generate-feeds.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
