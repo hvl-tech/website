@@ -71,16 +71,23 @@ function eventGuid(event: MeetupEvent): string {
     return `hvltech-evt-${eventId(event)}-${date}`;
 }
 
+// RFC 5545 limits lines to 75 octets (continuation space included). Iterating by
+// code point keeps multi-byte characters like emoji from being split.
 function foldIcsLine(line: string): string {
-    if (line.length <= 75) return line;
     const out: string[] = [];
-    let remaining = line;
-    out.push(remaining.slice(0, 75));
-    remaining = remaining.slice(75);
-    while (remaining.length > 0) {
-        out.push(' ' + remaining.slice(0, 74));
-        remaining = remaining.slice(74);
+    let current = '';
+    let currentBytes = 0;
+    for (const char of line) {
+        const bytes = Buffer.byteLength(char);
+        if (currentBytes + bytes > 75) {
+            out.push(current);
+            current = ' ';
+            currentBytes = 1;
+        }
+        current += char;
+        currentBytes += bytes;
     }
+    out.push(current);
     return out.join('\r\n');
 }
 
