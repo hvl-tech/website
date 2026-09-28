@@ -1,37 +1,21 @@
 {
-  "fetchedAt": "2026-02-14T08:43:45.107Z",
+  "fetchedAt": "2026-09-28T15:11:42.708Z",
   "upcomingEvents": [
     {
-      "title": "Programmiercafé",
-      "dateTime": "2026-04-05T11:00:00",
-      "endTime": "2026-04-05T13:00:00",
+      "title": "HVLtech Dinner at Karyatis: Meze, side projects, and zero slides",
+      "dateTime": "2026-10-07T18:00:00",
+      "endTime": "2026-10-07T21:00:00",
       "location": "",
-      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
-      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/313148614/"
+      "description": "After a bit of a break, we're back for another dinner together. Let's catch up on what's new while enjoying some Greek food at Karyatis in Falkensee. No talks, no agenda, just…",
+      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/316735836/"
     },
     {
       "title": "Programmiercafé",
-      "dateTime": "2026-02-27T11:00:00",
-      "endTime": "2026-02-27T13:00:00",
+      "dateTime": "2026-10-09T11:00:00",
+      "endTime": "2026-10-09T13:00:00",
       "location": "",
-      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
-      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/313148614/"
-    },
-    {
-      "title": "Programmiercafé",
-      "dateTime": "2026-03-13T11:00:00",
-      "endTime": "2026-03-13T13:00:00",
-      "location": "",
-      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
-      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/313172260/"
-    },
-    {
-      "title": "Programmiercafé",
-      "dateTime": "2026-03-27T11:00:00",
-      "endTime": "2026-03-27T13:00:00",
-      "location": "",
-      "description": "A space for working on projects & learning new stuff together. 💻☕️\nPlease RSVP if you intend to join, as we have limited space. 😊",
-      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/ltgcvtyjcfbkc/"
+      "description": "A space for working on projects & learning new stuff together. 💻☕️ Please RSVP if you intend to join, as we have limited space. 😊",
+      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/316622375/"
     }
   ]
 }
