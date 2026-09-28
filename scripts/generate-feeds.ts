@@ -2,6 +2,9 @@ import { writeFileSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+// Event times in meetup-events.json are Europe/Berlin wall-clock times without an offset.
+process.env.TZ = 'Europe/Berlin';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = resolve(__dirname, '../src/data/meetup-events.json');
 const RSS_OUTPUT = resolve(__dirname, '../public/rss.xml');
@@ -62,8 +65,10 @@ function eventId(event: MeetupEvent): string {
     return slug.replace(/^-+|-+$/g, '');
 }
 
+// Meetup can reuse one event ID across occurrences, so the date keeps GUIDs/UIDs unique.
 function eventGuid(event: MeetupEvent): string {
-    return `hvltech-evt-${eventId(event)}`;
+    const date = event.dateTime.slice(0, 10).replace(/-/g, '');
+    return `hvltech-evt-${eventId(event)}-${date}`;
 }
 
 function foldIcsLine(line: string): string {
