@@ -68,6 +68,30 @@ function resolveLocation(rawLocation: string, title: string): string {
   return DEFAULT_VENUE_BY_TITLE[title] || '';
 }
 
+// Meetup's iCal feed keeps cancelled events as STATUS:CONFIRMED, so the event page's
+// embedded Next.js data is the only public place the real status shows up. Any failure
+// here keeps the event rather than hiding a real one.
+async function isCancelledOnMeetup(eventUrl: string): Promise<boolean> {
+  const id = eventUrl.match(/\/events\/([^/?]+)/)?.[1];
+  if (!id) return false;
+
+  try {
+    const res = await fetch(eventUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; hvltech-site-build)' },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) return false;
+    const html = await res.text();
+    const match = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!match) return false;
+    const event = JSON.parse(match[1])?.props?.pageProps?.event;
+    return event?.id === id && typeof event.status === 'string' && event.status.startsWith('CANCELLED');
+  } catch (error) {
+    console.warn(`Could not check status of ${eventUrl}:`, error);
+    return false;
+  }
+}
+
 async function fetchEvents(): Promise<void> {
   console.log(`Fetching iCal feed from ${ICAL_URL}...`);
 
@@ -83,6 +107,7 @@ async function fetchEvents(): Promise<void> {
       const end = value.end ? new Date(value.end as unknown as string) : null;
 
       if (!start || isNaN(start.getTime())) continue;
+      if (String(value.status || '').toUpperCase() === 'CANCELLED') continue;
 
       // url can be a string or an object with { params, val }
       const rawUrl = value.url;
@@ -103,15 +128,21 @@ async function fetchEvents(): Promise<void> {
       });
     }
 
-    events.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
+    const cancelled = await Promise.all(events.map((event) => isCancelledOnMeetup(event.eventUrl)));
+    const activeEvents = events.filter((event, i) => {
+      if (cancelled[i]) console.log(`Skipping cancelled event: ${event.title} (${event.dateTime})`);
+      return !cancelled[i];
+    });
+
+    activeEvents.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
 
     const result: MeetupEventsData = {
       fetchedAt: new Date().toISOString(),
-      upcomingEvents: events,
+      upcomingEvents: activeEvents,
     };
 
     writeFileSync(OUTPUT_PATH, JSON.stringify(result, null, 2) + '\n');
-    console.log(`Wrote ${events.length} events to ${OUTPUT_PATH}`);
+    console.log(`Wrote ${activeEvents.length} events to ${OUTPUT_PATH}`);
   } catch (error) {
     console.error('Failed to fetch Meetup events:', error);
 
