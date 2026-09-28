@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import text from '../assets/text.svg';
 import logo from '../assets/logo/logo_no_text.svg';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import MailOutlineIcon from '@mui/icons-material/MailOutlineOutlined';
 
 export default function Footer() {
     const { t } = useTranslation();
