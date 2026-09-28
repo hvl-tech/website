@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-28T15:11:42.708Z",
+  "fetchedAt": "2026-09-28T19:06:38.959Z",
   "upcomingEvents": [
     {
       "title": "HVLtech Dinner at Karyatis: Meze, side projects, and zero slides",
@@ -8,14 +8,6 @@
       "location": "",
       "description": "After a bit of a break, we're back for another dinner together. Let's catch up on what's new while enjoying some Greek food at Karyatis in Falkensee. No talks, no agenda, just…",
       "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/316735836/"
-    },
-    {
-      "title": "Programmiercafé",
-      "dateTime": "2026-10-09T11:00:00",
-      "endTime": "2026-10-09T13:00:00",
-      "location": "",
-      "description": "A space for working on projects & learning new stuff together. 💻☕️ Please RSVP if you intend to join, as we have limited space. 😊",
-      "eventUrl": "https://www.meetup.com/havelland-technology-falkensee/events/316622375/"
     }
   ]
 }
