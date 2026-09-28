@@ -13,6 +13,13 @@ dist-ssr
 *.local
 .env
 
+# Generated at build time by scripts/generate-feeds.ts
+public/rss.xml
+public/events.ics
+
+# Prototyping artifacts (not deployed)
+mockups/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
