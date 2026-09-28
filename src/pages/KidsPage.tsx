@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import MailOutlineIcon from "@mui/icons-material/MailOutlineOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import logo from "../assets/logo/logo_no_text.svg";
 import heroImg from "../assets/kids-hero.jpg";

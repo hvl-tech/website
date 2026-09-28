@@ -1,4 +1,4 @@
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import MailOutlineIcon from "@mui/icons-material/MailOutlineOutlined";
 
 type MailtoCtaButtonProps = {
     href: string;
