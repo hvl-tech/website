@@ -521,19 +521,6 @@ export default function HavellandScene({ motion, mascotLabel, night }: Havelland
           dx: 0,
         });
       }
-      if (boatReflection) {
-        drawReflection(ctx, boatReflection, k, t, {
-          height: BOAT_SPRITE_HEIGHT,
-          axis: 76 + BOAT_WATERLINE,
-          top: by + BOAT_WATERLINE,
-          depth: 80,
-          squash: 0.75,
-          alpha: 0.45,
-          sx: 0,
-          sw: 90,
-          dx: bx - 45,
-        });
-      }
       // Wash the reflections toward the water colour, then add the shimmer.
       ctx.setTransform(k, 0, 0, k, 0, 0);
       ctx.fillStyle = isNight ? "rgba(16, 32, 52, 0.25)" : "rgba(160, 200, 198, 0.28)";
@@ -542,6 +529,23 @@ export default function HavellandScene({ motion, mascotLabel, night }: Havelland
         lightPath(ctx, t, MOON.x, 26, "#f4ecc8", 0.7);
         for (const x of LAMPS) lightPath(ctx, t + x, x, 10, "#ffcf6e", 0.55);
       }
+      // The boat floats in front of the moon and lamp light, so its
+      // reflection is drawn after the light paths and covers them.
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      if (boatReflection) {
+        drawReflection(ctx, boatReflection, k, t, {
+          height: BOAT_SPRITE_HEIGHT,
+          axis: 76 + BOAT_WATERLINE,
+          top: by + BOAT_WATERLINE,
+          depth: 80,
+          squash: 0.75,
+          alpha: isNight ? 0.85 : 0.35,
+          sx: 0,
+          sw: 90,
+          dx: bx - 45,
+        });
+      }
+      ctx.setTransform(k, 0, 0, k, 0, 0);
       for (const s of SPARKLES) {
         if (isNight && s.phase % 2 > 0.6) continue;
         const glint = Math.sin(t * s.speed + s.phase);
