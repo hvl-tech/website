@@ -99,8 +99,8 @@ const en = {
         intro: 'Whether you have a polished talk or a half-baked idea, we would love to hear from you. No experience needed. We will help you prepare.',
         teaser: 'Built something cool, learned something the hard way, or have a strong opinion about a tech topic? Share it with our community in Falkensee.',
         audienceTitle: 'Who you will be talking to',
-        audience: 'Around 20–50 attendees from Falkensee and the Havelland. Hobbyists and professionals, mixed levels, friendly atmosphere. Talks can be in German, English, or whichever you prefer.',
-        audienceFacts: ['20–50 people', 'Hobbyists & pros', 'German or English'],
+        audience: 'Around 20 people from Falkensee and the Havelland. A small, friendly group of hobbyists and professionals with mixed levels. Talks can be in German, English, or whichever you prefer.',
+        audienceFacts: ['~20 people', 'Hobbyists & pros', 'German or English'],
         formatsTitle: 'Pick a format',
         formats: [
           { icon: 'bolt', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },

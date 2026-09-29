@@ -98,8 +98,8 @@ const de = {
         intro: 'Egal ob fertiger Vortrag oder halbgare Idee, wir freuen uns, von dir zu hören. Keine Vortragserfahrung nötig, wir helfen dir bei der Vorbereitung.',
         teaser: 'Du hast etwas Cooles gebaut, etwas auf die harte Tour gelernt oder eine starke Meinung zu einem Tech-Thema? Teile es mit unserer Community in Falkensee.',
         audienceTitle: 'Vor wem du sprichst',
-        audience: 'Etwa 20–50 Teilnehmer*innen aus Falkensee und dem Havelland. Hobbyist*innen und Profis, gemischte Erfahrungslevel, freundliche Atmosphäre. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
-        audienceFacts: ['20–50 Leute', 'Hobby & Profi', 'Deutsch oder Englisch'],
+        audience: 'Etwa 20 Leute aus Falkensee und dem Havelland. Eine kleine, freundliche Runde aus Hobbyist*innen und Profis mit gemischten Erfahrungsleveln. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
+        audienceFacts: ['~20 Leute', 'Hobby & Profi', 'Deutsch oder Englisch'],
         formatsTitle: 'Wähle ein Format',
         formats: [
           { icon: 'bolt', label: 'Lightning · 5–10 Min.', description: 'Eine kurze Demo, eine pointierte Meinung, ein Tool, das du liebst. Perfekt für den ersten Vortrag.' },
