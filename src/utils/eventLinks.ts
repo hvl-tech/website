@@ -1,3 +1,5 @@
+import meetupData from '../data/meetup-events.json';
+
 export interface MeetupEvent {
     title: string;
     dateTime: string;
@@ -71,4 +73,11 @@ export function buildIcsUrl(event: MeetupEvent, location: string): string {
         'END:VCALENDAR',
     ].filter(Boolean);
     return `data:text/calendar;charset=utf-8,${encodeURIComponent(lines.join('\r\n'))}`;
+}
+
+/** Meetup events that haven't ended yet, soonest first. */
+export function upcomingEvents(): MeetupEvent[] {
+    return meetupData.upcomingEvents.filter(
+        (event) => new Date(event.endTime || event.dateTime).getTime() > Date.now(),
+    );
 }

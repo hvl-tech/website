@@ -94,16 +94,18 @@ const en = {
       gallery:
           {highline: 'Gallery'},
       callForSpeakers: {
+        eyebrow: 'Call for speakers',
         headline: 'Got something to share? We want to hear it.',
         intro: 'Whether you have a polished talk or a half-baked idea, we would love to hear from you. No experience needed. We will help you prepare.',
         teaser: 'Built something cool, learned something the hard way, or have a strong opinion about a tech topic? Share it with our community in Falkensee.',
         audienceTitle: 'Who you will be talking to',
-        audience: 'Around 20–50 attendees from Falkensee and the Havelland. Hobbyists and professionals, mixed levels, friendly atmosphere. Talks can be in German, English, or whichever you prefer.',
+        audience: 'Around 20 people from Falkensee and the Havelland. A small, friendly group of hobbyists and professionals with mixed levels. Talks can be in German, English, or whichever you prefer.',
+        audienceFacts: ['~20 people', 'Hobbyists & pros', 'German or English'],
         formatsTitle: 'Pick a format',
         formats: [
-          { icon: '⚡', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },
-          { icon: '🎤', label: 'Standard · 20–25 min + Q&A', description: 'A deeper dive into a topic of your choice, followed by an open discussion.' },
-          { icon: '🛠️', label: 'Workshop · 45–60 min', description: 'A hands-on session where the audience builds or learns alongside you.' }
+          { icon: 'bolt', label: 'Lightning · 5–10 min', description: 'A quick demo, a hot take, a tool you love. Perfect for first-time speakers.' },
+          { icon: 'talk', label: 'Standard · 20–25 min + Q&A', description: 'A deeper dive into a topic of your choice, followed by an open discussion.' },
+          { icon: 'wrench', label: 'Workshop · 45–60 min', description: 'A hands-on session where the audience builds or learns alongside you.' }
         ],
         offerTitle: 'What we offer speakers',
         offer: [
@@ -125,6 +127,9 @@ const en = {
         selection: 'Rolling submissions. We usually reply within about two weeks.',
         buttonSubmit: 'Submit a talk',
         buttonLearnMore: 'Learn more',
+        cheer: 'You’ve got this!',
+        ready: 'Ready when you are.',
+        fileHint: 'Send these lines to meetup@hvltech.de',
         backToMain: 'Back to main page',
         mailtoSubject: 'Talk submission for HVLtech',
         mailtoBody:
@@ -235,6 +240,9 @@ const en = {
 
       datenschutz: {
         title: 'Privacy Policy',
+        eyebrow: 'Kids Labs',
+        contents: 'Contents',
+        back: 'Back to Kids Labs',
         responsible: {
           title: 'Responsible parties'
         },
@@ -280,10 +288,7 @@ const en = {
         },
         lastUpdated: 'Last updated'
       },
-    home: {
-      seoTitle: 'HVLtech · Tech Community Havelland',
-      seoDescription: 'Your tech neighbours in the Havelland. A community dinner every month, each time in a different town. Plus talks and Kids Labs. Home base: Falkensee.',
-      skip: 'Skip to the next event',
+    site: {
       nav: {
         label: 'Main navigation',
         open: 'Open menu',
@@ -291,9 +296,27 @@ const en = {
         tour: 'Tour de Havelland',
         community: 'Community',
         faq: 'FAQ',
+        talks: 'Talks',
+        kids: 'Kids Labs',
+        home: 'HVLtech home',
         switchLanguage: 'Auf Deutsch wechseln',
         rsvp: 'RSVP',
       },
+      feeds: {
+        label: 'Follow along:',
+      },
+      footer: {
+        tagline: 'Made with ❤️ in the Havelland.',
+        contact: 'Contact',
+        speakers: 'Speakers',
+        kids: 'Kids Labs',
+        privacy: 'Privacy',
+      },
+    },
+    home: {
+      seoTitle: 'HVLtech · Tech Community Havelland',
+      seoDescription: 'Your tech neighbours in the Havelland. A community dinner every month, each time in a different town. Plus talks and Kids Labs. Home base: Falkensee.',
+      skip: 'Skip to the next event',
       hero: {
         eyebrow: 'Tech community Havelland',
         title: 'Your tech neighbours in the Havelland.',
@@ -317,9 +340,6 @@ const en = {
         allEvents: 'All events on Meetup',
         none: 'The next dinner is being planned. Follow us on Meetup and you’ll hear first.',
         follow: 'Follow on Meetup',
-      },
-      feeds: {
-        label: 'Follow along:',
       },
       scene: {
         motto: 'Tech for a thriving Havelland.',
@@ -371,13 +391,6 @@ const en = {
           { icon: 'talk', q: 'Can I give a talk?', a: 'Yes please! A five-minute demo, an early idea or a full talk. First-timers are very welcome and we’re happy to help you prepare.', link: 'Speakers page' },
           { icon: 'kids', q: 'Can my kid join Kids Labs?', a: 'We’re restarting Kids Labs in autumn 2026: hands-on coding and electronics for kids. Write to us and we’ll let you know as soon as registration opens.', link: 'About Kids Labs' },
         ],
-      },
-      footer: {
-        tagline: 'Made with ❤️ in the Havelland.',
-        contact: 'Contact',
-        speakers: 'Speakers',
-        kids: 'Kids Labs',
-        privacy: 'Privacy',
       },
     }
   }

@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HavellandMap from "../component/HavellandMap";
 import HavellandScene from "../component/HavellandScene";
 import PhotoWall from "../component/PhotoWall";
 import PixelArt, { type SpriteName } from "../component/PixelArt";
-import brandLogo from "../assets/logo/logo_with_text.svg";
+import SiteLayout, { EMAIL, FeedLinks, MEETUP_URL, PixelIcon } from "../component/site/SiteLayout";
 import pearLogo from "../assets/logo/logo_no_text.svg";
-import meetupData from "../data/meetup-events.json";
 import { HQ, findTown, tour, towns } from "../data/havelland";
 import { buildMailto } from "../utils/buildMailto";
 import {
@@ -15,40 +14,12 @@ import {
   buildIcsUrl,
   parseLocation,
   type MeetupEvent,
+  upcomingEvents,
 } from "../utils/eventLinks";
 import { useSeo } from "../utils/useSeo";
 import "./home.css";
 
-const MEETUP_URL = "https://www.meetup.com/havelland-technology-falkensee/";
-const EMAIL = "meetup@hvltech.de";
 
-
-function BrandLogo() {
-  return (
-    <>
-      <img className="brand-pear" src={pearLogo} alt="" />
-      <svg className="brand-wordmark" viewBox="0 176 176.46046 35.77211" aria-hidden="true">
-        <image href={brandLogo} width="176.46046" height="211.77211" />
-      </svg>
-    </>
-  );
-}
-
-function PixelIcon({ kind }: { kind: "pin" | "clock" | "dinner" | "talk" | "kids" | "arrow" }) {
-  const paths = {
-    pin: "M8 1h8v2h4v4h2v7h-3v4h-3v3h-2v3h-4v-3H8v-3H5v-4H2V7h2V3h4zm2 6v5h4V7z",
-    clock: "M8 1h8v2h3v3h2v12h-2v3h-3v2H8v-2H5v-3H3V6h2V3h3zm3 5v7h6v-3h-3V6z",
-    dinner: "M4 2h2v6h1V2h2v6h1V2h2v9h-2v2H9v9H7v-9H6v-2H4zM15 2h4v20h-3v-8h-3V5h2z",
-    talk: "M3 3h18v2h1v11h-1v2H11l-4 3H5v-3H3v-2H2V5h1zm4 5v2h10V8zm0 4v2h6v-2z",
-    kids: "M11 0h2v3h6v2h2v4h2v5h-2v4h-2v2H5v-2H3v-4H1V9h2V5h2V3h6zM7 8v3h3V8zm7 0v3h3V8zm-5 6v2h6v-2z",
-    arrow: "M12 3h3v3h3v3h3v6h-3v3h-3v3h-3v-4h3v-3H2v-4h13V7h-3z",
-  };
-  return (
-    <svg className="pixel-icon" viewBox="0 0 24 24" aria-hidden="true" shapeRendering="crispEdges">
-      <path fill="currentColor" fillRule="evenodd" d={paths[kind]} />
-    </svg>
-  );
-}
 
 function eventTown(event?: MeetupEvent) {
   if (!event) return undefined;
@@ -123,19 +94,6 @@ function CalendarMenu({ event, venueName, address, place }: { event: MeetupEvent
   );
 }
 
-/** RSS, Atom and iCal feeds, generated at build time by scripts/generate-feeds.ts. */
-function FeedLinks() {
-  const { t } = useTranslation();
-  return (
-    <p className="feed-links">
-      <span>{t("home.feeds.label")}</span>
-      <a href="/rss.xml" type="application/rss+xml">RSS</a>
-      <a href="/atom.xml" type="application/atom+xml">Atom</a>
-      <a href="/events.ics" type="text/calendar">iCal</a>
-    </p>
-  );
-}
-
 function NextEventCard({ event, lang, motion }: { event?: MeetupEvent; lang: string; motion: boolean }) {
   const { t } = useTranslation();
   if (!event) {
@@ -203,19 +161,13 @@ type FaqItem = { icon: SpriteName; q: string; a: string; link?: string };
 export default function HomePage() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage === "de" ? "de" : "en";
-  const isGerman = lang === "de";
   const [motion, setMotion] = useState(
     () => !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
   const sceneScroller = useRef<HTMLDivElement>(null);
 
-  const upcoming = meetupData.upcomingEvents.filter(
-    (event) => new Date(event.endTime || event.dateTime).getTime() > Date.now(),
-  );
-  const [next, ...later] = upcoming;
+  const { hash } = useLocation();
+  const [next, ...later] = upcomingEvents();
   const nextTown = eventTown(next);
   const shortDate = (value: string) =>
     new Intl.DateTimeFormat(lang, { day: "numeric", month: "short" }).format(new Date(value));
@@ -244,13 +196,10 @@ export default function HomePage() {
     return () => query.removeEventListener("change", update);
   }, []);
 
-  // The header sticks to the top and turns into a compact bar once you scroll.
+  // Header links from other pages land here as /#tour etc.; scroll to them.
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 24);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash]);
 
   // On narrow screens the panorama scrolls sideways; start with HQ in view.
   useEffect(() => {
@@ -261,56 +210,10 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className={`havel-home ${motion ? "" : "motion-paused"}`}>
-      <a className="skip-link" href="#next">
-        {t("home.skip")}
-      </a>
-
-      <div className={`header-bar ${scrolled ? "is-scrolled" : ""}`}>
-      <header className="havel-header">
-        <a href="#" className="havel-brand" aria-label="HVLtech">
-          <BrandLogo />
-        </a>
-        <button
-          className="menu-toggle"
-          ref={menuButton}
-          aria-expanded={menuOpen}
-          aria-controls="home-nav"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? t("home.nav.close") : t("home.nav.open")}
-        >
-          {menuOpen ? "×" : "☰"}
-        </button>
-        <nav
-          id="home-nav"
-          className={menuOpen ? "is-open" : ""}
-          aria-label={t("home.nav.label")}
-          onClick={() => setMenuOpen(false)}
-          onKeyDown={(event) => {
-            if (event.key === "Escape") {
-              setMenuOpen(false);
-              menuButton.current?.focus();
-            }
-          }}
-        >
-          <a href="#tour">{t("home.nav.tour")}</a>
-          <a href="#community">{t("home.nav.community")}</a>
-          <a href="#faq">{t("home.nav.faq")}</a>
-          <button
-            className="language-switch"
-            onClick={() => i18n.changeLanguage(isGerman ? "en" : "de")}
-            aria-label={t("home.nav.switchLanguage")}
-          >
-            <span className={isGerman ? "is-active" : ""}>DE</span>/
-            <span className={isGerman ? "" : "is-active"}>EN</span>
-          </button>
-          <a className="pixel-button nav-cta" href={next?.eventUrl || MEETUP_URL}>
-            {t("home.nav.rsvp")} <PixelIcon kind="arrow" />
-          </a>
-        </nav>
-      </header>
-      </div>
-
+    <SiteLayout
+      className={`havel-home ${motion ? "" : "motion-paused"}`}
+      skip={{ href: "#next", label: t("home.skip") }}
+    >
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-intro">
           <p className="eyebrow">{t("home.hero.eyebrow")}</p>
@@ -475,21 +378,6 @@ export default function HomePage() {
         </p>
       </section>
 
-      <footer className="havel-footer">
-        <a className="havel-brand" href="#" aria-label="HVLtech">
-          <BrandLogo />
-        </a>
-        <div className="footer-middle">
-          <p>{t("home.footer.tagline")}</p>
-          <FeedLinks />
-        </div>
-        <div className="footer-links">
-          <a href={`mailto:${EMAIL}`}>{t("home.footer.contact")}</a>
-          <Link to="/speakers">{t("home.footer.speakers")}</Link>
-          <Link to="/labs">{t("home.footer.kids")}</Link>
-          <Link to="/labs/datenschutz">{t("home.footer.privacy")}</Link>
-        </div>
-      </footer>
-    </div>
+    </SiteLayout>
   );
 }

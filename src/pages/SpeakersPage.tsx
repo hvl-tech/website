@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo/logo_no_text.svg";
-import BorderedBox from "../component/borderedBox";
-import MailtoCtaButton from "../component/ui/mailtoCtaButton";
-import { useSeo } from "../utils/useSeo";
+import PearMascot from "../component/PearMascot";
+import PixelArt, { type SpriteName } from "../component/PixelArt";
+import SiteLayout, { EMAIL, PixelIcon } from "../component/site/SiteLayout";
 import { buildMailto } from "../utils/buildMailto";
+import { useSeo } from "../utils/useSeo";
+import "./speakers.css";
 
-type Format = { icon: string; label: string; description: string };
+type Format = { icon: SpriteName; label: string; description: string };
+
+// The email checklist, dressed up as the file a speaker would fill in.
+const TALK_FIELDS = ["name", "title", "abstract", "format", "language", "bio"];
 
 function SpeakersPage() {
     const { t } = useTranslation();
@@ -24,115 +28,111 @@ function SpeakersPage() {
     const formats = t('callForSpeakers.formats', { returnObjects: true }) as Format[];
     const offer = t('callForSpeakers.offer', { returnObjects: true }) as string[];
     const emailContents = t('callForSpeakers.emailContents', { returnObjects: true }) as string[];
-
+    const audienceFacts = t('callForSpeakers.audienceFacts', { returnObjects: true }) as string[];
     const mailto = buildMailto({
-        to: 'meetup@hvltech.de',
+        to: EMAIL,
         subject: t('callForSpeakers.mailtoSubject'),
         body: t('callForSpeakers.mailtoBody'),
     });
-
-    const submitLabel = t('callForSpeakers.buttonSubmit');
+    const submit = (
+        <a className="pixel-button" href={mailto}>
+            {t('callForSpeakers.buttonSubmit')} <PixelIcon kind="mail" />
+        </a>
+    );
 
     return (
-        <>
-            <Link
-                to="/"
-                className="fixed top-[34px] left-4 sm:left-8 md:left-12 lg:left-16 xl:left-1/2 xl:-translate-x-[560px] z-[60] bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 px-3 py-1.5 rounded-full text-xs font-semibold no-underline flex items-center gap-1.5 transition-colors"
-            >
-                ← <img src={logo} alt="" className="h-3.5 brightness-0 invert" /> HVLtech
-            </Link>
-
-            <section className="bg-[#00274a] text-white">
-                <div className="max-w-[1120px] mx-auto px-8 py-20 text-center">
-                    <h1 className="font-['Press_Start_2P'] text-xl md:text-2xl lg:text-3xl leading-relaxed mb-6 [text-shadow:_2px_2px_0_#0d1b21,_4px_4px_0_#0d1b21]">
-                        {t('callForSpeakers.headline')}
-                    </h1>
-                    <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-8 text-white/90">
-                        {t('callForSpeakers.intro')}
-                    </p>
-                    <MailtoCtaButton href={mailto} label={submitLabel} />
-                </div>
-            </section>
-
-            <section className="bg-white">
-                <div className="max-w-[1120px] mx-auto px-8 py-12 text-center">
-                    <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a] mb-4">
-                        {t('callForSpeakers.audienceTitle')}
-                    </h2>
-                    <p className="max-w-2xl mx-auto leading-relaxed text-[#0d1b21]">
-                        {t('callForSpeakers.audience')}
-                    </p>
-                </div>
-            </section>
-
-            <section className="bg-[#fefefe]">
-                <div className="max-w-[1120px] mx-auto px-8 py-12">
-                    <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a] mb-8 text-center">
-                        {t('callForSpeakers.formatsTitle')}
-                    </h2>
-                    <div className="grid md:grid-cols-3 gap-2">
-                        {formats.map((format) => (
-                            <BorderedBox key={format.label} className="bg-white p-6 flex flex-col">
-                                <div className="text-3xl mb-3" aria-hidden="true">{format.icon}</div>
-                                <h3 className="font-['Press_Start_2P'] text-xs text-[#00274a] mb-3 leading-relaxed">
-                                    {format.label}
-                                </h3>
-                                <p className="text-sm text-[#0d1b21] leading-relaxed">
-                                    {format.description}
-                                </p>
-                            </BorderedBox>
-                        ))}
+        <SiteLayout className="speakers-page">
+            <section className="page-hero speakers-hero" aria-labelledby="speakers-title">
+                <div>
+                    <p className="eyebrow">{t('callForSpeakers.eyebrow')}</p>
+                    <h1 id="speakers-title">{t('callForSpeakers.headline')}</h1>
+                    <p className="lede">{t('callForSpeakers.intro')}</p>
+                    <div className="speakers-actions">
+                        {submit}
+                        <a className="text-link" href="#include">
+                            {t('callForSpeakers.emailContentsTitle')} ↓
+                        </a>
                     </div>
                 </div>
+
+                <figure className="talk-file" id="include" aria-labelledby="talk-file-caption">
+                    <div className="talk-file-bar" aria-hidden="true">
+                        <span />
+                        <span />
+                        <span />
+                        <strong>talk.yml</strong>
+                    </div>
+                    <ol>
+                        {TALK_FIELDS.map((field, index) => (
+                            <li key={field}>
+                                <span className="key">
+                                    {field}:
+                                    {index === 0 && <span className="cursor" aria-hidden="true" />}
+                                </span>
+                                <span className="comment"># {emailContents[index]}</span>
+                            </li>
+                        ))}
+                    </ol>
+                    <figcaption id="talk-file-caption">{t('callForSpeakers.fileHint')}</figcaption>
+                </figure>
             </section>
 
-            <section className="bg-white">
-                <div className="max-w-[1120px] mx-auto px-8 py-12">
-                    <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a] mb-6 text-center">
-                        {t('callForSpeakers.offerTitle')}
-                    </h2>
-                    <ul className="list-none pl-8 max-w-2xl mx-auto [text-indent:-0.8em]">
+            <section className="page-section" aria-labelledby="audience-title">
+                <p className="eyebrow">{t('callForSpeakers.audienceTitle')}</p>
+                <p className="audience-text" id="audience-title">{t('callForSpeakers.audience')}</p>
+                <ul className="chip-list">
+                    {audienceFacts.map((fact) => (
+                        <li key={fact}>{fact}</li>
+                    ))}
+                </ul>
+            </section>
+
+            <section className="page-section" aria-labelledby="formats-title">
+                <h2 id="formats-title">{t('callForSpeakers.formatsTitle')}</h2>
+                <div className="format-cards">
+                    {formats.map((format) => (
+                        <article key={format.label} className="pixel-card">
+                            <PixelArt name={format.icon} className="format-art" />
+                            <h3>{format.label}</h3>
+                            <p>{format.description}</p>
+                        </article>
+                    ))}
+                </div>
+            </section>
+
+            <section className="page-section offer-section" aria-labelledby="offer-title">
+                <div>
+                    <h2 id="offer-title">{t('callForSpeakers.offerTitle')}</h2>
+                    <ul className="offer-list">
                         {offer.map((item) => (
-                            <li key={item} className="pb-1.5 before:content-['■'] before:text-[#008000] before:inline-block before:w-[1.3em] before:ml-[-0.5em]">
+                            <li key={item}>
+                                <PixelIcon kind="check" />
                                 {item}
                             </li>
                         ))}
                     </ul>
                 </div>
-            </section>
-
-            <section className="bg-[#fefefe]">
-                <div className="max-w-[1120px] mx-auto px-8 py-12">
-                    <h2 className="font-['Press_Start_2P'] font-normal text-base text-[#00274a] mb-6 text-center">
-                        {t('callForSpeakers.emailContentsTitle')}
-                    </h2>
-                    <BorderedBox className="bg-white p-6 max-w-2xl mx-auto">
-                        <ol className="list-decimal pl-6 space-y-2 text-[#0d1b21]">
-                            {emailContents.map((item) => (
-                                <li key={item} className="leading-relaxed">{item}</li>
-                            ))}
-                        </ol>
-                    </BorderedBox>
-                    <p className="text-center text-sm italic text-[#0d1b21] mt-6 max-w-2xl mx-auto">
-                        {t('callForSpeakers.selection')}
-                    </p>
+                <div className="offer-mascot" aria-hidden="true">
+                    <p className="speech">{t('callForSpeakers.cheer')}</p>
+                    <PearMascot />
                 </div>
             </section>
 
-            <section className="bg-white">
-                <div className="max-w-[1120px] mx-auto px-8 py-16 text-center">
-                    <MailtoCtaButton href={mailto} label={submitLabel} />
-                    <div className="mt-8">
-                        <Link
-                            to="/"
-                            className="inline-block font-['Press_Start_2P'] text-xs bg-[#fefefe] text-[#00274a] border-4 border-[#00274a] px-4 py-2 shadow-[4px_4px_0_#0d1b21] transition-all duration-100 ease-in-out hover:transform hover:-translate-x-1 hover:-translate-y-1 no-underline"
-                        >
+            <section className="page-section">
+                <div className="speakers-cta">
+                    <div>
+                        <h2>{t('callForSpeakers.ready')}</h2>
+                        <p>{t('callForSpeakers.selection')}</p>
+                    </div>
+                    <div className="speakers-actions">
+                        {submit}
+                        <Link className="text-link" to="/">
                             ← {t('callForSpeakers.backToMain')}
                         </Link>
                     </div>
                 </div>
             </section>
-        </>
+        </SiteLayout>
     );
 }
 
