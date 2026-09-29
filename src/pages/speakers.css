@@ -1,0 +1,196 @@
+.speakers-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+.speakers-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 28px;
+}
+
+/* The email checklist as a tiny terminal-style file. */
+.talk-file {
+  margin: 0;
+  background: #1f3b33;
+  color: #e3efd9;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 rgba(31, 59, 51, 0.25);
+  font-size: 14px;
+  scroll-margin-top: 96px;
+}
+.talk-file-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #16302a;
+  border-bottom: 3px solid var(--ink);
+}
+.talk-file-bar span {
+  width: 10px;
+  height: 10px;
+  background: #3f8059;
+}
+.talk-file-bar span:first-child {
+  background: var(--accent);
+}
+.talk-file-bar strong {
+  margin-left: 8px;
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  font-weight: 400;
+  color: #a9c7b0;
+}
+.talk-file ol {
+  list-style: none;
+  margin: 0;
+  padding: 16px 18px 6px;
+  counter-reset: line;
+}
+.talk-file li {
+  display: grid;
+  grid-template-columns: 18px 96px minmax(0, 1fr);
+  gap: 0 10px;
+  align-items: baseline;
+  padding: 3px 0;
+  counter-increment: line;
+}
+.talk-file li::before {
+  content: counter(line);
+  color: #5e7d70;
+  text-align: right;
+}
+.talk-file .key {
+  color: #9cc55a;
+  white-space: nowrap;
+}
+.talk-file .comment {
+  color: #8fa89a;
+}
+.talk-file .cursor {
+  height: 15px;
+  width: 8px;
+  margin-left: 6px;
+  vertical-align: -2px;
+}
+.talk-file figcaption {
+  padding: 8px 18px 14px;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #a9c7b0;
+}
+.talk-file figcaption::before {
+  content: "$ ";
+  color: var(--accent);
+}
+
+.audience-text {
+  font-size: 17px;
+  max-width: 44em;
+  margin: 0;
+}
+
+.format-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.format-art {
+  display: block;
+  height: 54px;
+  width: auto;
+  margin-bottom: 14px;
+}
+.format-cards h3 {
+  font-family: "VT323", monospace !important;
+  font-size: 25px;
+  line-height: 1.1;
+  color: var(--ink) !important;
+  margin-bottom: 10px;
+}
+.format-cards p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.offer-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: end;
+}
+.offer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 32px;
+}
+.offer-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.offer-list .pixel-icon {
+  color: var(--green);
+  margin-top: 3px;
+}
+.offer-mascot {
+  position: relative;
+  width: 84px;
+  margin: 0 140px 0 0;
+}
+.offer-mascot .speech {
+  margin-bottom: 4px;
+}
+
+.speakers-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+  padding: clamp(24px, 4vw, 40px);
+  background: #e7efe0;
+  border-top: 4px solid var(--green);
+}
+.speakers-cta h2 {
+  margin-bottom: 8px;
+}
+.speakers-cta p {
+  margin: 0;
+  color: var(--muted);
+}
+.speakers-cta .speakers-actions {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .speakers-hero,
+  .offer-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .format-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .offer-mascot {
+    margin: 16px 0 0;
+  }
+}
+@media (max-width: 560px) {
+  .offer-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .talk-file {
+    font-size: 13px;
+  }
+  .talk-file li {
+    grid-template-columns: 14px 78px minmax(0, 1fr);
+  }
+}

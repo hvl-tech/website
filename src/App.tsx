@@ -7,11 +7,12 @@ import DatenschutzPage from "./pages/DatenschutzPage";
 import SpeakersPage from "./pages/SpeakersPage";
 
 function App() {
-  const isHome = useLocation().pathname === "/";
+  // Only the Kids Labs page still uses the old layout; the rest bring their own header and footer.
+  const isLegacy = useLocation().pathname === "/labs";
   return (
     <div className="">
       <main className="flex-1">
-        {!isHome && (
+        {isLegacy && (
           <nav className="fixed top-4 z-50 px-2 py-2 sm:px-4 right-4 sm:right-8 md:right-12 lg:right-16 xl:right-1/2 xl:translate-x-[560px]">
             <TranslateBtn />
           </nav>
@@ -24,7 +25,7 @@ function App() {
           <Route path="/speakers" element={<SpeakersPage />} />
         </Routes>
       </main>
-      {!isHome && <Footer />}
+      {isLegacy && <Footer />}
     </div>
   );
 }
