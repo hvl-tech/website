@@ -14,7 +14,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "fetch-events": "tsx scripts/fetch-meetup-events.ts",
-    "generate-feeds": "tsx scripts/generate-feeds.ts"
+    "generate-feeds": "tsx scripts/generate-feeds.ts",
+    "build-map": "tsx scripts/build-havelland-map.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

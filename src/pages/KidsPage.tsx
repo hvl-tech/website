@@ -14,14 +14,14 @@ interface GalleryItem {
 }
 
 const electronicsPhotos: GalleryItem[] = [
-    { src: '/photos/kids-labs/electronics/IMG_2124.jpg', alt: 'Paper circuit with LED', caption: 'Ein fertiger Papier-Schaltkreis: Kupferband verbindet die Knopfbatterie mit der LED – und sie leuchtet!' },
-    { src: '/photos/kids-labs/electronics/lamp.jpeg', alt: 'Glowing lamp card', caption: 'Eine leuchtende Lampen-Karte – so könnte dein fertiges Projekt aussehen!' },
+    { src: '/photos/kids-labs/electronics/IMG_2124.jpg', alt: 'Paper circuit with LED', caption: 'Ein fertiger Papier-Schaltkreis: Kupferband verbindet die Knopfbatterie mit der LED, und sie leuchtet!' },
+    { src: '/photos/kids-labs/electronics/lamp.jpeg', alt: 'Glowing lamp card', caption: 'Eine leuchtende Lampen-Karte. So könnte dein fertiges Projekt aussehen!' },
 ];
 
 const minecraftPhotos: GalleryItem[] = [
-    { src: '/photos/kids-labs/minecraft/custom-blocks.png', alt: 'Custom blocks in Minecraft', caption: 'Eigene Blöcke mit dem HVLtech-Birnen-Design – live in Minecraft!' },
-    { src: '/photos/kids-labs/minecraft/birnen-schwert.png', alt: 'Birnen-Schwert presentation', caption: 'Das Birnen-Schwert mit Spezialeffekten – wähle deine eigene Fähigkeit!' },
-    { src: '/photos/kids-labs/minecraft/intellij.png', alt: 'Code in IntelliJ', caption: 'So sieht der Java-Code für deinen Block aus – mit KI-Unterstützung ganz einfach!' },
+    { src: '/photos/kids-labs/minecraft/custom-blocks.png', alt: 'Custom blocks in Minecraft', caption: 'Eigene Blöcke mit dem HVLtech-Birnen-Design, live in Minecraft!' },
+    { src: '/photos/kids-labs/minecraft/birnen-schwert.png', alt: 'Birnen-Schwert presentation', caption: 'Das Birnen-Schwert mit Spezialeffekten. Wähle deine eigene Fähigkeit!' },
+    { src: '/photos/kids-labs/minecraft/intellij.png', alt: 'Code in IntelliJ', caption: 'So sieht der Java-Code für deinen Block aus. Mit KI-Unterstützung ganz einfach!' },
 ];
 
 function PhotoGallery({ photos, placeholderIcon }: { photos: GalleryItem[]; placeholderIcon: string }) {
@@ -119,7 +119,7 @@ function PhotoGallery({ photos, placeholderIcon }: { photos: GalleryItem[]; plac
 function KidsPage() {
     const { t } = useTranslation();
     useSeo({
-        title: 'Kids Labs — HVLtech: Free Tech Workshops for Kids in Falkensee',
+        title: 'Kids Labs · HVLtech: Free Tech Workshops for Kids in Falkensee',
         description: 'Free hands-on tech workshops for kids: build electronic circuits or mod Minecraft. Sunday April 19, 2026 at Kulturhaus „J. R. Becher" in Falkensee.',
         path: '/labs',
     });

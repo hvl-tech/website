@@ -7,7 +7,7 @@ import { useSeo } from "../utils/useSeo";
 function DatenschutzPage() {
     const { t } = useTranslation();
     useSeo({
-        title: 'Datenschutz — HVLtech Kids Labs',
+        title: 'Datenschutz · HVLtech Kids Labs',
         description: 'Datenschutzerklärung für die HVLtech Kids Labs Workshops: welche Daten wir erheben, warum und wie lange wir sie speichern.',
         path: '/labs/datenschutz',
     });
