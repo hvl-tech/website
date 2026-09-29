@@ -334,14 +334,18 @@ function lightPath(
   width: number,
   color: string,
   alpha: number,
+  hidden?: { x0: number; x1: number; y0: number; y1: number },
 ) {
   ctx.fillStyle = color;
   for (let y = WATERLINE + 4; y < HEIGHT - 6; y += 5) {
     const depth = (y - WATERLINE) / (HEIGHT - WATERLINE);
     const w = Math.round(width * (0.5 + 0.5 * Math.abs(Math.sin(y * 0.7 + t * 1.8))) * (1 - depth * 0.4));
     const shift = Math.round(Math.sin(y * 0.25 + t * 1.3) * 3 * (0.4 + depth)) * 2;
+    const left = Math.round(x - w / 2 + shift);
+    // Water behind the boat (seen between sails and deck) carries no light.
+    if (hidden && y >= hidden.y0 && y <= hidden.y1 && left + w > hidden.x0 && left < hidden.x1) continue;
     ctx.globalAlpha = alpha * (1 - depth * 0.8);
-    ctx.fillRect(Math.round(x - w / 2 + shift), y, w, 2);
+    ctx.fillRect(left, y, w, 2);
   }
   ctx.globalAlpha = 1;
 }
@@ -366,7 +370,7 @@ function drawReflection(
   mirror: HTMLCanvasElement,
   k: number,
   t: number,
-  opts: { height: number; axis: number; top: number; depth: number; squash: number; alpha: number; sx: number; sw: number; dx: number },
+  opts: { height: number; axis: number; top: number; depth: number; squash: number; alpha: number; sx: number; sw: number; dx: number; fade?: boolean },
 ) {
   const band = 3;
   for (let d = 0; d < opts.depth; d += band) {
@@ -378,7 +382,7 @@ function drawReflection(
     const wave =
       Math.sin(y * 0.33 + t * 2.1) * 1.8 + Math.sin(y * 0.09 - t * 1.2) * 2.4;
     const shift = Math.round((wave * (0.35 + falloff * 1.4)) / 2) * 2;
-    ctx.globalAlpha = opts.alpha * (1 - falloff * 0.85);
+    ctx.globalAlpha = opts.fade === false ? opts.alpha : opts.alpha * (1 - falloff * 0.85);
     ctx.drawImage(
       mirror,
       opts.sx * k,
@@ -448,6 +452,7 @@ export default function HavellandScene({ motion, mascotLabel, night }: Havelland
     let boatMirror: HTMLCanvasElement | null = null;
     let nightBoat: HTMLCanvasElement | null = null;
     let nightBoatMirror: HTMLCanvasElement | null = null;
+    let boatShadowMirror: HTMLCanvasElement | null = null;
     let frame = 0;
     let visible = true;
     let last = 0;
@@ -526,12 +531,26 @@ export default function HavellandScene({ motion, mascotLabel, night }: Havelland
       ctx.fillStyle = isNight ? "rgba(16, 32, 52, 0.25)" : "rgba(160, 200, 198, 0.28)";
       ctx.fillRect(0, WATERLINE, WIDTH, HEIGHT - WATERLINE);
       if (isNight) {
-        lightPath(ctx, t, MOON.x, 26, "#f4ecc8", 0.7);
-        for (const x of LAMPS) lightPath(ctx, t + x, x, 10, "#ffcf6e", 0.55);
+        const behindBoat = { x0: bx - 42, x1: bx + 40, y0: by - 74, y1: by + BOAT_WATERLINE };
+        lightPath(ctx, t, MOON.x, 26, "#f4ecc8", 0.7, behindBoat);
+        for (const x of LAMPS) lightPath(ctx, t + x, x, 10, "#ffcf6e", 0.55, behindBoat);
       }
       // The boat floats in front of the moon and lamp light, so its
       // reflection is drawn after the light paths and covers them.
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+      const reflectionBox = {
+        height: BOAT_SPRITE_HEIGHT,
+        axis: 76 + BOAT_WATERLINE,
+        top: by + BOAT_WATERLINE,
+        depth: 80,
+        squash: 0.75,
+        sx: 0,
+        sw: 90,
+        dx: bx - 45,
+      };
+      if (isNight && boatShadowMirror) {
+        drawReflection(ctx, boatShadowMirror, k, t, { ...reflectionBox, alpha: 1, fade: false });
+      }
       if (boatReflection) {
         drawReflection(ctx, boatReflection, k, t, {
           height: BOAT_SPRITE_HEIGHT,
@@ -698,6 +717,8 @@ export default function HavellandScene({ motion, mascotLabel, night }: Havelland
       boatMirror = flipped(boat);
       nightBoat = tinted(boat, "rgba(10, 20, 46, 0.5)");
       nightBoatMirror = flipped(nightBoat);
+      // Solid water-coloured copy: blocks moon and lamp light behind the boat.
+      boatShadowMirror = flipped(tinted(boat, "#15283a"));
       rasterizeShore();
       draw(performance.now());
     };
