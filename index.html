@@ -17,6 +17,18 @@
     <link rel="alternate" type="application/rss+xml" title="HVLtech events (RSS)" href="/rss.xml" />
     <link rel="alternate" type="application/atom+xml" title="HVLtech events (Atom)" href="/atom.xml" />
     <link rel="alternate" type="text/calendar" title="HVLtech events (iCal)" href="/events.ics" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Pick the theme before first paint (see src/utils/theme.ts).
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem("hvltech-theme"); } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Havelland Tech Community · Meetup for Developers in Falkensee</title>

@@ -17,6 +17,7 @@ import {
   upcomingEvents,
 } from "../utils/eventLinks";
 import { useSeo } from "../utils/useSeo";
+import { useTheme } from "../utils/theme";
 import "./home.css";
 
 
@@ -167,6 +168,7 @@ export default function HomePage() {
   const sceneScroller = useRef<HTMLDivElement>(null);
 
   const { hash } = useLocation();
+  const theme = useTheme();
   const [next, ...later] = upcomingEvents();
   const nextTown = eventTown(next);
   const shortDate = (value: string) =>
@@ -276,7 +278,7 @@ export default function HomePage() {
       <section className="scene-section" aria-label={t("home.scene.motto")}>
         <div className="scene-scroller" ref={sceneScroller}>
           <div className="scene-stage">
-            <HavellandScene motion={motion} mascotLabel={t("home.hero.mascot")} />
+            <HavellandScene motion={motion} mascotLabel={t("home.hero.mascot")} night={theme === "dark"} />
           </div>
         </div>
         <p className="scene-hint" aria-hidden="true">

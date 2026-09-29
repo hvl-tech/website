@@ -48,7 +48,7 @@ export default function HavellandMap({ label, nextStop, legend, hqLabel, motion 
     >
       <defs>
         <pattern id={`${id}-dots`} width="15" height="15" patternUnits="userSpaceOnUse">
-          <rect x="7" y="7" width="2" height="2" fill="#dcdfcb" />
+          <rect x="7" y="7" width="2" height="2" style={{ fill: "var(--map-dots)" }} />
         </pattern>
         <path id={`${id}-route`} d={route} />
         <mask id={`${id}-reveal`} maskUnits="userSpaceOnUse">
@@ -59,12 +59,12 @@ export default function HavellandMap({ label, nextStop, legend, hqLabel, motion 
       <rect width={MAP_WIDTH} height={MAP_HEIGHT} fill={`url(#${id}-dots)`} />
 
       <g className="map-land" shapeRendering="crispEdges">
-        <path d={mapPaths.border} fill="#2e704f" transform="translate(3 3)" opacity=".16" />
-        <path d={mapPaths.border} fill="#3f8059" />
-        <path d={mapPaths.land} fill="#d3e3ad" />
-        <path d={mapPaths.forest} fill="#9dbf80" />
-        <path d={mapPaths.canal} fill="#a9cfcf" />
-        <path d={mapPaths.water} fill="#7fb6bb" />
+        <path d={mapPaths.border} fill="#000" transform="translate(3 3)" opacity=".16" />
+        <path d={mapPaths.border} style={{ fill: "var(--map-border)" }} />
+        <path d={mapPaths.land} style={{ fill: "var(--map-land)" }} />
+        <path d={mapPaths.forest} style={{ fill: "var(--map-forest)" }} />
+        <path d={mapPaths.canal} style={{ fill: "var(--map-canal)" }} />
+        <path d={mapPaths.water} style={{ fill: "var(--map-water)" }} />
       </g>
       <path className="map-rail" d={mapPaths.rail} />
 
@@ -75,7 +75,7 @@ export default function HavellandMap({ label, nextStop, legend, hqLabel, motion 
         Berlin
       </text>
       <g className="map-compass" transform={`translate(${MAP_WIDTH - 22} 26)`} shapeRendering="crispEdges">
-        <path d="M-3-14h6v4h3v4h3v4h-6v14h-6v-14h-6v-4h3v-4h3z" fill="#3f8059" />
+        <path d="M-3-14h6v4h3v4h3v4h-6v14h-6v-14h-6v-4h3v-4h3z" style={{ fill: "var(--map-border)" }} />
         <text y="26" textAnchor="middle">
           N
         </text>

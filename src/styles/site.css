@@ -8,6 +8,28 @@
   --muted: #5b6a5b;
   --line: #d9deca;
   --accent: #d0643b;
+  --card: #fffdf4;
+  --green-shade: #0f4f35;
+  --green-hover: #155d40;
+  --hard-shadow: var(--ink);
+  --frame: var(--ink);
+  --soft-shadow: rgba(31, 59, 51, 0.18);
+  --header-bg: rgba(248, 245, 233, 0.94);
+  --tint-green: #e7efe0;
+  --river-label: #4f8f95;
+  /* Pixel-art sprite palette (PixelArt.tsx) */
+  --px-ink: #1f3b33;
+  --px-paper: #fffdf4;
+  --px-screen: #e3efd9;
+  --px-rim: #c7b999;
+  --px-plate: #f1ebd8;
+  /* Tour map (HavellandMap.tsx) */
+  --map-dots: #dcdfcb;
+  --map-border: #3f8059;
+  --map-land: #d3e3ad;
+  --map-forest: #9dbf80;
+  --map-canal: #a9cfcf;
+  --map-water: #7fb6bb;
   --gutter: clamp(16px, 5vw, 64px);
   color: var(--ink);
   background: var(--paper);
@@ -16,6 +38,39 @@
   line-height: 1.7;
   overflow-x: clip;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23746342' opacity='.035' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+/* Dark mode: set on <html data-theme="dark"> by the inline script in index.html
+ * (system preference, or the visitor's choice from the header toggle). */
+:root[data-theme="dark"] .havel-site {
+  color-scheme: dark;
+  --paper: #0f1a17;
+  --paper-deep: #17241f;
+  --card: #15231f;
+  --green: #5fc48c;
+  --green-bright: #7fd9a0;
+  --green-shade: #2f7a55;
+  --green-hover: #7fd9a0;
+  --ink: #e6ede0;
+  --muted: #9fb0a2;
+  --line: #2b3b35;
+  --accent: #f0875a;
+  --hard-shadow: #050c0a;
+  --frame: #8fa597;
+  --soft-shadow: rgba(0, 0, 0, 0.45);
+  --header-bg: rgba(15, 26, 23, 0.92);
+  --tint-green: #172a22;
+  --river-label: #7fb6bb;
+  --px-ink: #e6ede0;
+  --px-paper: #26352f;
+  --px-screen: #1f3b33;
+  --px-rim: #8f846a;
+  --px-plate: #3a4a42;
+  --map-dots: #1f2e29;
+  --map-border: #3f8f66;
+  --map-land: #243a2e;
+  --map-forest: #1a3024;
+  --map-canal: #2f5a62;
+  --map-water: #336b77;
 }
 .havel-site *,
 .havel-site *::before,
@@ -113,11 +168,11 @@
     var(--notch) calc(100% - var(--notch)), var(--notch) calc(100% - var(--notch) * 2),
     0 calc(100% - var(--notch) * 2)
   );
-  box-shadow: inset 0 -4px 0 #0f4f35;
+  box-shadow: inset 0 -4px 0 var(--green-shade);
   transition: background 0.15s, transform 0.15s;
 }
 .pixel-button:hover {
-  background: #155d40;
+  background: var(--green-hover);
   transform: translateY(-2px);
 }
 .pixel-button:active {
@@ -152,10 +207,10 @@
   transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .header-bar.is-scrolled {
-  background: rgba(248, 245, 233, 0.94);
+  background: var(--header-bg);
   backdrop-filter: blur(6px);
   border-bottom-color: var(--ink);
-  box-shadow: 0 3px 0 rgba(31, 59, 51, 0.12);
+  box-shadow: 0 3px 0 var(--soft-shadow);
 }
 .havel-header {
   max-width: 1320px;
@@ -215,6 +270,30 @@
 .language-switch .is-active {
   color: var(--green);
   font-weight: 500;
+}
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  color: var(--muted) !important;
+  padding: 0;
+}
+.theme-toggle:hover {
+  color: var(--green) !important;
+}
+@media (max-width: 900px) {
+  .havel-header .theme-toggle {
+    width: auto;
+    height: auto;
+    justify-items: start;
+  }
+}
+.theme-toggle .pixel-icon {
+  width: 18px;
+  height: 18px;
 }
 .nav-cta {
   font-size: 21px;
@@ -338,7 +417,7 @@
   font-size: 21px;
   line-height: 1;
   color: var(--ink);
-  background: #fffdf4;
+  background: var(--card);
   border: 3px solid var(--green);
   padding: 8px 12px;
   box-shadow: 3px 3px 0 var(--green);
@@ -399,9 +478,9 @@
   margin: 0;
 }
 .pixel-card {
-  background: #fffdf4;
-  border: 3px solid var(--ink);
-  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--card);
+  border: 3px solid var(--frame);
+  box-shadow: 5px 5px 0 var(--hard-shadow);
   padding: 20px 22px 22px;
 }
 .chip-list {
@@ -441,7 +520,7 @@
     display: block;
     width: 44px;
     height: 44px;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--frame);
     background: var(--paper);
     font-size: 20px !important;
     line-height: 1;
@@ -455,9 +534,9 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: #fffdf4;
-    border: 3px solid var(--ink);
-    box-shadow: 5px 5px 0 var(--ink);
+    background: var(--card);
+    border: 3px solid var(--frame);
+    box-shadow: 5px 5px 0 var(--hard-shadow);
     padding: 8px 16px 16px;
     font-size: 16px;
   }
@@ -465,7 +544,8 @@
     display: flex;
   }
   .havel-header nav > a:not(.pixel-button),
-  .language-switch {
+  .language-switch,
+  .theme-toggle {
     padding: 12px 0 !important;
     border-bottom: 1px solid var(--line);
     text-align: left;

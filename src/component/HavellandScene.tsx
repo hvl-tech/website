@@ -46,7 +46,7 @@ function Windows({
     <g fill={color}>
       {ys.flatMap((y) =>
         xs.map((x) => (
-          <g key={`${x}-${y}`}>
+          <g key={`${x}-${y}`} className="win">
             <rect x={x} y={y} width="7" height="13" />
             <rect x={x + 3} y={y} width="1" height="13" fill="#d6c29c" />
           </g>
@@ -249,6 +249,28 @@ const SIGN_BASELINE = 209; // TownSign sits at y=193, its text baseline 16 below
 // The waving pear stands on the shore next to the Falkensee sign.
 const MASCOT = { x: 906, width: 55, feet: 226 };
 const MASCOT_HEIGHT = (MASCOT.width * 22) / 20; // PearMascot's viewBox is 20×22
+// Shore lamps, dark by day, glowing at night.
+const LAMPS = [290, 570, 720, 1188];
+const LAMP_LIGHT_Y = 193;
+// Night sky: fixed stars (x, y, size, twinkle phase), the moon and fireflies.
+const STARS = Array.from({ length: 70 }, (_, i) => ({
+  x: (i * 173 + (i % 7) * 31) % WIDTH,
+  y: 6 + ((i * 97) % 150),
+  size: i % 9 === 0 ? 3 : 2,
+  phase: i * 2.3,
+}));
+const MOON = { x: 965, y: 46, r: 17 };
+const FIREFLIES = Array.from({ length: 9 }, (_, i) => ({
+  x: 60 + ((i * 137) % 1080),
+  y: 170 + ((i * 23) % 50),
+  phase: i * 1.9,
+}));
+// Warm windows in the lights-only copy of the shore; every third one stays dark.
+const LIGHTS_STYLE =
+  "*{visibility:hidden}.win,.win *,.lamp-head{visibility:visible}" +
+  ".win:nth-of-type(3n+2),.win:nth-of-type(3n+2) *{visibility:hidden}" +
+  ".win rect{fill:#ffd27a}.win rect+rect{fill:#e2a64a}.lamp-head{fill:#fff1c4}";
+
 // Fixed sparkle positions so the shimmer is stable between frames.
 const SPARKLES = Array.from({ length: 46 }, (_, i) => ({
   x: (i * 137) % WIDTH,
@@ -258,6 +280,75 @@ const SPARKLES = Array.from({ length: 46 }, (_, i) => ({
   speed: 0.6 + (i % 4) * 0.35,
   color: ["#f9f6e9", "#d4ebe6", "#ffffff"][i % 3],
 }));
+
+/** Night version of a sprite: every opaque pixel pulled toward dark blue. */
+function tinted(source: HTMLCanvasElement, color = "rgba(10, 20, 46, 0.62)") {
+  const out = document.createElement("canvas");
+  out.width = source.width;
+  out.height = source.height;
+  const ctx = out.getContext("2d")!;
+  ctx.drawImage(source, 0, 0);
+  ctx.globalCompositeOperation = "source-atop";
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, out.width, out.height);
+  return out;
+}
+
+/** Loads an SVG element as an image, optionally with extra CSS injected. */
+function svgImage(svg: SVGSVGElement, css?: string) {
+  if (css) {
+    const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
+    style.textContent = css;
+    svg.insertBefore(style, svg.firstChild);
+  }
+  const url = URL.createObjectURL(
+    new Blob([new XMLSerializer().serializeToString(svg)], { type: "image/svg+xml" }),
+  );
+  return new Promise<HTMLImageElement>((resolve) => {
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(img);
+    };
+    img.src = url;
+  });
+}
+
+/** A soft round glow, for lamps, the lantern and the moon. */
+function glow(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, color: string, alpha: number) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, color);
+  g.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = g;
+  ctx.fillRect(x - r, y - r, r * 2, r * 2);
+  ctx.globalAlpha = 1;
+}
+
+/* A column of wobbling light dashes on the water under a light source,
+ * the way Kingdom Two Crowns draws moon and torch reflections. */
+function lightPath(
+  ctx: CanvasRenderingContext2D,
+  t: number,
+  x: number,
+  width: number,
+  color: string,
+  alpha: number,
+  hidden?: { x0: number; x1: number; y0: number; y1: number },
+) {
+  ctx.fillStyle = color;
+  for (let y = WATERLINE + 4; y < HEIGHT - 6; y += 5) {
+    const depth = (y - WATERLINE) / (HEIGHT - WATERLINE);
+    const w = Math.round(width * (0.5 + 0.5 * Math.abs(Math.sin(y * 0.7 + t * 1.8))) * (1 - depth * 0.4));
+    const shift = Math.round(Math.sin(y * 0.25 + t * 1.3) * 3 * (0.4 + depth)) * 2;
+    const left = Math.round(x - w / 2 + shift);
+    // Water behind the boat (seen between sails and deck) carries no light.
+    if (hidden && y >= hidden.y0 && y <= hidden.y1 && left + w > hidden.x0 && left < hidden.x1) continue;
+    ctx.globalAlpha = alpha * (1 - depth * 0.8);
+    ctx.fillRect(left, y, w, 2);
+  }
+  ctx.globalAlpha = 1;
+}
 
 /** A vertically mirrored copy, so reflections read upside down like real water. */
 function flipped(source: HTMLCanvasElement) {
@@ -279,7 +370,7 @@ function drawReflection(
   mirror: HTMLCanvasElement,
   k: number,
   t: number,
-  opts: { height: number; axis: number; top: number; depth: number; squash: number; alpha: number; sx: number; sw: number; dx: number },
+  opts: { height: number; axis: number; top: number; depth: number; squash: number; alpha: number; sx: number; sw: number; dx: number; fade?: boolean },
 ) {
   const band = 3;
   for (let d = 0; d < opts.depth; d += band) {
@@ -291,7 +382,7 @@ function drawReflection(
     const wave =
       Math.sin(y * 0.33 + t * 2.1) * 1.8 + Math.sin(y * 0.09 - t * 1.2) * 2.4;
     const shift = Math.round((wave * (0.35 + falloff * 1.4)) / 2) * 2;
-    ctx.globalAlpha = opts.alpha * (1 - falloff * 0.85);
+    ctx.globalAlpha = opts.fade === false ? opts.alpha : opts.alpha * (1 - falloff * 0.85);
     ctx.drawImage(
       mirror,
       opts.sx * k,
@@ -332,20 +423,22 @@ function makeBoat(k: number) {
   return sprite;
 }
 
-type HavellandSceneProps = { motion: boolean; mascotLabel: string };
+type HavellandSceneProps = { motion: boolean; mascotLabel: string; night: boolean };
 
-export default function HavellandScene({ motion, mascotLabel }: HavellandSceneProps) {
+export default function HavellandScene({ motion, mascotLabel, night }: HavellandSceneProps) {
   const stage = useRef<HTMLDivElement>(null);
   const shore = useRef<SVGSVGElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const mascot = useRef<HTMLDivElement>(null);
   const motionRef = useRef(motion);
+  const nightRef = useRef(night);
   const redraw = useRef<() => void>(() => {});
 
   useEffect(() => {
     motionRef.current = motion;
+    nightRef.current = night;
     redraw.current();
-  }, [motion]);
+  }, [motion, night]);
 
   useEffect(() => {
     const el = canvas.current!;
@@ -353,8 +446,13 @@ export default function HavellandScene({ motion, mascotLabel }: HavellandScenePr
     const river = new Path2D(RIVER);
     let k = 1;
     let shoreMirror: HTMLCanvasElement | null = null;
+    let nightShore: HTMLCanvasElement | null = null;
+    let nightMirror: HTMLCanvasElement | null = null;
     let boat: HTMLCanvasElement | null = null;
     let boatMirror: HTMLCanvasElement | null = null;
+    let nightBoat: HTMLCanvasElement | null = null;
+    let nightBoatMirror: HTMLCanvasElement | null = null;
+    let boatShadowMirror: HTMLCanvasElement | null = null;
     let frame = 0;
     let visible = true;
     let last = 0;
@@ -362,72 +460,148 @@ export default function HavellandScene({ motion, mascotLabel }: HavellandScenePr
 
     const draw = (now: number) => {
       const t = motionRef.current ? (now - started) / 1000 : 0;
+      const isNight = nightRef.current && !!nightShore;
+      // At night the canvas paints the whole scene; the SVG shore steps aside.
+      stage.current?.toggleAttribute("data-night", isNight);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, el.width, el.height);
       ctx.imageSmoothingEnabled = false;
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+
+      if (isNight) {
+        const sky = ctx.createLinearGradient(0, 0, 0, WATERLINE);
+        sky.addColorStop(0, "rgba(10, 18, 38, 0)");
+        sky.addColorStop(0.3, "#0c1630");
+        sky.addColorStop(1, "#2a3158");
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, WIDTH, WATERLINE);
+        for (const star of STARS) {
+          const twinkle = motionRef.current ? 0.55 + 0.45 * Math.sin(t * 1.6 + star.phase) : 0.8;
+          ctx.globalAlpha = twinkle * Math.min(1, star.y / 40);
+          ctx.fillStyle = "#f4efd9";
+          ctx.fillRect(star.x, star.y, star.size, star.size);
+        }
+        ctx.globalAlpha = 1;
+        glow(ctx, MOON.x, MOON.y, MOON.r * 3.2, "rgba(244, 236, 200, 0.5)", 0.6);
+        ctx.fillStyle = "#f4ecc8";
+        for (let dy = -MOON.r; dy < MOON.r; dy += 2) {
+          const half = Math.round(Math.sqrt(MOON.r * MOON.r - (dy + 1) ** 2) / 2) * 2;
+          // Rows overlap slightly so scaling never leaves seams between them.
+          ctx.fillRect(MOON.x - half, MOON.y + dy, half * 2, 2.6);
+        }
+        ctx.fillStyle = "#ddd3a8";
+        ctx.fillRect(MOON.x - 8, MOON.y - 4, 5, 4);
+        ctx.fillRect(MOON.x + 3, MOON.y + 5, 6, 4);
+        ctx.fillRect(MOON.x - 2, MOON.y + 10, 3, 2);
+        ctx.drawImage(nightShore!, 0, 0, nightShore!.width, WATERLINE * k, 0, 0, WIDTH, WATERLINE);
+      }
 
       ctx.save();
-      ctx.setTransform(k, 0, 0, k, 0, 0);
       ctx.clip(river);
-      const gradient = ctx.createLinearGradient(0, WATERLINE, 0, HEIGHT);
-      gradient.addColorStop(0, "#8dbcbc");
-      gradient.addColorStop(1, "#d9e8df");
-      ctx.fillStyle = gradient;
+      const water = ctx.createLinearGradient(0, WATERLINE, 0, HEIGHT);
+      water.addColorStop(0, isNight ? "#1a3145" : "#8dbcbc");
+      water.addColorStop(1, isNight ? "#0e1b29" : "#d9e8df");
+      ctx.fillStyle = water;
       ctx.fillRect(0, WATERLINE, WIDTH, HEIGHT - WATERLINE);
       ctx.restore();
 
       const bx = Math.round(640 + Math.sin(t * 0.045) * 170);
       const by = 254 + Math.round(Math.sin(t * 1.1));
+      const mirror = isNight ? nightMirror : shoreMirror;
+      const boatReflection = isNight ? nightBoatMirror : boatMirror;
 
       ctx.save();
-      ctx.scale(k, k);
       ctx.clip(river);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-      if (shoreMirror) {
-        drawReflection(ctx, shoreMirror, k, t, {
+      if (mirror) {
+        drawReflection(ctx, mirror, k, t, {
           height: HEIGHT,
           axis: WATERLINE,
           top: WATERLINE,
           depth: HEIGHT - WATERLINE,
           squash: 0.7,
-          alpha: 0.6,
+          alpha: isNight ? 0.8 : 0.6,
           sx: 0,
           sw: WIDTH,
           dx: 0,
         });
       }
-      if (boatMirror) {
-        drawReflection(ctx, boatMirror, k, t, {
+      // Wash the reflections toward the water colour, then add the shimmer.
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+      ctx.fillStyle = isNight ? "rgba(16, 32, 52, 0.25)" : "rgba(160, 200, 198, 0.28)";
+      ctx.fillRect(0, WATERLINE, WIDTH, HEIGHT - WATERLINE);
+      if (isNight) {
+        const behindBoat = { x0: bx - 42, x1: bx + 40, y0: by - 74, y1: by + BOAT_WATERLINE };
+        lightPath(ctx, t, MOON.x, 26, "#f4ecc8", 0.7, behindBoat);
+        for (const x of LAMPS) lightPath(ctx, t + x, x, 10, "#ffcf6e", 0.55, behindBoat);
+      }
+      // The boat floats in front of the moon and lamp light, so its
+      // reflection is drawn after the light paths and covers them.
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      const reflectionBox = {
+        height: BOAT_SPRITE_HEIGHT,
+        axis: 76 + BOAT_WATERLINE,
+        top: by + BOAT_WATERLINE,
+        depth: 80,
+        squash: 0.75,
+        sx: 0,
+        sw: 90,
+        dx: bx - 45,
+      };
+      if (isNight && boatShadowMirror) {
+        drawReflection(ctx, boatShadowMirror, k, t, { ...reflectionBox, alpha: 1, fade: false });
+      }
+      if (boatReflection) {
+        drawReflection(ctx, boatReflection, k, t, {
           height: BOAT_SPRITE_HEIGHT,
           axis: 76 + BOAT_WATERLINE,
           top: by + BOAT_WATERLINE,
           depth: 80,
           squash: 0.75,
-          alpha: 0.45,
+          alpha: isNight ? 0.85 : 0.35,
           sx: 0,
           sw: 90,
           dx: bx - 45,
         });
       }
-      // Wash the reflections toward the water colour, then add the shimmer.
       ctx.setTransform(k, 0, 0, k, 0, 0);
-      ctx.fillStyle = "rgba(160, 200, 198, 0.28)";
-      ctx.fillRect(0, WATERLINE, WIDTH, HEIGHT - WATERLINE);
       for (const s of SPARKLES) {
-        const glow = Math.sin(t * s.speed + s.phase);
-        if (motionRef.current ? glow < 0.15 : s.phase % 3 > 1.2) continue;
-        ctx.globalAlpha = motionRef.current ? Math.min(1, (glow - 0.15) * 2) * 0.8 : 0.6;
-        ctx.fillStyle = s.color;
+        if (isNight && s.phase % 2 > 0.6) continue;
+        const glint = Math.sin(t * s.speed + s.phase);
+        if (motionRef.current ? glint < 0.15 : s.phase % 3 > 1.2) continue;
+        ctx.globalAlpha = (motionRef.current ? Math.min(1, (glint - 0.15) * 2) * 0.8 : 0.6) * (isNight ? 0.5 : 1);
+        ctx.fillStyle = isNight ? "#c9d6e8" : s.color;
         const drift = Math.round(Math.sin(t * 0.4 + s.phase) * 3) * 2;
         ctx.fillRect(s.x + drift, s.y, s.w, 2);
       }
       ctx.globalAlpha = 1;
-      ctx.fillStyle = "#5f8f78";
+      ctx.fillStyle = isNight ? "#1d3a36" : "#5f8f78";
       ctx.fillRect(0, WATERLINE, WIDTH, 2);
       ctx.restore();
 
-      if (boat) {
-        ctx.drawImage(boat, (bx - 45) * k, (by - 76) * k);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      const boatSprite = isNight ? nightBoat : boat;
+      if (boatSprite) ctx.drawImage(boatSprite, (bx - 45) * k, (by - 76) * k);
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+
+      if (isNight) {
+        // Lantern at the top of the mast.
+        const flicker = motionRef.current ? 0.85 + 0.15 * Math.sin(t * 9) : 1;
+        glow(ctx, bx, by - 70, 22, "rgba(255, 200, 110, 0.9)", 0.7 * flicker);
+        ctx.fillStyle = "#ffe29a";
+        ctx.fillRect(bx - 2, by - 72, 4, 4);
+        // Fireflies drifting over the meadow.
+        for (const fly of FIREFLIES) {
+          const on = motionRef.current ? Math.sin(t * 1.4 + fly.phase) : 0.6;
+          if (on < 0.2) continue;
+          const fx = Math.round(fly.x + Math.sin(t * 0.5 + fly.phase) * 18);
+          const fy = Math.round(fly.y + Math.sin(t * 0.8 + fly.phase * 2) * 6);
+          glow(ctx, fx + 1, fy + 1, 7, "rgba(220, 255, 140, 0.9)", 0.6 * on);
+          ctx.globalAlpha = on;
+          ctx.fillStyle = "#e8ff9a";
+          ctx.fillRect(fx, fy, 2, 2);
+          ctx.globalAlpha = 1;
+        }
       }
     };
 
@@ -473,37 +647,63 @@ export default function HavellandScene({ motion, mascotLabel }: HavellandScenePr
         img.src = url;
       });
 
-    const rasterizeShore = () => {
-      const svg = shore.current!.cloneNode(true) as SVGSVGElement;
-      svg.querySelectorAll("text").forEach((node) => node.remove());
-      svg.setAttribute("width", String(WIDTH * k));
-      svg.setAttribute("height", String(HEIGHT * k));
-      const url = URL.createObjectURL(
-        new Blob([new XMLSerializer().serializeToString(svg)], {
-          type: "image/svg+xml",
-        }),
-      );
-      const img = new Image();
-      img.onload = async () => {
+    const rasterizeShore = async () => {
+      const source = shore.current!;
+      const prepare = () => {
+        const svg = source.cloneNode(true) as SVGSVGElement;
+        svg.querySelectorAll("text").forEach((node) => node.remove());
+        svg.setAttribute("width", String(WIDTH * k));
+        svg.setAttribute("height", String(HEIGHT * k));
+        return svg;
+      };
+      const canvasOf = () => {
         const off = document.createElement("canvas");
         off.width = Math.ceil(WIDTH * k);
         off.height = Math.ceil(HEIGHT * k);
-        const octx = off.getContext("2d")!;
-        octx.drawImage(img, 0, 0, off.width, off.height);
-        URL.revokeObjectURL(url);
-        // An SVG drawn as an image can't use the page's web fonts, so the sign
-        // labels are painted onto the canvas once VT323 is ready.
-        await drawMascot(octx);
-        await document.fonts.load("20px VT323").catch(() => undefined);
-        octx.setTransform(k, 0, 0, k, 0, 0);
-        octx.font = "20px VT323, monospace";
-        octx.textAlign = "center";
-        octx.fillStyle = "#264f43";
-        for (const sign of SIGNS) octx.fillText(sign.label, sign.x, SIGN_BASELINE);
-        shoreMirror = flipped(off);
-        draw(performance.now());
+        return off;
       };
-      img.src = url;
+      const [shoreImg, lightsImg] = await Promise.all([
+        svgImage(prepare()),
+        svgImage(prepare(), LIGHTS_STYLE),
+      ]);
+
+      const day = canvasOf();
+      const dctx = day.getContext("2d")!;
+      dctx.drawImage(shoreImg, 0, 0, day.width, day.height);
+      // An SVG drawn as an image can't use the page's web fonts, so the sign
+      // labels are painted onto the canvas once VT323 is ready.
+      await drawMascot(dctx);
+      await document.fonts.load("20px VT323").catch(() => undefined);
+      const labels = (c: CanvasRenderingContext2D, color: string) => {
+        c.setTransform(k, 0, 0, k, 0, 0);
+        c.font = "20px VT323, monospace";
+        c.textAlign = "center";
+        c.fillStyle = color;
+        for (const sign of SIGNS) c.fillText(sign.label, sign.x, SIGN_BASELINE);
+        c.setTransform(1, 0, 0, 1, 0, 0);
+      };
+
+      // Night: the same shore tinted blue, then the warm lights painted on top
+      // with a glow, so windows and lamps also show up in the reflection.
+      const nightCanvas = tinted(day);
+      const nctx = nightCanvas.getContext("2d")!;
+      nctx.shadowColor = "rgba(255, 190, 90, 0.9)";
+      nctx.shadowBlur = 8 * k;
+      nctx.drawImage(lightsImg, 0, 0, nightCanvas.width, nightCanvas.height);
+      nctx.shadowBlur = 0;
+      nctx.drawImage(lightsImg, 0, 0, nightCanvas.width, nightCanvas.height);
+      nctx.setTransform(k, 0, 0, k, 0, 0);
+      nctx.globalCompositeOperation = "lighter";
+      for (const x of LAMPS) glow(nctx, x, LAMP_LIGHT_Y, 34, "rgba(255, 190, 100, 0.55)", 0.9);
+      nctx.globalCompositeOperation = "source-over";
+      nctx.setTransform(1, 0, 0, 1, 0, 0);
+      labels(nctx, "#f3dfae");
+      labels(dctx, "#264f43");
+
+      shoreMirror = flipped(day);
+      nightShore = nightCanvas;
+      nightMirror = flipped(nightCanvas);
+      draw(performance.now());
     };
 
     const resize = () => {
@@ -515,6 +715,10 @@ export default function HavellandScene({ motion, mascotLabel }: HavellandScenePr
       el.height = Math.round(HEIGHT * k);
       boat = makeBoat(k);
       boatMirror = flipped(boat);
+      nightBoat = tinted(boat, "rgba(10, 20, 46, 0.5)");
+      nightBoatMirror = flipped(nightBoat);
+      // Solid water-coloured copy: blocks moon and lamp light behind the boat.
+      boatShadowMirror = flipped(tinted(boat, "#15283a"));
       rasterizeShore();
       draw(performance.now());
     };
@@ -586,6 +790,13 @@ export default function HavellandScene({ motion, mascotLabel }: HavellandScenePr
             fill={["#729956", "#8eaf65", "#b5c57c", "#527f57"][i % 4]}
             opacity=".7"
           />
+        ))}
+        {LAMPS.map((x) => (
+          <g key={x} transform={`translate(${x} 227)`}>
+            <rect x="-1.5" y="-30" width="3" height="30" fill="#3d4a44" />
+            <rect x="-5" y="-38" width="10" height="3" fill="#3d4a44" />
+            <rect className="lamp-head" x="-3" y="-35" width="6" height="4" fill="#d8d2b0" />
+          </g>
         ))}
         {SIGNS.map((sign) => (
           <TownSign key={sign.label} {...sign} />
