@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import brandLogo from "../../assets/logo/logo_with_text.svg";
 import pearLogo from "../../assets/logo/logo_no_text.svg";
 import { upcomingEvents } from "../../utils/eventLinks";
+import { setTheme, useTheme } from "../../utils/theme";
 import "../../styles/site.css";
 
 export const MEETUP_URL = "https://www.meetup.com/havelland-technology-falkensee/";
@@ -29,6 +30,8 @@ const ICONS = {
   arrow: "M12 3h3v3h3v3h3v6h-3v3h-3v3h-3v-4h3v-3H2v-4h13V7h-3z",
   check: "M19 4h3v4h-3v3h-3v3h-3v3h-3v3H7v-3H4v-3H1v-4h4v3h3v3h2v-3h3v-3h3V7h3z",
   mail: "M1 4h22v16H1zm3 3v2h2v2h2v2h2v2h4v-2h2v-2h2V9h2V7h-2v2h-2v2h-2v2h-4v-2H8V9H6V7z",
+  sun: "M11 0h2v4h-2zM11 20h2v4h-2zM0 11h4v2H0zM20 11h4v2h-4zM3 3h3v3H3zM18 3h3v3h-3zM3 18h3v3H3zM18 18h3v3h-3zM9 6h6v2h2v2h1v4h-1v2h-2v2H9v-2H7v-2H6v-4h1V8h2z",
+  moon: "M9 2h5v2h-3v2H9v3H8v6h1v3h2v2h3v2H9v-2H6v-2H4v-3H3V9h1V6h2V4h3z",
 };
 
 export type IconName = keyof typeof ICONS;
@@ -51,6 +54,26 @@ export function FeedLinks() {
       <a href="/atom.xml" type="application/atom+xml">Atom</a>
       <a href="/events.ics" type="text/calendar">iCal</a>
     </p>
+  );
+}
+
+function ThemeToggle() {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const next = theme === "dark" ? "light" : "dark";
+  return (
+    <button
+      className="theme-toggle"
+      onClick={(event) => {
+        // Keep the mobile menu open while switching.
+        event.stopPropagation();
+        setTheme(next);
+      }}
+      aria-label={t(`site.nav.${next}Mode`)}
+      title={t(`site.nav.${next}Mode`)}
+    >
+      <PixelIcon kind={theme === "dark" ? "sun" : "moon"} />
+    </button>
   );
 }
 
@@ -103,6 +126,7 @@ function SiteHeader() {
           <Link to="/speakers">{t("site.nav.talks")}</Link>
           <Link to="/labs">{t("site.nav.kids")}</Link>
           <Link to={{ pathname: "/", hash: "#faq" }}>{t("site.nav.faq")}</Link>
+          <ThemeToggle />
           <button
             className="language-switch"
             onClick={() => i18n.changeLanguage(isGerman ? "en" : "de")}

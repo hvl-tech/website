@@ -298,6 +298,8 @@ const de = {
         talks: 'Vorträge',
         kids: 'Kids Labs',
         home: 'HVLtech Startseite',
+        lightMode: 'Helles Design',
+        darkMode: 'Dunkles Design',
         switchLanguage: 'Switch to English',
         rsvp: 'Anmelden',
       },

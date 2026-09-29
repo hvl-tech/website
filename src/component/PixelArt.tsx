@@ -1,15 +1,16 @@
 /* Tiny pixel-art sprites drawn from text grids — one character per pixel,
  * "." is transparent. Used for the FAQ illustrations. */
 
+// Colours come from CSS custom properties so sprites follow the light/dark theme.
 const PALETTE: Record<string, string> = {
-  k: "#1f3b33", // ink
-  g: "#1c7550", // green
+  k: "var(--px-ink)", // ink
+  g: "var(--green)", // green
   l: "#9cc55a", // pear green
-  w: "#fffdf4", // paper white
-  s: "#e3efd9", // screen
-  o: "#c7b999", // plate rim
-  p: "#f1ebd8", // plate
-  a: "#d0643b", // accent
+  w: "var(--px-paper)", // paper white
+  s: "var(--px-screen)", // screen
+  o: "var(--px-rim)", // plate rim
+  p: "var(--px-plate)", // plate
+  a: "var(--accent)", // accent
   r: "#7fb6bb", // water
   b: "#6b4b3a", // brown
 };
@@ -142,7 +143,7 @@ export default function PixelArt({ name, className }: { name: SpriteName; classN
       let end = x;
       while (end < row.length && row[end] === char) end++;
       const fill = char === "f" ? PALETTE.k : PALETTE[char];
-      if (fill) rects.push(<rect key={`${x}-${y}`} x={x} y={y} width={end - x} height={1} fill={fill} />);
+      if (fill) rects.push(<rect key={`${x}-${y}`} x={x} y={y} width={end - x} height={1} style={{ fill }} />);
       x = end;
     }
   });

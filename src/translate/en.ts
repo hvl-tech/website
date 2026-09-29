@@ -299,6 +299,8 @@ const en = {
         talks: 'Talks',
         kids: 'Kids Labs',
         home: 'HVLtech home',
+        lightMode: 'Switch to light mode',
+        darkMode: 'Switch to dark mode',
         switchLanguage: 'Auf Deutsch wechseln',
         rsvp: 'RSVP',
       },
