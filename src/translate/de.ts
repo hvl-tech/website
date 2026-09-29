@@ -10,15 +10,15 @@ const de = {
     buttonJoinUs: 'RSVP & Sei dabei!',
     aboutAs: {
       highline: 'Über uns',
-      description: '<p>Willkommen bei der <i>Havelland Tech Community</i> – einem freundlichen Treffpunkt für ' +
+      description: '<p>Willkommen bei der <i>Havelland Tech Community</i>, einem freundlichen Treffpunkt für ' +
       'Technikbegeisterte in Falkensee und Umgebung! Komm vorbei, lerne neue Leute kennen ' +
       'und höre von spannenden Projekten. Egal mit welcher Sprache oder Plattform du arbeitest, ' +
-      'oder wie viel Erfahrung du hast – bei uns ist jede*r willkommen. Freu dich auf inspirierende Vorträge, hausgemachten Kuchen und eine offene Community.</p> '
+      'oder wie viel Erfahrung du hast, bei uns ist jede*r willkommen. Freu dich auf inspirierende Vorträge, hausgemachten Kuchen und eine offene Community.</p> '
     },
     whyTakePart: {
       highline: 'Warum mitmachen?',
       benefits1: 'Kostenlose Teilnahme, offen für alle Technologien und Erfahrungsstufen',
-      benefits2: 'Bau dein lokales Netzwerk auf – freundliche und entspannte Atmosphäre',
+      benefits2: 'Bau dein lokales Netzwerk auf, in freundlicher und entspannter Atmosphäre',
       benefits3: 'Entdecke neue Technologien',
       benefits4: 'Lass dich von Vorträgen, Demos und Gesprächen inspirieren',
       benefits5: 'Vernetze dich mit Entwickler*innen aus der Region'
@@ -46,7 +46,7 @@ const de = {
       },
       {
         datum: '9\nOKT',
-        header: 'Oktober – Tech Talks',
+        header: 'Oktober: Tech Talks',
         place: 'Kulturhaus „Johannes R. Becher" um 18 Uhr',
         address: 'Havelländer Weg 67, 14612 Falkensee',
         contain: 'Sei dabei bei unserem zweiten Meetup mit Vorträgen! Was dich erwartet:\n2 Tech-Talks 🎤,\nhausgemachter Kuchen 🍰\neine offene Community',
@@ -58,7 +58,7 @@ const de = {
             header: 'Community-Abend',
             place: 'Chinesisches Restaurant (Falkensee-Garten) um 18 Uhr',
             address: 'Max-Liebermann-Straße 33, 14612 Falkensee',
-            contain: 'Herbststimmung, gute Gesellschaft und tolle Gespräche. Diesmal keine Vorträge – nur ein entspannter Abend, um sich mit der Community auszutauschen.',
+            contain: 'Herbststimmung, gute Gesellschaft und tolle Gespräche. Diesmal keine Vorträge. Nur ein entspannter Abend, um sich mit der Community auszutauschen.',
             link: 'https://www.meetup.com/havelland-technology-falkensee/events/311419353/?eventOrigin=group_upcoming_events'
         },
       {
@@ -94,10 +94,10 @@ const de = {
         highline: 'Galerie'},
       callForSpeakers: {
         headline: 'Du hast etwas zu erzählen? Wir hören gern zu.',
-        intro: 'Egal ob fertiger Vortrag oder halbgare Idee – wir freuen uns, von dir zu hören. Keine Vortragserfahrung nötig — wir helfen dir bei der Vorbereitung.',
+        intro: 'Egal ob fertiger Vortrag oder halbgare Idee, wir freuen uns, von dir zu hören. Keine Vortragserfahrung nötig, wir helfen dir bei der Vorbereitung.',
         teaser: 'Du hast etwas Cooles gebaut, etwas auf die harte Tour gelernt oder eine starke Meinung zu einem Tech-Thema? Teile es mit unserer Community in Falkensee.',
         audienceTitle: 'Vor wem du sprichst',
-        audience: 'Etwa 20–50 Teilnehmer*innen aus Falkensee und dem Havelland — Hobbyist*innen und Profis, gemischte Erfahrungslevel, freundliche Atmosphäre. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
+        audience: 'Etwa 20–50 Teilnehmer*innen aus Falkensee und dem Havelland. Hobbyist*innen und Profis, gemischte Erfahrungslevel, freundliche Atmosphäre. Vorträge sind auf Deutsch, Englisch oder wie du magst.',
         formatsTitle: 'Wähle ein Format',
         formats: [
           { icon: '⚡', label: 'Lightning · 5–10 Min.', description: 'Eine kurze Demo, eine pointierte Meinung, ein Tool, das du liebst. Perfekt für den ersten Vortrag.' },
@@ -110,7 +110,7 @@ const de = {
           'Auf Wunsch eine Generalprobe mit einem Organisator',
           'Folien-Review und Themen-Brainstorming, wenn du magst',
           'Such dir die Sprache aus: Deutsch, Englisch oder egal',
-          'Optionale Aufzeichnung — nur wenn du zustimmst'
+          'Optionale Aufzeichnung, nur wenn du zustimmst'
         ],
         emailContentsTitle: 'Was sollte in deine E-Mail',
         emailContents: [
@@ -121,7 +121,7 @@ const de = {
           'Sprache (DE / EN / egal)',
           'Kurzvita (optional, ein Satz)'
         ],
-        selection: 'Wir nehmen laufend Einreichungen an — Antwort kommt meist innerhalb von etwa zwei Wochen.',
+        selection: 'Wir nehmen laufend Einreichungen an. Eine Antwort kommt meist innerhalb von etwa zwei Wochen.',
         buttonSubmit: 'Talk einreichen',
         buttonLearnMore: 'Mehr erfahren',
         backToMain: 'Zurück zur Hauptseite',
@@ -142,8 +142,8 @@ const de = {
       kids: {
         // Hero
         title: 'KIDS LABS',
-        tagline: 'Zwei Workshops – ein Event!',
-        description: 'Lernen durch Spielen & Basteln. Wir bieten zwei spannende Workshops für verschiedene Altersgruppen an – ob Elektronik oder Minecraft, hier ist für jeden was dabei!',
+        tagline: 'Zwei Workshops, ein Event!',
+        description: 'Lernen durch Spielen & Basteln. Wir bieten zwei spannende Workshops für verschiedene Altersgruppen an. Ob Elektronik oder Minecraft, hier ist für jeden was dabei!',
         date: 'Sonntag, 19. April 2026',
         time: '10:00 – 13:00 Uhr (Einlass ab 9:45)',
         location: 'Kulturhaus „J. R. Becher"',
@@ -159,30 +159,30 @@ const de = {
           title: 'Elektronik-Basteln',
           age: 'ab 6 Jahren',
           spots: 'max. 15 Plätze',
-          description: 'Baue leuchtende Schaltkreise aus Papier, LEDs und Knopfbatterien – mit deinen eigenen Händen!',
+          description: 'Baue leuchtende Schaltkreise aus Papier, LEDs und Knopfbatterien, mit deinen eigenen Händen!',
           highlights: [
             'LEDs zum Leuchten bringen',
             'Schaltkreise auf Papier bauen',
             'Knopfbatterie als Stromquelle nutzen'
           ],
-          bring: 'Alles Material ist vor Ort – einfach kommen und losbasteln!'
+          bring: 'Alles Material ist vor Ort. Einfach kommen und losbasteln!'
         },
         track2: {
           icon: '⛏',
           title: 'Minecraft Modding',
           age: 'ab 10 Jahren',
           spots: 'max. 10 Plätze',
-          description: 'Gestalte eigene Items in Blockbench — einen Baublock, eine Waffe und ein Nahrungsmittel — importiere sie in Minecraft und spiele mit allen zusammen!',
+          description: 'Gestalte eigene Items in Blockbench: einen Baublock, eine Waffe und ein Nahrungsmittel. Dann importierst du sie in Minecraft und spielst mit allen zusammen!',
           steps: [
             { icon: '🎨', label: 'Block designen' },
             { icon: '💻', label: 'In MC importieren' },
             { icon: '🎮', label: 'Zusammen spielen!' }
           ],
-          bring: 'Mitbringen: Laptop mit Ladegerät (Windows, Mac oder Linux — keine Tablets/Chromebooks). Bitte stellt sicher, dass euer Kind sich selbst in Minecraft einloggen kann.',
+          bring: 'Mitbringen: Laptop mit Ladegerät (Windows, Mac oder Linux, keine Tablets oder Chromebooks). Bitte stellt sicher, dass euer Kind sich selbst in Minecraft einloggen kann.',
           prepTitle: 'Bitte vor dem Event installieren:',
           prep: [
-            { name: 'Minecraft Java Edition', detail: 'Nicht die Bedrock/Microsoft Store Version — Download von minecraft.net', link: 'https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc' },
-            { name: 'IntelliJ IDEA Community Edition', detail: 'Die kostenlose Version — Download von JetBrains', link: 'https://www.jetbrains.com/idea/download/' }
+            { name: 'Minecraft Java Edition', detail: 'Nicht die Bedrock/Microsoft Store Version. Download von minecraft.net', link: 'https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc' },
+            { name: 'IntelliJ IDEA Community Edition', detail: 'Die kostenlose Version. Download von JetBrains', link: 'https://www.jetbrains.com/idea/download/' }
           ]
         },
 
@@ -196,7 +196,7 @@ const de = {
           safetyTitle: 'Sicherheit',
           safetyText: 'Die Kinder bleiben während der gesamten Veranstaltung im Kulturhaus. Wir arbeiten in einem geschützten, überwachten Raum.',
           pickupTitle: 'Event-Ende',
-          pickupText: 'Das Event endet um 13:00 Uhr. Bitte seid pünktlich — wir schließen gemeinsam mit einer kurzen Präsentation ab, was die Kinder gebaut haben!',
+          pickupText: 'Das Event endet um 13:00 Uhr. Bitte seid pünktlich. Wir schließen gemeinsam mit einer kurzen Präsentation ab, was die Kinder gebaut haben!',
           emergencyTitle: 'Notfallkontakt',
           emergencyText: 'Für Notfälle während der Veranstaltung: meetup@hvltech.de oder telefonisch vor Ort beim Check-in',
           photosTitle: 'Fotos',
@@ -206,7 +206,7 @@ const de = {
         // Registration
         registrationTitle: 'So meldest du dich an',
         registrationSteps: [
-          'Sende uns eine E-Mail an meetup@hvltech.de – sag uns, wie viele Kinder ihr mitbringt und für welchen Workshop.',
+          'Sende uns eine E-Mail an meetup@hvltech.de und sag uns, wie viele Kinder ihr mitbringt und für welchen Workshop.',
           'Du erhältst innerhalb weniger Tage eine Bestätigung',
           'Falls der Workshop voll ist, setzen wir dich auf die Warteliste'
         ],
@@ -223,7 +223,7 @@ const de = {
         // Mission
         mission: {
           title: 'Warum Havelland Tech?',
-          description: 'Wir glauben: Technik-Wissen gehört nicht nur in die Großstadt. Das Havelland hat kluge Köpfe – und die sollen früh lernen, wie man mit Code die Welt verändert.',
+          description: 'Wir glauben: Technik-Wissen gehört nicht nur in die Großstadt. Das Havelland hat kluge Köpfe, und die sollen früh lernen, wie man mit Code die Welt verändert.',
           slogan: 'Hack your Birne. Build your Future.'
         },
 
@@ -246,7 +246,7 @@ const de = {
         },
         purpose: {
           title: 'Zweck der Verarbeitung',
-          text: 'Die Daten werden ausschließlich für die Organisation und Durchführung der HVLtech Kids Labs Workshops verwendet – insbesondere für die Teilnehmerverwaltung und die Kontaktaufnahme im Notfall.'
+          text: 'Die Daten werden ausschließlich für die Organisation und Durchführung der HVLtech Kids Labs Workshops verwendet, insbesondere für die Teilnehmerverwaltung und die Kontaktaufnahme im Notfall.'
         },
         legalBasis: {
           title: 'Rechtsgrundlage',
@@ -271,14 +271,114 @@ const de = {
         },
         revocation: {
           title: 'Widerruf',
-          text: 'Erteilte Einwilligungen können jederzeit ohne Angabe von Gründen widerrufen werden – per E-Mail an meetup@hvltech.de.'
+          text: 'Erteilte Einwilligungen können jederzeit ohne Angabe von Gründen widerrufen werden, per E-Mail an meetup@hvltech.de.'
         },
         authority: {
           title: 'Aufsichtsbehörde',
           text: 'Die Landesbeauftragte für den Datenschutz und für das Recht auf Akteneinsicht Brandenburg.'
         },
         lastUpdated: 'Stand'
-      }
+      },
+    home: {
+      seoTitle: 'HVLtech · Tech-Community Havelland',
+      seoDescription: 'Deine Tech-Nachbarschaft im Havelland. Jeden Monat ein gemeinsames Dinner, jedes Mal in einem anderen Ort. Dazu Vorträge und Kids Labs. Zuhause in Falkensee.',
+      skip: 'Zum nächsten Termin springen',
+      nav: {
+        label: 'Hauptnavigation',
+        open: 'Menü öffnen',
+        close: 'Menü schließen',
+        tour: 'Tour de Havelland',
+        community: 'Community',
+        faq: 'FAQ',
+        switchLanguage: 'Switch to English',
+        rsvp: 'Anmelden',
+      },
+      hero: {
+        eyebrow: 'Tech-Community Havelland · HQ Falkensee',
+        title: 'Deine Tech-Nachbarschaft im Havelland.',
+        lede: 'Entwickler*innen, Bastler*innen und Technik-Neugierige von Falkensee bis Rathenow. Einmal im Monat essen wir gemeinsam zu Abend, jedes Mal in einem anderen Ort.',
+        about: [
+          { tag: 'Monatlich', title: 'Community-Dinner', text: 'Ein langer Tisch, gutes Essen, keine Folien. Jede*r zahlt das eigene Essen.' },
+          { tag: 'Kommt zurück', title: 'Vortragsabende', text: 'Demos, Erfahrungsberichte, Side Projects. Erstes Mal? Sehr willkommen.', cta: 'Vortrag vorschlagen' },
+          { tag: 'Herbst 2026', title: 'Kids Labs', text: 'Programmieren und Elektronik für Kinder. Wir starten neu!', cta: 'Sagt mir Bescheid', secondary: 'Mehr zu Kids Labs' },
+        ],
+        mascot: 'Sehen wir uns?',
+        kidsMailSubject: 'Kids Labs: Bitte Bescheid geben beim Neustart',
+        kidsMailBody: 'Hallo HVLtech,\n\nbitte sagt mir Bescheid, wann das nächste Kids Lab stattfindet.\n\nAlter meines Kindes / meiner Kinder:\nOrt:\n\nDanke!',
+      },
+      next: {
+        label: 'Als Nächstes',
+        rsvp: 'Auf Meetup anmelden',
+        addToCalendar: 'In den Kalender',
+        google: 'Google Kalender',
+        ics: 'Apple / Outlook (.ics)',
+        subscribe: 'Alle Termine abonnieren',
+        allEvents: 'Alle Termine auf Meetup',
+        none: 'Das nächste Dinner ist in Planung. Folge uns auf Meetup, dann erfährst du es zuerst.',
+        follow: 'Auf Meetup folgen',
+      },
+      feeds: {
+        label: 'Immer auf dem Laufenden:',
+      },
+      scene: {
+        motto: 'Tech für ein starkes Havelland.',
+        hint: 'Entlang der Havel wischen',
+        pause: 'Animationen pausieren',
+        play: 'Animationen abspielen',
+      },
+      tour: {
+        eyebrow: 'Tour de Havelland',
+        title: 'Jeden Monat ein anderer Ort.',
+        text: 'Los geht’s zuhause in Falkensee. Ab November geht das Dinner auf Tour: jeden Monat ein neuer Ort. Im Dezember machen wir Pause, der gehört Weihnachten. So sitzen wir nach und nach in jeder Ecke des Havellands zusammen am Tisch, und wer in der Nähe wohnt, hat endlich mal einen kurzen Heimweg.',
+        mapLabel: 'Pixel-Karte des Havellands auf Basis von OpenStreetMap mit der Route der Tour de Havelland: Falkensee, Nauen, Rathenow, Ketzin/Havel, Dallgow-Döberitz, Brieselang, Schönwalde-Glien, Wustermark und Premnitz.',
+        hq: 'HQ',
+        home: 'Zuhause',
+        next: 'Nächstes Dinner',
+        planned: 'Geplant',
+        legend: 'Nächstes Dinner',
+        invite: 'Lade uns in deinen Ort ein',
+        inviteSubject: 'Tour de Havelland: Kommt zu uns',
+        inviteBody: 'Hallo HVLtech,\n\nwie wäre es mit einem Dinner in:\n\nEin Ort, wo wir hingehen könnten:\n\nViele Grüße!',
+        facts: {
+          rathenow: 'Stadt der Optik',
+          premnitz: 'Chemiefaser-Stadt',
+          nauen: 'Älteste Funkstation der Welt',
+          ketzin: 'Fähre über die Havel',
+          wustermark: 'Olympisches Dorf Elstal',
+          brieselang: 'Havelkanal & Wald',
+          dallgow: 'Döberitzer Heide',
+          schoenwalde: 'Paaren im Glien',
+          falkensee: 'Hier fing alles an',
+        },
+      },
+      community: {
+        eyebrow: 'Lokal verwurzelt. Offen für alle.',
+        title: 'Gute Ideen brauchen gute Gesellschaft.',
+        text: 'Softwareentwickler*innen, Admins, Designer*innen, Studierende, Gründer*innen, Bastler*innen und alle, die Technik einfach mögen. Manche pendeln nach Berlin, manche arbeiten von hier aus im Homeoffice. Und alle freuen sich über Tech-Leute direkt um die Ecke.',
+        facts: ['Alle Erfahrungslevel', 'Deutsch & Englisch', 'Kostenlos'],
+        photoAlt: 'HVLtech Community-Foto',
+        close: 'Foto schließen',
+      },
+      faq: {
+        eyebrow: 'FAQ',
+        title: 'Gut zu wissen',
+        items: [
+          { icon: 'code', q: 'Muss ich programmieren können?', a: 'Überhaupt nicht. Manche von uns entwickeln beruflich Software, manche basteln am Wochenende, manche sind einfach neugierig, woran die anderen bauen. Wenn du Technik magst, passt du rein.' },
+          { icon: 'dinner', q: 'Was kostet das?', a: 'Nichts, unsere Treffen sind kostenlos. Beim Dinner bestellt und zahlt jede*r das eigene Essen und Getränke, wie bei einem Abend mit Freund*innen.' },
+          { icon: 'language', q: 'Deutsch oder Englisch?', a: 'Beides. Wir sprechen, was für die Leute am Tisch passt. Vorträge halten die Speaker in ihrer Wunschsprache.' },
+          { icon: 'pin', q: 'Wo treffen wir uns?', a: 'Jeden Monat (außer im Dezember) in einem anderen Ort im Havelland. Das ist die Tour de Havelland. Der genaue Ort steht immer beim Meetup-Termin, und wir suchen Orte aus, die gut mit Bahn oder Auto erreichbar sind.' },
+          { icon: 'talk', q: 'Kann ich einen Vortrag halten?', a: 'Sehr gern! Fünf-Minuten-Demo, erste Idee oder ganzer Vortrag. Wer zum ersten Mal spricht, ist besonders willkommen, und wir helfen gern bei der Vorbereitung.', link: 'Zur Speaker-Seite' },
+          { icon: 'kids', q: 'Kann mein Kind bei den Kids Labs mitmachen?', a: 'Wir starten die Kids Labs im Herbst 2026 neu: Programmieren und Elektronik zum Anfassen für Kinder. Schreib uns und wir melden uns, sobald die Anmeldung offen ist.', link: 'Mehr zu Kids Labs' },
+        ],
+      },
+      footer: {
+        tagline: 'Mit ❤️ gemacht im Havelland.',
+        contact: 'Kontakt',
+        speakers: 'Speaker',
+        kids: 'Kids Labs',
+        privacy: 'Datenschutz',
+      },
+    }
   }
 };
 

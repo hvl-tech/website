@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Program from "./program";
 import BorderedBox from "./borderedBox";
 import meetupData from "../data/meetup-events.json";
+import { buildCalendarUrl, buildMapUrl, parseLocation, type MeetupEvent } from "../utils/eventLinks";
 
 type CardProps = {
     datum: string;
@@ -18,57 +19,6 @@ type CardProps = {
     mapUrl?: string;
     calendarUrl?: string;
 };
-
-interface MeetupEvent {
-    title: string;
-    dateTime: string;
-    endTime: string;
-    location: string;
-    description: string;
-    eventUrl: string;
-}
-
-const DEFAULT_VENUE_BY_TITLE: Record<string, string> = {
-    'Programmiercafé': 'Kulturhaus „Johannes R. Becher" (Havelländer Weg 67, 14612 Falkensee)',
-};
-
-function parseLocation(raw: string, title: string): { venueName: string; address: string } {
-    const value = raw.trim().length > 0 ? raw : (DEFAULT_VENUE_BY_TITLE[title] || '');
-    const match = value.match(/^([^(]+)\(([^)]+)\)/);
-    if (match) return { venueName: match[1].trim(), address: match[2].trim() };
-    return { venueName: value, address: '' };
-}
-
-function buildMapUrl(venueName: string, address: string): string | undefined {
-    const query = address || venueName;
-    if (!query) return undefined;
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-}
-
-function pad(n: number): string {
-    return String(n).padStart(2, '0');
-}
-
-function toCalendarStamp(date: Date): string {
-    return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}00`;
-}
-
-function buildCalendarUrl(event: MeetupEvent, venueName: string, address: string): string | undefined {
-    const start = new Date(event.dateTime);
-    if (isNaN(start.getTime())) return undefined;
-    const end = event.endTime ? new Date(event.endTime) : new Date(start.getTime() + 2 * 60 * 60 * 1000);
-    const dates = `${toCalendarStamp(start)}/${toCalendarStamp(end)}`;
-    const locationStr = [venueName, address].filter(Boolean).join(', ');
-    const params = new URLSearchParams({
-        action: 'TEMPLATE',
-        text: event.title,
-        dates,
-        location: locationStr,
-        details: event.description + (event.eventUrl ? `\n\n${event.eventUrl}` : ''),
-        ctz: 'Europe/Berlin',
-    });
-    return `https://calendar.google.com/calendar/render?${params.toString()}`;
-}
 
 function useEventCards(events: MeetupEvent[]): CardProps[] {
     const { t, i18n } = useTranslation();

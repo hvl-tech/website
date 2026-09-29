@@ -16,6 +16,7 @@ dist-ssr
 # Generated at build time by scripts/generate-feeds.ts
 public/rss.xml
 public/events.ics
+public/atom.xml
 
 # Prototyping artifacts (not deployed)
 mockups/

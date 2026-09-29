@@ -12,8 +12,8 @@ type Format = { icon: string; label: string; description: string };
 function SpeakersPage() {
     const { t } = useTranslation();
     useSeo({
-        title: 'Call for Speakers — HVLtech: Share a talk in Falkensee',
-        description: 'Submit a talk for the HVLtech meetup in Falkensee. Lightning, standard or workshop, in German or English — first-time speakers welcome.',
+        title: 'Call for Speakers · HVLtech: Share a talk in Falkensee',
+        description: 'Submit a talk for the HVLtech meetup in Falkensee. Lightning, standard or workshop, in German or English. First-time speakers welcome.',
         path: '/speakers',
     });
 

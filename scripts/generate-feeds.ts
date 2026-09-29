@@ -9,9 +9,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = resolve(__dirname, '../src/data/meetup-events.json');
 const RSS_OUTPUT = resolve(__dirname, '../public/rss.xml');
 const ICS_OUTPUT = resolve(__dirname, '../public/events.ics');
+const ATOM_OUTPUT = resolve(__dirname, '../public/atom.xml');
 
 const SITE_URL = 'https://hvltech.de';
-const SITE_TITLE = 'HVLtech — Havelland Tech Community';
+const SITE_TITLE = 'HVLtech · Havelland Tech Community';
 const SITE_DESCRIPTION = 'Upcoming meetups of the Havelland Tech Community in Falkensee.';
 const SITE_LANGUAGE = 'en-de';
 
@@ -160,6 +161,36 @@ ${items}
 `;
 }
 
+function buildAtom(events: MeetupEvent[], generatedAt: Date): string {
+    const entries = events.map((event) => {
+        const start = new Date(event.dateTime);
+        if (isNaN(start.getTime())) return '';
+        const link = event.eventUrl || `${SITE_URL}/`;
+        const summary = [event.location && `📍 ${event.location}`, event.description].filter(Boolean).join('\n\n');
+        return `  <entry>
+    <title>${escapeXml(event.title)}</title>
+    <link href="${escapeXml(link)}" />
+    <id>urn:hvltech:${escapeXml(eventGuid(event))}</id>
+    <updated>${generatedAt.toISOString()}</updated>
+    <published>${start.toISOString()}</published>
+    <summary>${escapeXml(summary)}</summary>
+  </entry>`;
+    }).filter(Boolean).join('\n');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>${escapeXml(SITE_TITLE)}</title>
+  <subtitle>${escapeXml(SITE_DESCRIPTION)}</subtitle>
+  <link href="${SITE_URL}/" />
+  <link href="${SITE_URL}/atom.xml" rel="self" type="application/atom+xml" />
+  <id>${SITE_URL}/</id>
+  <updated>${generatedAt.toISOString()}</updated>
+  <author><name>HVLtech</name></author>
+${entries}
+</feed>
+`;
+}
+
 function main(): void {
     const raw = readFileSync(INPUT_PATH, 'utf-8');
     const data: MeetupEventsData = JSON.parse(raw);
@@ -168,8 +199,9 @@ function main(): void {
         .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
 
     writeFileSync(RSS_OUTPUT, buildRss(events, new Date()));
+    writeFileSync(ATOM_OUTPUT, buildAtom(events, new Date()));
     writeFileSync(ICS_OUTPUT, buildIcs(events));
-    console.log(`Wrote ${events.length} events to ${RSS_OUTPUT} and ${ICS_OUTPUT}`);
+    console.log(`Wrote ${events.length} events to ${RSS_OUTPUT}, ${ATOM_OUTPUT} and ${ICS_OUTPUT}`);
 }
 
 main();
