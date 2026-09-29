@@ -294,7 +294,7 @@ const de = {
         rsvp: 'Anmelden',
       },
       hero: {
-        eyebrow: 'Tech-Community Havelland · HQ Falkensee',
+        eyebrow: 'Tech-Community Havelland',
         title: 'Deine Tech-Nachbarschaft im Havelland.',
         lede: 'Entwickler*innen, Bastler*innen und Technik-Neugierige von Falkensee bis Rathenow. Einmal im Monat essen wir gemeinsam zu Abend, jedes Mal in einem anderen Ort.',
         about: [

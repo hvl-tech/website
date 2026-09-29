@@ -295,7 +295,7 @@ const en = {
         rsvp: 'RSVP',
       },
       hero: {
-        eyebrow: 'Tech community Havelland · HQ Falkensee',
+        eyebrow: 'Tech community Havelland',
         title: 'Your tech neighbours in the Havelland.',
         lede: 'Developers, makers and the tech-curious from Falkensee to Rathenow. We meet for dinner once a month, each time in a different town.',
         about: [
